@@ -3,6 +3,7 @@ package com.trackswiftly.vehicle_service.security;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -13,15 +14,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.util.Assert;
 
+import com.trackswiftly.vehicle_service.utils.TenantContext;
+
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
 @NoArgsConstructor
 @Slf4j
-public class RolesGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>>    {
-
-
+public class RolesGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>>{
     private String authorityPrefix = "";
 
 
@@ -31,45 +32,58 @@ public class RolesGrantedAuthoritiesConverter implements Converter<Jwt, Collecti
         return this;
     }
 
-
+    
     @Override
     public Collection<GrantedAuthority> convert(Jwt source) {
-
-
-        Map<String, Object> realmAccess = source.getClaim("realm_access");
-
-
-        log.info("Extracted realm_access: {} 🔖", realmAccess);
         
-        if (Objects.isNull(realmAccess) || realmAccess.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-
         Set<GrantedAuthority> authorities = new HashSet<>();
-
-
-        Object roles = realmAccess.get("roles");
-
-        log.info("Extracted roles: {} 🔖", roles);
-
-        if (Objects.isNull(roles) || !(roles instanceof Collection<?>)) {
-            return Collections.emptyList();
-        }
-
-        Collection<?> rolesCollection = (Collection<?>) roles;
-
-
-        //@ Convert roles to GrantedAuthority
-        rolesCollection.stream()
-            .filter(String.class::isInstance) //! Ensure roles are strings
-            .map(role -> new SimpleGrantedAuthority(authorityPrefix  + (String) role))
-            .forEach(authorities::add);
-
-
-        log.info("Mapped authorities: {}", authorities);
-
+        
+        // Extract organization ID and set tenant context
+        extractAndSetTenantId(source);
+        
+        // Extract roles from realm_access
+        extractRealmRoles(source, authorities);
+        
         return authorities;
+
+
+    }
+
+
+
+    private void extractAndSetTenantId(Jwt jwt) {
+        Map<String, Object> organization = jwt.getClaim("organization");
+        if (Objects.nonNull(organization) && !organization.isEmpty()) {
+            // Get the first organization entry
+            Map.Entry<String, Object> firstOrgEntry = organization.entrySet().iterator().next();
+            
+            @SuppressWarnings("unchecked")
+            Map<String, Object> orgDetails = (Map<String, Object>) firstOrgEntry.getValue();
+            
+            String orgId = (String) orgDetails.get("id");
+            if (Objects.nonNull(orgId)) {
+                TenantContext.setTenantId(orgId);
+            }
+        }
+    }
+
+
+
+    private void extractRealmRoles(Jwt jwt, Set<GrantedAuthority> authorities) {
+        Map<String, Object> realmAccess = jwt.getClaim("realm_access");
+        if (Objects.nonNull(realmAccess)) {
+            @SuppressWarnings("unchecked")
+            List<String> roles = (List<String>) realmAccess.get("roles");
+            
+            if (Objects.nonNull(roles)) {
+                roles.stream()
+                    .filter(role -> !role.equals("uma_authorization") && 
+                                  !role.equals("offline_access") &&
+                                  !role.startsWith("default-roles-"))
+                    .map(role -> new SimpleGrantedAuthority(authorityPrefix + role))
+                    .forEach(authorities::add);
+            }
+        }
     }
 
 }

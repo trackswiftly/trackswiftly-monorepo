@@ -38,7 +38,7 @@ public class UserOperationLoggerAspect {
     }
 
     
-    @Around("@annotation(io.hahn_software.emrs.annotations.LogUserOperation)")
+    @Around("@annotation(com.trackswiftly.vehicle_service.annotations.LogUserOperation)")
 	public void logUserOperation(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		log.debug("Hello 🔖") ;

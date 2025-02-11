@@ -13,6 +13,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.trackswiftly.vehicle_service.utils.CurrentTenantIdentifierResolverImpl;
 import com.trackswiftly.vehicle_service.utils.PropertiesLoader;
 
 import jakarta.persistence.EntityManagerFactory;
@@ -25,13 +26,17 @@ public class DbConf {
     private static final String  PRESENT = "present" ;
     
     private Environment env;
+
+    private CurrentTenantIdentifierResolverImpl tenantIdentifierResolver;
     
     @Autowired
     DbConf(
-        Environment env
+        Environment env ,
+        CurrentTenantIdentifierResolverImpl tenantIdentifierResolver
     ) {
 
         this.env = env ;
+        this.tenantIdentifierResolver = tenantIdentifierResolver ;
     }
 
     @Bean
@@ -39,6 +44,8 @@ public class DbConf {
 
         Properties properties = propertiesLoader.loadProperties("src/main/resources/application.properties");
 
+        properties.put("hibernate.multiTenancy", "DISCRIMINATOR");
+        properties.put("hibernate.tenant_identifier_resolver", tenantIdentifierResolver);
         properties.put("hibernate.connection.url", resolveJdbcUrl());
         properties.put("hibernate.connection.password", env.getProperty("DB_PASSWORD" , "incorrect_password")); 
         properties.put("hibernate.connection.username", env.getProperty("DB_USER" , "keycloak_user"));

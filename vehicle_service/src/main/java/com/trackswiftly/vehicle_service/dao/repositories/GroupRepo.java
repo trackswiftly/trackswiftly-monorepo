@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.trackswiftly.vehicle_service.dao.interfaces.BaseDao;
 import com.trackswiftly.vehicle_service.entities.Group;
 import com.trackswiftly.vehicle_service.utils.DBUtiles;
-import com.trackswiftly.vehicle_service.utils.TenantContext;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

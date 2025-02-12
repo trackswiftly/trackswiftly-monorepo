@@ -18,4 +18,6 @@ public interface BaseDao <T, I>{
     List<T> findWithPagination(int page, int pageSize);
     
     Long count();
+
+    public int updateInBatch(List<I> ids, T entity) ;
 }

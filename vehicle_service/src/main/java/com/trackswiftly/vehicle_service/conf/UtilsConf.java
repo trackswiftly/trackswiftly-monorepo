@@ -38,7 +38,7 @@ public class UtilsConf {
      */
 
 
-     @SuppressWarnings("unchecked")
+   @SuppressWarnings("unchecked")
     @Bean
     public OpenAPI customOpenAPI() {
     

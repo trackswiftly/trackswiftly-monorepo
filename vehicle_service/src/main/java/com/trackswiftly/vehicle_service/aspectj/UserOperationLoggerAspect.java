@@ -39,7 +39,7 @@ public class UserOperationLoggerAspect {
 
     
     @Around("@annotation(com.trackswiftly.vehicle_service.annotations.LogUserOperation)")
-	public void logUserOperation(ProceedingJoinPoint joinPoint) throws Throwable {
+	public Object logUserOperation(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		log.debug("Hello 🔖") ;
 
@@ -95,16 +95,17 @@ public class UserOperationLoggerAspect {
 
         userLogRepository.save(userLog);
 
-
+        Object result; 
         try {
             // Proceed with the method execution
-           joinPoint.proceed();
+            result = joinPoint.proceed();
 
             // Update the log entry for successful completion
             userLog.setStatus("SUCCESS");
             userLog.setUpdatedAt(Instant.now());
             userLogRepository.update(userLog); // Update the log
 
+            return result ;
         } catch (Exception e) {
 
             // Update the log entry for failure

@@ -8,11 +8,11 @@
 		<version>3.3.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>io.hahn-software</groupId>
-	<artifactId>emrs</artifactId>
+	<groupId>com.trackswiftly</groupId>
+	<artifactId>vehicle_service</artifactId>
 	<version>0.0.1</version>
-	<name>emrs</name>
-	<description>Develop an internal Employee Records Management System to centralize the management of employee data across departments.</description>
+	<name>vehicle_service</name>
+	<description>Vehicle service , which one of trackswiftly microsrvices.</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -104,7 +104,7 @@
 
 		<!-- hibernate core with c3p0 connections pool manager -->
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>6.4.10.Final</version>
@@ -121,7 +121,26 @@
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.5.5</version>
-		</dependency>
+		</dependency> -->
+
+		<!-- Replace the C3P0 related dependencies with these -->
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+		<version>6.4.10.Final</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-hikaricp</artifactId>
+		<version>6.4.10.Final</version>
+	</dependency>
+
+	<dependency>
+		<groupId>com.zaxxer</groupId>
+		<artifactId>HikariCP</artifactId>
+		<version>5.1.0</version>
+	</dependency>
 
 		<!-- ___________________ -->
 

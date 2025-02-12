@@ -51,7 +51,7 @@ public class Group extends AbstractBaseEntity{
     private String description ;
 
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "vhicleGroup")
     @JsonBackReference
     private List<Vehicle> vehicles ;
     

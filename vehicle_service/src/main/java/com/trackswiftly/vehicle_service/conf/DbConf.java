@@ -2,6 +2,8 @@ package com.trackswiftly.vehicle_service.conf;
 
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.trackswiftly.vehicle_service.utils.CurrentTenantIdentifierResolverImpl;
 import com.trackswiftly.vehicle_service.utils.PropertiesLoader;
+import com.zaxxer.hikari.HikariDataSource;
 
 import jakarta.persistence.EntityManagerFactory;
 
@@ -29,6 +32,7 @@ public class DbConf {
 
     private CurrentTenantIdentifierResolverImpl tenantIdentifierResolver;
     
+    
     @Autowired
     DbConf(
         Environment env ,
@@ -39,37 +43,64 @@ public class DbConf {
         this.tenantIdentifierResolver = tenantIdentifierResolver ;
     }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("propertiesLoader1") PropertiesLoader propertiesLoader) {
 
-        Properties properties = propertiesLoader.loadProperties("src/main/resources/application.properties");
+    // @Bean
+    // public DataSource dataSource() {
+    //     HikariDataSource dataSource = new HikariDataSource();
+    //     dataSource.setJdbcUrl(resolveJdbcUrl());
+    //     dataSource.setUsername(env.getProperty("DB_USER", "keycloak_user"));
+    //     dataSource.setPassword(env.getProperty("DB_PASSWORD", "incorrect_password"));
+    //     dataSource.setDriverClassName("org.postgresql.Driver");
+    //     dataSource.setMinimumIdle(20);
+    //     dataSource.setMaximumPoolSize(50);
+    //     dataSource.setIdleTimeout(30000);
+    //     dataSource.setConnectionTimeout(20000);
+    //     dataSource.setMaxLifetime(1200000);
+    //     return dataSource;
+    // }
 
-        properties.put("hibernate.multiTenancy", "DISCRIMINATOR");
-        properties.put("hibernate.tenant_identifier_resolver", tenantIdentifierResolver);
-        properties.put("hibernate.connection.url", resolveJdbcUrl());
-        properties.put("hibernate.connection.password", env.getProperty("DB_PASSWORD" , "incorrect_password")); 
-        properties.put("hibernate.connection.username", env.getProperty("DB_USER" , "keycloak_user"));
-        properties.put("hibernate.connection.driver_class", "org.postgresql.Driver");
+    // @Bean
+    // public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
 
-        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+    //     // Properties properties = propertiesLoader.loadProperties("src/main/resources/application.properties");
 
-        /***
-         * if we do not set packToScan the hibernate will use dynamic config loading ,
-         * and it will , try to load configs from classpath*:META-INF/persistence.xml
-         * 
-         * so we will get this error 🛑 No persistence units parsed from 
-         *                              {classpath*:META-INF/persistence.xml} 🛑
-         */
+    //     // properties.put("hibernate.multiTenancy", "DISCRIMINATOR");
+    //     // properties.put("hibernate.tenant_identifier_resolver", tenantIdentifierResolver);
+    //     // // properties.put("hibernate.hikari.dataSource.url", resolveJdbcUrl());
+    //     // // properties.put("hibernate.hikari.dataSource.use", env.getProperty("DB_PASSWORD" , "incorrect_password")); 
+    //     // // properties.put("hibernate.hikari.dataSource.password", env.getProperty("DB_USER" , "keycloak_user"));
+    //     // // properties.put("hibernate.connection.driver_class", "org.postgresql.Driver");
 
-        emf.setPackagesToScan("com.trackswiftly.vehicle_service.entities");
+    //     LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+
+    //     emf.setDataSource(dataSource);
+    //     emf.setPackagesToScan("com.trackswiftly.vehicle_service.entities");
         
-        emf.setJpaProperties(properties);
+    //     Properties properties = new Properties();
+    //     properties.put("hibernate.multiTenancy", "DISCRIMINATOR");
+    //     properties.put("hibernate.tenant_identifier_resolver", tenantIdentifierResolver);
+    //     properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+    //     properties.put("hibernate.hbm2ddl.auto", "update");
+    //     properties.put("hibernate.show_sql", "true");
+    //     properties.put("hibernate.format_sql", "true");
+    //     properties.put("hibernate.use_sql_comments", "true");
+    //     properties.put("hibernate.jdbc.batch_size", "20");
+    //     properties.put("hibernate.order_inserts", "true");
+    //     properties.put("hibernate.order_updates", "true");
+    //     properties.put("hibernate.jdbc.batch_versioned_data", "true");
+    //     properties.put("hibernate.id.optimizer.pooled.preferred", "pooled-lo");
 
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        emf.setJpaVendorAdapter(vendorAdapter);
+    //     emf.setJpaProperties(properties);
 
-        return emf;
-    }
+    //     HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+
+    //     vendorAdapter.setGenerateDdl(true);  // Enable DDL generation
+    //     vendorAdapter.setShowSql(true);      // Show SQL in logs
+    //     vendorAdapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
+    //     emf.setJpaVendorAdapter(vendorAdapter);
+
+    //     return emf;
+    // }
 
 
 

@@ -64,10 +64,6 @@ public class Vehicle extends AbstractBaseEntity{
     private Instant purchaseDate ;
 
 
-    
-    @JoinColumn(nullable = false)
-    private Group group ;
-
 
     @JoinColumn(nullable = false)
     private VehicleType type ;
@@ -76,6 +72,9 @@ public class Vehicle extends AbstractBaseEntity{
     @JoinColumn(nullable = false)
     private Model model ;
 
+    @JoinColumn(nullable = false)
+    private Group vhicleGroup ;
+
 
 
     @CreationTimestamp
@@ -83,10 +82,6 @@ public class Vehicle extends AbstractBaseEntity{
 
     @UpdateTimestamp
     private Instant updatedAt ;
-
-
-
-
 
 
     

@@ -8,16 +8,25 @@ import com.trackswiftly.vehicle_service.dtos.GroupRequest;
 import com.trackswiftly.vehicle_service.dtos.GroupResponse;
 import com.trackswiftly.vehicle_service.entities.Group;
 
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @Component
 public class GroupMapper {
 
 
 
     public List<GroupResponse> toGroupResponseList(List<Group> groups) {
-        return groups.stream()
-                .map(this::toGroupResponse)
-                .toList();
+
+        log.debug("group :{} " , groups);
+
+        List<GroupResponse> groupResponses = groups.stream()
+                                            .map(this::toGroupResponse)
+                                            .toList() ;
+        
+        log.debug("group responses :{} " , groupResponses);
+        return groupResponses;
     }
 
 
@@ -30,8 +39,9 @@ public class GroupMapper {
 
 
 
-    private GroupResponse toGroupResponse(Group group) {
+    public GroupResponse toGroupResponse(Group group) {
         return GroupResponse.builder()
+                .id(group.getId())
                 .name(group.getName())
                 .description(group.getDescription())
                 .updatedAt(group.getUpdatedAt())
@@ -40,7 +50,7 @@ public class GroupMapper {
     }
     
 
-    private Group toGroup(GroupRequest groupRequest) {
+    public Group toGroup(GroupRequest groupRequest) {
         return Group.builder()
                 .name(groupRequest.getName())
                 .description(groupRequest.getDescription())

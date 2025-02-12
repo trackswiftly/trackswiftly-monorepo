@@ -8,10 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.trackswiftly.vehicle_service.dao.interfaces.BaseDao;
 import com.trackswiftly.vehicle_service.entities.Group;
+import com.trackswiftly.vehicle_service.utils.DBUtiles;
 import com.trackswiftly.vehicle_service.utils.TenantContext;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -62,7 +64,7 @@ public class GroupRepo implements BaseDao<Group,Long>{
             return 0;
         }
 
-        String jpql = "DELETE FROM Department d WHERE d.id IN :ids" ;
+        String jpql = "DELETE FROM Group d WHERE d.id IN :ids" ;
 
         return em.createQuery(jpql)
                     .setParameter("ids", ids   )
@@ -79,7 +81,7 @@ public class GroupRepo implements BaseDao<Group,Long>{
             return Collections.emptyList();
         }
     
-        String jpql = "SELECT d FROM Department d WHERE d.id IN :ids";
+        String jpql = "SELECT d FROM Group d WHERE d.id IN :ids";
         
         return em.createQuery(jpql, Group.class)
                             .setParameter("ids", ids)
@@ -92,7 +94,7 @@ public class GroupRepo implements BaseDao<Group,Long>{
     @Override
     public List<Group> findWithPagination(int page, int pageSize) {
         
-        String jpql = "SELECT d FROM Department d ORDER BY d.id";
+        String jpql = "SELECT d FROM Group d ORDER BY d.id";
 
         TypedQuery<Group> query = em.createQuery(jpql, Group.class);
 
@@ -105,11 +107,39 @@ public class GroupRepo implements BaseDao<Group,Long>{
     @Override
     public Long count() {
         
-        String jpql = "SELECT COUNT(d) FROM Department d";
+        String jpql = "SELECT COUNT(d) FROM Group d";
 
         TypedQuery<Long> query = em.createQuery(jpql, Long.class);
         
         return query.getSingleResult() ;
+    }
+
+
+
+
+    @Override
+    public int updateInBatch(List<Long> ids, Group entity) {
+        int totalUpdatedRecords = 0 ;
+
+        Query query = DBUtiles.buildJPQLQueryDynamicallyForUpdate(entity, em) ;
+
+
+        for (int i = 0; i < ids.size(); i += batchSize) {
+            List<Long> batch = ids.subList(i, Math.min(i + batchSize, ids.size()));
+    
+            
+            query.setParameter("Ids", batch);
+
+            // Execute the update
+            int updatedRecords = query.executeUpdate();
+            totalUpdatedRecords += updatedRecords;
+    
+            em.flush();
+            em.clear();
+
+        }
+
+        return totalUpdatedRecords ;
     }
     
 }

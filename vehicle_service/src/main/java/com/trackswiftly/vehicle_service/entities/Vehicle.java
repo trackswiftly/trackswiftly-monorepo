@@ -65,14 +65,14 @@ public class Vehicle extends AbstractBaseEntity{
 
 
 
-    @JoinColumn(nullable = false)
-    private VehicleType type ;
+    @JoinColumn(nullable = false ,  name = "type_id")
+    private VehicleType vehicleType ;
 
 
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false , name = "model_id")
     private Model model ;
 
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false , name = "group_id")
     private Group vhicleGroup ;
 
 

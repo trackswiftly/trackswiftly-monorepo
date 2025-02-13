@@ -1,168 +1,255 @@
-# Application Overview
+# Advanced Liquibase Features and Best Practices
 
-## 🔑 Login Functionality
-
-To streamline development, I used a self-hosted authentication server. The API application acts as an OAuth resource, meaning you must include a token with every outgoing request to the application.
-
-### 🚀 How to Login
-
-To log in, use the following `curl` command. You can copy and paste it into Postman for testing:
-
-```bash
-curl --location 'https://authserver.obayd.online/realms/hahn_software/protocol/openid-connect/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'grant_type=password' \
---data-urlencode 'client_id=emrs_service' \
---data-urlencode 'client_secret=FghZfWxI1lBCYGzUi8R1CIBz5U9k16be' \
---data-urlencode 'username=hahn' \
---data-urlencode 'password=Azerty@2025'
-```
-
-
-
-#### Login Credentials (Examples for Testing) :
-
-- Admin:`username=hahn` `password=Azerty@2025`
-- HR Personnel:`username=hahn_Hr_persone` `password=Azerty@2025`
-- Manager:`username=hahn_Manager` `password=Azerty@2025`
-
-
-#### 🔄 Refreshing the Access Token :
-
-If the access_token expires, you can use the refresh_token to obtain a new one. Use the following curl command:
-
-```bash
-curl --location 'https://authserver.obayd.online/realms/hahn_software/protocol/openid-connect/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'grant_type=refresh_token' \
---data-urlencode 'client_id=emrs_service' \
---data-urlencode 'client_secret=FghZfWxI1lBCYGzUi8R1CIBz5U9k16be' \
---data-urlencode 'refresh_token=<your_refresh_token>'
-```
-
-Replace <your_refresh_token> with the actual refresh_token you received during login.
+This README provides an overview of advanced Liquibase concepts and best practices to help you manage your database migrations efficiently in your Spring Boot projects.
 
 ---
 
-## 🛠️ API Functionality
+## 1. Liquibase Contexts and Labels
 
-For the APIs, all operations are designed to work in **batch mode**, meaning you can perform actions on multiple records at once. This applies to both employee and department endpoints.
+### Contexts
+Contexts allow you to apply changesets only in specific environments (e.g., dev, test, or prod).
 
-
-### ⚠️ Notice:
-To use the APIs, you **must include the `access_token`** in your requests for authorization. The `access_token` is obtained after logging in (see the [Login Functionality](#-login-functionality) section for details).
-
-### Key Features:
-- **Batch Operations**:
-  - **Add Multiple Employees**: You can add multiple employees in a single request.
-  - **Delete Multiple Employees**: Delete a batch of employee records at once.
-  - **Update Multiple Employees**: Update multiple employee records simultaneously.
-  - **Department Operations**: The same batch functionality applies to department endpoints, allowing you to add, delete, or update multiple departments in one request.
-
-This batch approach ensures efficiency and scalability, especially when managing large datasets.
-
----
-
-## 📝 Logs Functionality
-
-To ensure transparency and accountability, I implemented a logging mechanism using **Aspect-Oriented Programming (AOP)**. Here's how it works:
-
-### Key Features:
-- **Custom Annotation (`@LogUserOperation`)**:
-  - I created a custom annotation called `@LogUserOperation` to mark methods that require logging.
-  - When a method annotated with `@LogUserOperation` is called, an **Aspect** is triggered automatically.
-
-- **Aspect Logic**:
-  - The Aspect intercepts the method execution and logs the following details to the database:
-    - **User ID**: The ID of the user performing the operation.
-    - **Username**: The username of the user.
-    - **Operation**: The type of operation being performed (e.g., CREATE, UPDATE, DELETE).
-    - **Method**: The name of the method being executed.
-    - **IP Address**: The IP address of the user making the request.
-    - **Status**: The status of the operation (`SUCCESS` or `FAILURE`).
-
-- **Status Update**:
-  - After the annotated method completes execution, the Aspect updates the log record with the final status of the operation (`SUCCESS` or `FAILURE`).
-
-
-----
-
-
-# Installation and Use
-
-## 🐳 Using Docker
-
-To set up the application using Docker, follow these steps:
-
-### 1. Clone the Repository
-First, clone the repository to your local machine:
-
-```bash
-git clone https://github.com/ObaidOnCall/emrs_task.git
-cd emrs_task
-```
-
-
-### 2. Configure Environment Variables
-
-The application uses environment variables defined in the .env file. You can modify these variables if needed:
-
-`DB_NAME=hahn_db`
-`DB_USER=hahn_user`
-`DB_PASSWORD=hahn_password`
-`DB_SCHEMA=public`
-`HOST_PORT=8080`
-
-### 3. Docker Compose File( ⚠️ Notice if you want to copie this docker compose config dirclty without cloning the enitre repo  , do not forget to copie the .env file  with it )
-
+**Example:**
 ```yaml
-services:
-  postgres:
-    image: postgres:16.2
-    # volumes:
-    #   - postgres_hahn_task_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    networks:
-      - hahn_task_network
-    restart: unless-stopped
-
-  hahn_task:
-    # build: .
-    image: lasthour/hahn_tasks:1.4
-    environment:
-      DB_HOST: postgres:5432
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_SCHEMA: ${DB_SCHEMA}
-    ports:
-      - '${HOST_PORT:-8080}:8080'
-    restart: unless-stopped
-    depends_on:
-      - postgres
-    networks:
-      - hahn_task_network
-
-volumes:
-  postgres_hahn_task_data:
-    driver: local
-
-networks:
-  hahn_task_network: {}
+- changeSet:
+    id: 1
+    author: user
+    context: dev
+    changes:
+      - createTable:
+          tableName: test_table
 ```
 
+### Labels
+Labels allow for more complex targeting of changesets.
 
-### 🔑 Key Notes:
-- **🔨 Build from Source**: If you want to build the application from source instead of using the pre-built Docker image, uncomment the `# build: .` line under the `hahn_task` service. By default, the application uses the pre-built image hosted on Docker Hub (`lasthour/hahn_tasks:1.4`).
+**Example:**
+```yaml
+- changeSet:
+    id: 2
+    author: user
+    labels: production
+```
 
+Run specific labels:
+```bash
+./mvnw liquibase:update -Dliquibase.labels=production
+```
 
-### 4. Docker Compose File
+---
+
+## 2. Rollback Strategies
+Rollbacks are critical for disaster recovery and controlled deployments. Liquibase allows you to define rollback procedures for each changeset.
+
+**Rollback Example:**
+```yaml
+- changeSet:
+    id: 3
+    author: user
+    changes:
+      - addColumn:
+          tableName: users
+          columns:
+            - column:
+                name: age
+                type: int
+    rollback:
+      - dropColumn:
+          tableName: users
+          columnName: age
+```
+
+Run rollback commands:
+```bash
+./mvnw liquibase:rollback -Dliquibase.tag=version_1.0
+./mvnw liquibase:rollbackToDate 2025-02-01
+```
+
+---
+
+## 3. Changelog Parameters
+You can use parameters in changelogs for flexibility and reusability.
+
+**In `application.properties`:**
+```properties
+liquibase.parameter.schema_name=my_schema
+```
+
+**In changelog:**
+```yaml
+- changeSet:
+    id: 4
+    author: user
+    changes:
+      - createTable:
+          schemaName: ${schema_name}
+          tableName: example_table
+```
+
+---
+
+## 4. Multiple Changelog Files
+Organize large projects using a master changelog that includes multiple files.
+
+**Master changelog (`db.changelog-master.yml`):**
+```yaml
+databaseChangeLog:
+  - include:
+      file: db/changelog/initial_schema.yml
+  - include:
+      file: db/changelog/add_users_table.yml
+```
+
+---
+
+## 5. Preconditions
+Preconditions define conditions that must be met before executing a changeset.
+
+**Example:**
+```yaml
+- changeSet:
+    id: 5
+    author: user
+    preConditions:
+      - onFail: MARK_RAN
+      - tableExists:
+          tableName: users
+    changes:
+      - addColumn:
+          tableName: users
+          columns:
+            - column:
+                name: last_login
+                type: datetime
+```
+
+---
+
+## 6. Custom SQL Scripts
+You can embed or reference SQL in your changesets.
+
+**Embedded SQL:**
+```yaml
+- changeSet:
+    id: 6
+    author: user
+    changes:
+      - sql: |
+          INSERT INTO users (name, email) VALUES ('John Doe', 'john@example.com');
+```
+
+**External SQL File:**
+```yaml
+- changeSet:
+    id: 7
+    author: user
+    changes:
+      - sqlFile:
+          path: db/scripts/populate_users.sql
+```
+
+---
+
+## 7. Managing Data
+Liquibase supports managing reference and seed data using `loadData` and `updateData` changes.
+
+**Loading Data from CSV:**
+```yaml
+- changeSet:
+    id: 8
+    author: user
+    changes:
+      - loadData:
+          file: db/data/users.csv
+          tableName: users
+```
+
+---
+
+## 8. Dynamic Data Type Mapping
+Liquibase can map data types dynamically for different databases.
+
+**Example:**
+```yaml
+- changeSet:
+    id: 9
+    author: user
+    changes:
+      - createTable:
+          tableName: example_table
+          columns:
+            - column:
+                name: created_at
+                type: datetime
+```
+
+---
+
+## 9. Database Snapshots
+Liquibase can take a snapshot of your database structure for comparison or auditing purposes.
+
+**Generate a snapshot:**
+```bash
+./mvnw liquibase:snapshot
+```
+
+---
+
+## 10. Changelog Version Control (Tags)
+Tags are useful for marking specific versions of your database.
+
+**Tagging your database:**
+```bash
+./mvnw liquibase:tag -Dliquibase.tag=version_1.0
+```
+
+---
+
+## 11. Advanced Rollbacks with `diffChangeLog`
+You can generate a changelog based on differences between two databases or a database and a snapshot:
 
 ```bash
-docker compose up -d
+./mvnw liquibase:diffChangeLog
 ```
 
-The application will be accessible at http://localhost:8080/swagger-ui/index.html#/ (or the port you specified in .env).
+---
+
+## 12. Liquibase Docker Support
+Liquibase also offers a Docker image for easier integration with CI/CD pipelines:
+
+```bash
+docker run --rm -v $(pwd):/liquibase/changelog liquibase/liquibase update
+```
+
+---
+
+## 13. Integration with CI/CD
+- Automate database changes with Jenkins or GitHub Actions.
+- Validate changelogs before deployment.
+
+---
+
+## 14. Using Checksums
+Liquibase validates changesets using checksums to ensure they haven't been altered.
+
+**Re-run changesets with modified checksums:**
+```yaml
+- changeSet:
+    id: 10
+    author: user
+    runOnChange: true
+    changes:
+      - modifyDataType:
+          columnName: age
+          tableName: users
+          newDataType: bigint
+```
+
+---
+
+## 15. Best Practices
+- **Changelog Naming:** Use descriptive names for changelog files and changesets.
+- **Version Control:** Store changelogs in version control (e.g., Git).
+- **Backup:** Always back up your database before running migrations.
+- **Testing:** Test migrations in a staging environment before deploying to production.
+

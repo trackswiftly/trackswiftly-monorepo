@@ -53,7 +53,7 @@ public class VehicleType extends AbstractBaseEntity{
     private String description ;
 
 
-    @OneToMany(mappedBy = "type")
+    @OneToMany(mappedBy = "vehicleType")
     @JsonBackReference
     private List<Vehicle> vehicles ;
 

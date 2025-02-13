@@ -102,9 +102,10 @@
 
 
 
-		<!-- hibernate core with c3p0 connections pool manager -->
+		<!-- hibernate core with hikaricp connections pool manager -->
 
-		<!-- <dependency>
+		
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>6.4.10.Final</version>
@@ -112,38 +113,27 @@
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-c3p0</artifactId>
-			<version>6.4.1.Final</version>
+			<artifactId>hibernate-hikaricp</artifactId>
+			<version>6.4.10.Final</version>
 		</dependency>
 
-
 		<dependency>
-			<groupId>com.mchange</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.5.5</version>
-		</dependency> -->
-
-		<!-- Replace the C3P0 related dependencies with these -->
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-core</artifactId>
-		<version>6.4.10.Final</version>
-	</dependency>
-
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-hikaricp</artifactId>
-		<version>6.4.10.Final</version>
-	</dependency>
-
-	<dependency>
-		<groupId>com.zaxxer</groupId>
-		<artifactId>HikariCP</artifactId>
-		<version>5.1.0</version>
-	</dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>5.1.0</version>
+		</dependency>
 
 		<!-- ___________________ -->
 
+
+		<!-- liquibase -->
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
+
+		<!-- _________________________ -->
 
 		<!-- Aspect-Oriented Programming (AOP)  -->
 
@@ -172,6 +162,8 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
 	</dependencies>
 
 	<build>

@@ -10,6 +10,8 @@ public class VehicleServiceHintsConfig implements RuntimeHintsRegistrar {
 
     @Override
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+
+        hints.resources().registerPattern("*.pub");
         
         // hints.reflection().registerType(ConnectionProvider.class, MemberCategory.values()) ;
 

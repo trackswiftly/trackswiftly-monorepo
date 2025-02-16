@@ -43,7 +43,6 @@ public class GroupService {
     }
 
 
-    @LogUserOperation
     public List<GroupResponse> createGroups(List<GroupRequest> groupRequests) {
         log.info("Creating groups in batch...");
         

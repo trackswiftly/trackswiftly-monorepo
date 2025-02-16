@@ -28,8 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 public class VehicleTypeRepo implements BaseDao<VehicleType , Long>{
     
-    @Value("${hibernate.jdbc.batch_size}")
-    private  int batchSize = 10;
+    // @Value("${hibernate.jdbc.batch_size}")
+    private  int batchSize = 40;
 
     
     @PersistenceContext

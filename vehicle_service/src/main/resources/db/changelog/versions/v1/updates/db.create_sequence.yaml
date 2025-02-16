@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+        id: "1.0.0-14"
+        author: obaid
+        changes:
+            - createSequence:
+                sequenceName: model_id_seq
+                startValue: 1
+                incrementBy: 1
+                minValue: 1
+                cycle: false
+                cacheSize: 1
+                ifNotExists: true
+            
+            - createSequence:
+                sequenceName: group_id_seq
+                startValue: 1
+                incrementBy: 1
+                minValue: 1
+                cycle: false
+                cacheSize: 1
+                ifNotExists: true
+            
+            - createSequence:
+                sequenceName: vehicle_type_id_seq
+                startValue: 1
+                incrementBy: 1
+                minValue: 1
+                cycle: false
+                cacheSize: 1
+                ifNotExists: true
+
+            - createSequence:
+                sequenceName: vehicle_id_seq
+                startValue: 1
+                incrementBy: 1
+                minValue: 1
+                cycle: false
+                cacheSize: 1
+                ifNotExists: true
+
+
+  - changeSet:
+        id: "1.0.0-15"
+        author: obaid
+        changes:
+        - addDefaultValue:
+            tableName: models
+            columnName: id
+            defaultValueSequenceNext: model_id_seq
+
+        - addDefaultValue:
+            tableName: groups
+            columnName: id
+            defaultValueSequenceNext: group_id_seq
+
+        - addDefaultValue:
+            tableName: vehicle_types
+            columnName: id
+            defaultValueSequenceNext: vehicle_type_id_seq
+
+        - addDefaultValue:
+            tableName: vehicles
+            columnName: id
+            defaultValueSequenceNext: vehicle_id_seq

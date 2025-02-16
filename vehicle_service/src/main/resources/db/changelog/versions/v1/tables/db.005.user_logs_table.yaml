@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-8"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createTable:
+            tableName: user_logs
+            columns:
+              - column:
+                  name: created_at
+                  type: timestamp(6) with time zone
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp(6) with time zone
+              - column:
+                  name: ip_address
+                  type: varchar(255)
+              - column:
+                  name: method
+                  type: varchar(255)
+              - column:
+                  name: operation
+                  type: varchar(255)
+              - column:
+                  name: status
+                  type: varchar(255)
+              - column:
+                  name: user_id
+                  type: varchar(255)
+              - column:
+                  name: username
+                  type: varchar(255)
+  - changeSet:
+      id: "1.0.0-9"
+      author: obaid
+      labels: prod ,dev
+      changes:
+        - createIndex:
+            indexName: user_logs_userid_idx
+            tableName: user_logs
+            columns:
+              - column:
+                  name: user_id
+                  type: varchar(255)
+  - changeSet:
+      id: "1.0.0-10"
+      author: obaid
+      labels: prod ,dev
+      changes:
+        - sql:
+            sql: >
+                CREATE INDEX IF NOT EXISTS user_logs_userid_idx
+                ON public.user_logs USING btree
+                (user_id COLLATE pg_catalog."default" ASC NULLS LAST)
+                TABLESPACE pg_default;

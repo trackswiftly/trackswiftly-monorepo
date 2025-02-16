@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-1"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createTable:
+            tableName: groups
+            columns:
+              - column:
+                  name: created_at
+                  type: timestamp(6) with time zone
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: updated_at
+                  type: timestamp(6) with time zone
+              - column:
+                  name: tenant_id
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+            tableSpace: pg_default
+
+        - addUniqueConstraint:
+            columnNames: tenant_id, name
+            constraintName: groups_tenant_id_name_key
+            tableName: groups
+
+        - addUniqueConstraint:
+            columnNames: tenant_id, name
+            constraintName: ukegdqlx44krh20lv24bmenhi81
+            tableName: groups
+
+
+  - changeSet:
+      id: "1.0.0-2"
+      author: obaid
+      changes:
+        - createIndex:
+            tableName: groups
+            indexName: group_tenantid_idx
+            columns:
+              - column:
+                  name: tenant_id
+            unique: false
+            tableSpace: pg_default
+
+  - changeSet:
+      id: "1.0.0-3"
+      author: obaid
+      changes:
+        - sql:
+            sql: "ALTER TABLE IF EXISTS public.groups OWNER TO vehicle_user"

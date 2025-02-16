@@ -1,0 +1,93 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-4"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createTable:
+            tableName: models
+            columns:
+              - column:
+                  name: engine_type
+                  type: smallint
+              - column:
+                  name: fuel_type
+                  type: smallint
+              - column:
+                  name: max_payload_weight
+                  type: double precision
+              - column:
+                  name: max_volume
+                  type: double precision
+              - column:
+                  name: created_at
+                  type: timestamp(6) with time zone
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: updated_at
+                  type: timestamp(6) with time zone
+              - column:
+                  name: year
+                  type: timestamp(6) without time zone
+              - column:
+                  name: tenant_id
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: make
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: transmission
+                  type: varchar(255)
+
+        - addUniqueConstraint:
+            columnNames: tenant_id, name
+            constraintName: models_tenant_id_name_key
+            tableName: models
+
+        - sql:
+            sql: >
+              ALTER TABLE models
+              ADD CONSTRAINT models_engine_type_check
+              CHECK (engine_type >= 0 AND engine_type <= 3);
+
+        - sql:
+            sql: >
+              ALTER TABLE models
+              ADD CONSTRAINT models_fuel_type_check
+              CHECK (fuel_type >= 0 AND fuel_type <= 7);
+
+
+  - changeSet:
+      id: "1.0.0-5"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createIndex:
+            tableName: models
+            indexName: model_tenantid_idx
+            columns:
+              - column:
+                  name: tenant_id
+            unique: false
+            tableSpace: pg_default
+
+  - changeSet:
+      id: "1.0.0-6"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - sql:
+            sql: "ALTER TABLE IF EXISTS public.models OWNER TO vehicle_user"

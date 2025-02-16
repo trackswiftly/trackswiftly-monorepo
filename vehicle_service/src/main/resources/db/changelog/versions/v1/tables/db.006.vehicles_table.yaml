@@ -1,0 +1,89 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-12"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createTable:
+            tableName: vehicles
+            columns:
+
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: tenant_id
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: mileage
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp(6) with time zone
+              
+              - column:
+                  name: purchase_date
+                  type: timestamp(6) with time zone
+              - column:
+                  name: updated_at
+                  type: timestamp(6) with time zone
+
+              - column:
+                  name: license_plate
+                  type: varchar(255)
+              - column:
+                  name: vin
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: model_id
+                  type: bigint
+              - column:
+                  name: vehicle_type_id
+                  type: bigint
+              - column:
+                  name: vehicle_group_id
+                  type: bigint
+                  
+        - addForeignKeyConstraint:
+            constraintName: fk_vehicles_model
+            baseTableName: vehicles
+            baseColumnNames: model_id
+            referencedTableName: models
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: fk_vehicles_vehicle_type
+            baseTableName: vehicles
+            baseColumnNames: vehicle_type_id
+            referencedTableName: vehicle_types
+            referencedColumnNames: id
+            
+        - addForeignKeyConstraint:
+            constraintName: fk_vehicles_vehicle_group
+            baseTableName: vehicles
+            baseColumnNames: vehicle_group_id
+            referencedTableName: groups
+            referencedColumnNames: id
+
+  - changeSet:
+      id: "1.0.0-13"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createIndex:
+            indexName: vehicle_tenantid_idx
+            tableName: vehicles
+            columns:
+              - column:
+                  name: tenant_id
+                  type: varchar(255)

@@ -253,3 +253,60 @@ Liquibase validates changesets using checksums to ensure they haven't been alter
 - **Backup:** Always back up your database before running migrations.
 - **Testing:** Test migrations in a staging environment before deploying to production.
 
+
+
+
+
+
+
+### Versioned Naming Convention for Liquibase ChangeSet IDs
+
+##### How to Structure ChangeSet IDs
+
+```
+<version>-<sequence>
+```
+
+
+**Example :**
+```
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-1" # Version 1.0.0, first changeset
+      author: obaid
+      changes:
+        - createTable:
+            tableName: vehicle_type
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+  - changeSet:
+      id: "1.0.0-2" # Version 1.0.0, second changeset
+      author: obaid
+      changes:
+        - createTable:
+            tableName: vehicles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+  - changeSet:
+      id: "1.1.0-1" # Version 1.1.0, first changeset
+      author: obaid
+      changes:
+        - addColumn:
+            tableName: vehicles
+            columns:
+              - column:
+                  name: color
+                  type: varchar(50)
+```

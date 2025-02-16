@@ -64,15 +64,16 @@ public class Vehicle extends AbstractBaseEntity{
     private Instant purchaseDate ;
 
 
-
-    @JoinColumn(nullable = false ,  name = "type_id")
+    @ManyToOne
+    @JoinColumn(nullable = false ,  name = "vehicle_type_id")
     private VehicleType vehicleType ;
 
-
+    @ManyToOne
     @JoinColumn(nullable = false , name = "model_id")
     private Model model ;
 
-    @JoinColumn(nullable = false , name = "group_id")
+    @ManyToOne
+    @JoinColumn(nullable = false , name = "vehicle_group_id")
     private Group vhicleGroup ;
 
 

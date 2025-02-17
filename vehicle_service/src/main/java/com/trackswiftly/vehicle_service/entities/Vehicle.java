@@ -71,7 +71,7 @@ public class Vehicle extends AbstractBaseEntity{
 
     @ManyToOne
     @JoinColumn(nullable = false , name = "vehicle_group_id")
-    private Group vhicleGroup ;
+    private Group vehicleGroup ;
 
 
 

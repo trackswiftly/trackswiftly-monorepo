@@ -1,6 +1,8 @@
 package com.trackswiftly.vehicle_service.entities;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.trackswiftly.vehicle_service.enums.EngineType;
 import com.trackswiftly.vehicle_service.enums.FuelType;
 
@@ -77,8 +78,8 @@ public class Model extends AbstractBaseEntity{
 
 
     @CreationTimestamp
-    private Instant createdAt ;
+    private LocalDateTime createdAt ;
 
     @UpdateTimestamp
-    private Instant updatedAt ;
+    private LocalDateTime updatedAt ;
 }

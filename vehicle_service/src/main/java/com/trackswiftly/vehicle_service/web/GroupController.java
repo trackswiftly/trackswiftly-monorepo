@@ -4,8 +4,6 @@ package com.trackswiftly.vehicle_service.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -25,12 +23,10 @@ import com.trackswiftly.vehicle_service.dtos.OperationResult;
 import com.trackswiftly.vehicle_service.dtos.PageDTO;
 import com.trackswiftly.vehicle_service.dtos.interfaces.CreateValidationGroup;
 import com.trackswiftly.vehicle_service.dtos.interfaces.UpdateValidationGroup;
-import com.trackswiftly.vehicle_service.entities.Group;
 import com.trackswiftly.vehicle_service.services.GroupService;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -65,7 +61,8 @@ public class GroupController {
     }
 
 
-    @DeleteMapping("/{groupIds}")   
+    @DeleteMapping("/{groupIds}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_DISPATCHER')")   
     public ResponseEntity<OperationResult> deleteGroups(
         @Parameter(
             description = "Comma-separated list of group IDs to be deleted",
@@ -108,7 +105,7 @@ public class GroupController {
     }
 
 
-    @PutMapping
+    @PutMapping("/{groupIds}")
     @Validated(UpdateValidationGroup.class)
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_DISPATCHER')")
     public ResponseEntity<OperationResult> updategroupsInBatch(
@@ -118,7 +115,7 @@ public class GroupController {
             example = "1,2,3",
             schema = @Schema(type = "string")
         )
-        @RequestParam List<Long> groupIds,
+        @PathVariable List<Long> groupIds,
         @Parameter(
             description = "group object containing the fields to update",
             required = true

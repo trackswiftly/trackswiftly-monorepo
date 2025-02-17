@@ -7,17 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trackswiftly.vehicle_service.annotations.LogUserOperation;
-import com.trackswiftly.vehicle_service.dao.repositories.GroupRepo;
 import com.trackswiftly.vehicle_service.dao.repositories.VehicleTypeRepo;
-import com.trackswiftly.vehicle_service.dtos.GroupRequest;
-import com.trackswiftly.vehicle_service.dtos.GroupResponse;
 import com.trackswiftly.vehicle_service.dtos.OperationResult;
 import com.trackswiftly.vehicle_service.dtos.PageDTO;
 import com.trackswiftly.vehicle_service.dtos.VehicleTypeRequest;
 import com.trackswiftly.vehicle_service.dtos.VehicleTypeResponse;
-import com.trackswiftly.vehicle_service.entities.Group;
-import com.trackswiftly.vehicle_service.entities.VehicleType;
-import com.trackswiftly.vehicle_service.mappers.GroupMapper;
 import com.trackswiftly.vehicle_service.mappers.VehicleTypeMapper;
 
 import jakarta.transaction.Transactional;

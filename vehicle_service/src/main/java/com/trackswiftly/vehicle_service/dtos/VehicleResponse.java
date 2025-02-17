@@ -1,0 +1,37 @@
+package com.trackswiftly.vehicle_service.dtos;
+
+import java.time.Instant;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class VehicleResponse {
+    
+
+    private Long id ;
+
+
+    private String vin ;
+
+
+    private String licensePlate ;
+
+
+    private int mileage ;
+
+
+    private Instant purchaseDate ;
+
+
+    private Long vehicleType ;
+
+    private Long model ;
+
+    private Long vhicleGroup ;
+
+    private Instant createdAt ;
+
+    private Instant updatedAt ;
+}

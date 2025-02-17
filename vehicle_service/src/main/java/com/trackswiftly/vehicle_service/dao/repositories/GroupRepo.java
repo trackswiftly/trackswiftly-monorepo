@@ -23,8 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 public class GroupRepo implements BaseDao<Group,Long>{
 
-    // @Value("${hibernate.jdbc.batch_size}")
-    private  int batchSize = 40;
+    @Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
+    private  int batchSize ;
 
     
     @PersistenceContext
@@ -43,10 +43,17 @@ public class GroupRepo implements BaseDao<Group,Long>{
             
             em.persist(entities.get(i));
 
-            if (i > 0 && i % batchSize == 0) {
+            if (i > 0 && (i + 1) % batchSize == 0) {
                 em.flush();
                 em.clear();
             }
+        }
+
+
+        // Flush and clear the remaining entities that didn't make up a full batch
+        if (entities.size() % batchSize != 0) {
+            em.flush();
+            em.clear();
         }
 
         return entities ;

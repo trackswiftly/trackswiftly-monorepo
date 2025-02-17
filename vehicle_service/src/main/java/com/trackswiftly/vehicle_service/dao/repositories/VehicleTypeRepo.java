@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 public class VehicleTypeRepo implements BaseDao<VehicleType , Long>{
     
-    // @Value("${hibernate.jdbc.batch_size}")
+    @Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
     private  int batchSize = 40;
 
     
@@ -48,10 +48,15 @@ public class VehicleTypeRepo implements BaseDao<VehicleType , Long>{
             
             em.persist(entities.get(i));
 
-            if (i > 0 && i % batchSize == 0) {
+            if (i > 0 && (i + 1) % batchSize == 0) {
                 em.flush();
                 em.clear();
             }
+        }
+
+        if (entities.size() % batchSize != 0) {
+            em.flush();
+            em.clear();
         }
 
         return entities ;

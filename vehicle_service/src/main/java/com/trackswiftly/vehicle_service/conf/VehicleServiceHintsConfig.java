@@ -12,11 +12,6 @@ public class VehicleServiceHintsConfig implements RuntimeHintsRegistrar {
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
 
         hints.resources().registerPattern("*.pub");
-        
-        // hints.reflection().registerType(ConnectionProvider.class, MemberCategory.values()) ;
-
-
-        // hints.reflection().registerType(C3P0ConnectionProvider.class, MemberCategory.values()) ;
     }
     
 }

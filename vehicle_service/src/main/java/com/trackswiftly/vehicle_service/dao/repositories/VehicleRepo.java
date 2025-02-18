@@ -1,13 +1,19 @@
 package com.trackswiftly.vehicle_service.dao.repositories;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.trackswiftly.vehicle_service.dao.interfaces.BaseDao;
 import com.trackswiftly.vehicle_service.entities.Vehicle;
+import com.trackswiftly.vehicle_service.exception.UnableToProccessIteamException;
 import com.trackswiftly.vehicle_service.utils.DBUtiles;
 
 import jakarta.persistence.EntityManager;
@@ -31,6 +37,12 @@ public class VehicleRepo implements BaseDao<Vehicle , Long>{
     
     @PersistenceContext
     private EntityManager em ;
+
+
+    
+    private static final String VEHICLE_TYPE_ERROR = "One or more vehicle types do not exist or do not belong to the current tenant";
+    private static final String MODEL_ERROR = "One or more models do not exist or do not belong to the current tenant";
+    private static final String GROUP_ERROR = "One or more groups do not exist or do not belong to the current tenant";
 
     @Override
     public List<Vehicle> insertInBatch(List<Vehicle> entities) {
@@ -133,5 +145,9 @@ public class VehicleRepo implements BaseDao<Vehicle , Long>{
 
         return totalUpdatedRecords ;
     }
+
+
+
+    
     
 }

@@ -1,5 +1,7 @@
 package com.trackswiftly.vehicle_service.conf;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -19,6 +21,7 @@ import com.trackswiftly.vehicle_service.utils.PropertiesLoader;
 
 
 @Configuration
+@OpenAPIDefinition(servers = {@Server(url = "/", description = "Default Server URL")})
 public class UtilsConf {
     
     @Bean("propertiesLoader1")

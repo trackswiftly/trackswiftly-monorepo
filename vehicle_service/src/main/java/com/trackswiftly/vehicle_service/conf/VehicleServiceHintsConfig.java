@@ -6,6 +6,7 @@ import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import liquibase.ui.LoggerUIService;
 import liquibase.database.LiquibaseTableNamesFactory;
 import liquibase.report.ShowSummaryGeneratorFactory ;
+import liquibase.parser.SqlParserFactory;
 
 
 
@@ -30,6 +31,7 @@ public class VehicleServiceHintsConfig implements RuntimeHintsRegistrar {
         hints.reflection().registerType(LoggerUIService.class, MemberCategory.values()) ;
         hints.reflection().registerType(LiquibaseTableNamesFactory.class, MemberCategory.values()) ;
         hints.reflection().registerType(ShowSummaryGeneratorFactory.class, MemberCategory.values()) ;
+        hints.reflection().registerType(SqlParserFactory.class, MemberCategory.values()) ;
 
 
     }

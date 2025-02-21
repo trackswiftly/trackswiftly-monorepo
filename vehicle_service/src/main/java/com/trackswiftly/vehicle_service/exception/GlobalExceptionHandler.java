@@ -2,19 +2,16 @@ package com.trackswiftly.vehicle_service.exception;
 
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.trackswiftly.vehicle_service.dtos.ErrorResponse;
+import com.trackswiftly.vehicle_service.dtos.ErrorResponse.ErrorDetail;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +37,37 @@ public class GlobalExceptionHandler {
 
 
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    }
+
+
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> handleConstraintViolationException(ConstraintViolationException ex) {
+
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setStatus(false);
+        errorResponse.setMessage("Validation failed"); 
+        List<ErrorDetail> validationErrors = ex.getConstraintViolations().stream()
+        .map(violation -> {
+            
+            ErrorDetail errorDetail = new ErrorDetail();
+
+            errorDetail.setField(extractSimpleFieldName(violation.getPropertyPath().toString()));
+            errorDetail.setMessage(violation.getMessage());
+
+            return errorDetail;
+        })
+        .toList();
+
+        errorResponse.setErrors(validationErrors);
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+    
+
+    private String extractSimpleFieldName(String propertyPath) {
+        String[] parts = propertyPath.split("\\.");
+        return parts[parts.length - 1];
     }
     
 }

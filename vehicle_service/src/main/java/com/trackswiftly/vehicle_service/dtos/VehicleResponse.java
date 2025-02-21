@@ -25,11 +25,11 @@ public class VehicleResponse {
     private Instant purchaseDate ;
 
 
-    private Long vehicleType ;
+    private VehicleTypeResponse vehicleType ;
 
-    private Long model ;
+    private ModelResponse model ;
 
-    private Long vhicleGroup ;
+    private GroupResponse vhicleGroup ;
 
     private Instant createdAt ;
 

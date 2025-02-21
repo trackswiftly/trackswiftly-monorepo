@@ -33,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/groups")
 @Slf4j
+@Validated
 public class GroupController {
 
 

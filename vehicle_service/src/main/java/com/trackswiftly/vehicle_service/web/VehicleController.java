@@ -35,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/vehicles")
 @Slf4j
+@Validated
 public class VehicleController {
 
 

@@ -2,7 +2,7 @@ services:
 
   trackswiftly_vehicle_service:
     # build: .
-    image: lasthour/trackswiftly_vehicle_service:1.0.1
+    image: lasthour/trackswiftly_vehicle_service:1.0.2
     environment:
       DB_HOST: postgres:5432
       DB_NAME: ${DB_NAME}

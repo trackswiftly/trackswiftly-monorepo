@@ -7,12 +7,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-
+import com.trackswiftly.vehicle_service.dao.repositories.GroupRepo;
 import com.trackswiftly.vehicle_service.dao.repositories.VehicleRepo;
 import com.trackswiftly.vehicle_service.dtos.OperationResult;
 import com.trackswiftly.vehicle_service.dtos.PageDTO;
 import com.trackswiftly.vehicle_service.dtos.VehicleRequest;
 import com.trackswiftly.vehicle_service.dtos.VehicleResponse;
+import com.trackswiftly.vehicle_service.entities.Group;
 import com.trackswiftly.vehicle_service.entities.Vehicle;
 import com.trackswiftly.vehicle_service.mappers.VehicleMapper;
 import com.trackswiftly.vehicle_service.validators.EntityValidator;
@@ -31,10 +32,13 @@ public class VehicleService {
 
     private EntityValidator ownershipValidator ;
 
+    private GroupRepo groupRepo ;
+
 
     VehicleService(
         VehicleMapper vehicleMapper ,
         VehicleRepo vehicleRepo ,
+        GroupRepo groupRepo ,
         EntityValidator ownershipValidator
 
     ) {
@@ -43,6 +47,8 @@ public class VehicleService {
         this.vehicleRepo = vehicleRepo ;
 
         this.ownershipValidator = ownershipValidator ;
+
+        this.groupRepo = groupRepo ;
     }
 
 

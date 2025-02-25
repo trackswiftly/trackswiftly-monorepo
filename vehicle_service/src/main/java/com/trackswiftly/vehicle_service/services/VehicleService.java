@@ -118,7 +118,7 @@ public class VehicleService {
          * OWENERSHIP VALIDATION
          */
 
-         ownershipValidator.validateVehicleRequest(List.of(vehicle));
+        ownershipValidator.validateVehicleRequest(List.of(vehicle));
 
         int count = vehicleRepo.updateInBatch(vehicleIds, vehicleMapper.toVehicle(vehicle)) ;
 

@@ -1,0 +1,87 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-16-add-home_location-table"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createTable:
+            tableName: home_locations
+            columns:
+
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: tenant_id
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: latitude
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: longitude
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: timestamp(6) with time zone
+
+              - column:
+                  name: updated_at
+                  type: timestamp(6) with time zone
+                  
+        - addUniqueConstraint:
+            columnNames: tenant_id, name
+            constraintName: home_locations_tenant_id_name_key
+            tableName: home_locations
+
+  - changeSet:
+      id: "1.0.0-17-create-home_location_tenantid_idx-index"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createIndex:
+            indexName: home_location_tenantid_idx
+            tableName: home_locations
+            columns:
+              - column:
+                  name: tenant_id
+                  type: varchar(255)
+
+
+  - changeSet:
+        id: "1.0.0-18-create-home-location-sequence"
+        author: obaid
+        changes:
+
+            # create sequences
+            - createSequence:
+                sequenceName: home_location_id_seq
+                startValue: 1
+                incrementBy: 1
+                minValue: 1
+                cycle: false
+                cacheSize: 1
+                ifNotExists: true
+
+            # add sequence to home_location
+            - addDefaultValue: 
+                tableName: home_locations
+                columnName: id
+                defaultValueSequenceNext: home_location_id_seq

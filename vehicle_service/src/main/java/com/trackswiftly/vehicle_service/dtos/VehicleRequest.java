@@ -21,10 +21,10 @@ import jakarta.validation.constraints.PositiveOrZero;
 public class VehicleRequest {
 
     @NotNull(groups = CreateValidationGroup.class, message = "VIN is required for create operation")
-    @NotBlank(groups = {CreateValidationGroup.class, UpdateValidationGroup.class}, message = "VIN must not be blank")
+    @NotBlank(groups = {CreateValidationGroup.class}, message = "VIN must not be blank")
     private String vin;
 
-    @NotBlank(groups = {CreateValidationGroup.class, UpdateValidationGroup.class}, message = "License plate must not be blank")
+    @NotBlank(groups = {CreateValidationGroup.class}, message = "License plate must not be blank")
     private String licensePlate;
 
     @NotNull(groups = CreateValidationGroup.class, message = "Mileage is required for create operation")

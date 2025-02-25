@@ -28,11 +28,11 @@ import java.util.Date;
 public class ModelRequest {
 
     @NotNull(groups = CreateValidationGroup.class, message = "Name is required for create operation")
-    @NotBlank(groups = {CreateValidationGroup.class, UpdateValidationGroup.class}, message = "Name must not be blank")
+    @NotBlank(groups = {CreateValidationGroup.class}, message = "Name must not be blank")
     private String name;
 
     @NotNull(groups = CreateValidationGroup.class, message = "Make is required for create operation")
-    @NotBlank(groups = {CreateValidationGroup.class, UpdateValidationGroup.class}, message = "Make must not be blank")
+    @NotBlank(groups = {CreateValidationGroup.class}, message = "Make must not be blank")
     private String make;
 
     // @NotNull(groups = CreateValidationGroup.class, message = "Year is required for create operation")
@@ -44,12 +44,12 @@ public class ModelRequest {
     @NotNull(groups = CreateValidationGroup.class, message = "Fuel type is required for create operation")
     private FuelType fuelType;
 
-    // @NotBlank(groups = {CreateValidationGroup.class, UpdateValidationGroup.class}, message = "Transmission must not be blank")
+    @Pattern(regexp = "^[A-Za-z]+$", message = "Transmission must only contain alphabetic characters", groups = { CreateValidationGroup.class, UpdateValidationGroup.class })
     private String transmission;
 
-    @PositiveOrZero(groups = {CreateValidationGroup.class, UpdateValidationGroup.class}, message = "Max payload weight must be a positive number or zero")
+    @PositiveOrZero(groups = {CreateValidationGroup.class}, message = "Max payload weight must be a positive number or zero")
     private double maxPayloadWeight;
 
-    @PositiveOrZero(groups = {CreateValidationGroup.class, UpdateValidationGroup.class}, message = "Max volume must be a positive number or zero")
+    @PositiveOrZero(groups = {CreateValidationGroup.class}, message = "Max volume must be a positive number or zero")
     private double maxVolume;
 }

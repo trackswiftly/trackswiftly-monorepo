@@ -74,6 +74,11 @@ public class Vehicle extends AbstractBaseEntity{
     private Group vehicleGroup ;
 
 
+    @ManyToOne
+    @JoinColumn(nullable = true , name = "home_location_id")
+    private HomeLocation homeLocation ;
+
+
 
     @CreationTimestamp
     private Instant createdAt ;

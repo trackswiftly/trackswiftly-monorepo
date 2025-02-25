@@ -29,6 +29,8 @@ import com.trackswiftly.vehicle_service.dtos.interfaces.UpdateValidationGroup;
 
 import com.trackswiftly.vehicle_service.services.VehicleService;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -101,6 +103,13 @@ public class VehicleController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_DISPATCHER')")
     public ResponseEntity<OperationResult> updateVehiclesInBatch(
         
+
+        @Parameter(
+            description = "Comma-separated list of Vehicle IDs to be deleted",
+            required = true,
+            example = "1,2,3",
+            schema = @Schema(type = "string")
+        )
         @PathVariable List<Long> vehicleIds,
 
         @Valid @RequestBody VehicleRequest vehicleRequest

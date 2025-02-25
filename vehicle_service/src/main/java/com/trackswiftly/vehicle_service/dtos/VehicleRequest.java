@@ -39,6 +39,8 @@ public class VehicleRequest {
     @NotNull(groups = CreateValidationGroup.class, message = "Model is required for create operation")
     private Long modelId;
 
+    private Long homeLocationId;
+
     @NotNull(groups = CreateValidationGroup.class, message = "Vehicle group is required for create operation")
     private Long vehicleGroupId;
 }

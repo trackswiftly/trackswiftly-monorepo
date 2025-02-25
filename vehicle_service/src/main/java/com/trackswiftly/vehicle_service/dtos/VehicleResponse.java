@@ -29,6 +29,9 @@ public class VehicleResponse {
 
     private ModelResponse model ;
 
+
+    private HomeLocationResponseDTO homeLocation ;
+
     private GroupResponse vhicleGroup ;
 
     private Instant createdAt ;

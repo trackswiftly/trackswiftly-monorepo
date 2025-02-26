@@ -70,6 +70,7 @@ public class VehicleMapper {
             );
 
         HomeLocation homeLocation = vehicle.getHomeLocation();
+        
         if (homeLocation != null) {
             responseBuilder.homeLocation(
                 HomeLocationResponseDTO.builder()
@@ -110,9 +111,11 @@ public class VehicleMapper {
                         .build() 
                 )
                 .homeLocation(
+                    vehicleRequest.getHomeLocationId() != null ?
                     HomeLocation.builder()
-                    .id(vehicleRequest.getHomeLocationId())
-                    .build()
+                        .id(vehicleRequest.getHomeLocationId())
+                        .build()
+                    : null
                 )
                 .build();
     }

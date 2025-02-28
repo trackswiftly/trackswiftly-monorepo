@@ -12,15 +12,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.trackswiftly.vehicle_service.entities.Vehicle;
 import com.trackswiftly.vehicle_service.exception.UnableToProccessIteamException;
-import com.trackswiftly.vehicle_service.utils.TenantContext;
 
-import org.assertj.core.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.List;
 
 import org.junit.jupiter.api.Tag;
 

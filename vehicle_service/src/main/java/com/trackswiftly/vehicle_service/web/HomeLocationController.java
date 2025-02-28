@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trackswiftly.vehicle_service.dtos.GroupRequest;
 import com.trackswiftly.vehicle_service.dtos.HomeLocationRequestDTO;
 import com.trackswiftly.vehicle_service.dtos.HomeLocationResponseDTO;
 import com.trackswiftly.vehicle_service.dtos.OperationResult;

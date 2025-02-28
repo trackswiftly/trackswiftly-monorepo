@@ -26,7 +26,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.trackswiftly.vehicle_service.dao.repositories.HomeLocationRepo;
-import com.trackswiftly.vehicle_service.entities.Group;
 import com.trackswiftly.vehicle_service.entities.HomeLocation;
 import com.trackswiftly.vehicle_service.utils.DBUtiles;
 
@@ -88,7 +87,7 @@ class HomeLocationRepoTest {
 
 
     @Test
-    void testDeleteByIds_NullOrEmptyIds() {
+    void testDeleteByIdsNullOrEmptyIds() {
         // Test with null
         int result = homeLocationRepo.deleteByIds(null);
         assertEquals(0, result);
@@ -103,7 +102,7 @@ class HomeLocationRepoTest {
 
 
     @Test
-    void testDeleteByIds_ValidIds() {
+    void testDeleteByIdsValidIds() {
         List<Long> ids = List.of(1L, 2L, 3L);
 
         Query mockQuery = mock(Query.class);

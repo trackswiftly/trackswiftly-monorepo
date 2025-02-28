@@ -18,27 +18,6 @@ import jakarta.persistence.EntityManagerFactory;
 @EnableTransactionManagement
 public class DbConf {
 
-    private static final String MISSING = "missing" ;
-    private static final String  PRESENT = "present" ;
-    
-    private Environment env;
-
-    private CurrentTenantIdentifierResolverImpl tenantIdentifierResolver;
-    
-    
-    @Autowired
-    DbConf(
-        Environment env ,
-        CurrentTenantIdentifierResolverImpl tenantIdentifierResolver
-    ) {
-
-        this.env = env ;
-        this.tenantIdentifierResolver = tenantIdentifierResolver ;
-    }
-
-
-
-
     @Bean
     public PlatformTransactionManager transcationManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager() ;

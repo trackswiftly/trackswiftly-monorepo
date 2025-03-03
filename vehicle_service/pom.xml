@@ -157,14 +157,6 @@
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
 				<artifactId>native-maven-plugin</artifactId>
-
-				<configuration>
-					<buildArgs>
-						<buildArg>--initialize-at-run-time=org.junit.platform.engine.TestTag</buildArg>
-						<buildArg>-H:+ReportExceptionStackTraces</buildArg>
-						<buildArg>--trace-class-initialization=org.junit.platform.engine.TestTag</buildArg>
-					</buildArgs>
-				</configuration>
 			</plugin>			
 
 			<plugin>

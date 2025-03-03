@@ -12,12 +12,12 @@ import static org.mockito.Mockito.when;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 
 import com.trackswiftly.vehicle_service.dtos.VehicleRequest;
 import com.trackswiftly.vehicle_service.exception.UnableToProccessIteamException;
@@ -36,8 +36,8 @@ import jakarta.persistence.Query;
  * This streamlines the setup process for unit tests.
  * 
  */
-@Tag("unit")
-@ExtendWith(MockitoExtension.class)
+// @Tag("unit")
+// @ExtendWith(MockitoExtension.class)
 class EntityValidatorTest {
     
     @Mock
@@ -45,6 +45,12 @@ class EntityValidatorTest {
 
     @InjectMocks
     private EntityValidator entityValidator;
+
+
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.openMocks(this) ;
+    }
 
 
 

@@ -17,12 +17,11 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.trackswiftly.vehicle_service.dao.repositories.VehicleRepo;
@@ -34,8 +33,7 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 
-@Tag("unit")
-@ExtendWith(MockitoExtension.class)
+// @Tag("unit")
 class VehicleRepoTest {
     
     
@@ -47,6 +45,7 @@ class VehicleRepoTest {
     
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
         ReflectionTestUtils.setField(vehicleRepo, "batchSize", 3);
     }
 

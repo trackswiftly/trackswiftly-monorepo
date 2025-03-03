@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.hibernate.Filter;
 import org.hibernate.Session;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.trackswiftly.vehicle_service.utils.CurrentTenantIdentifierResolverImpl;
@@ -20,12 +21,11 @@ import jakarta.persistence.EntityManager;
 
 
 
-@Tags({
-    @Tag("unit"),
-    @Tag("tenant")
-})
+
+// @Tag("unit")
+// @Tag("tenant")
 @ExtendWith(MockitoExtension.class)
-public class TenantResolverUnitTest {
+class TenantResolverUnitTest {
     
 
 
@@ -41,10 +41,15 @@ public class TenantResolverUnitTest {
     @InjectMocks
     private CurrentTenantIdentifierResolverImpl tenantResolver;
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
 
 
     @Test
-    public void testResolveCurrentTenantIdentifier() {
+    void testResolveCurrentTenantIdentifier() {
 
         String expectedTenantId = "test-tenant";
         TenantContext.setTenantId(expectedTenantId);

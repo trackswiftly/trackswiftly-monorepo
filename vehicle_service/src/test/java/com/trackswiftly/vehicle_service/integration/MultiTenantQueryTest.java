@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import com.trackswiftly.vehicle_service.VehicleServiceApplication;
 import com.trackswiftly.vehicle_service.exception.UnableToProccessIteamException;
 
 
@@ -23,10 +25,10 @@ import org.junit.jupiter.api.Tag;
 
 
 @Slf4j
-@Tag("integration")
-@Tag("tenant")
-@ExtendWith(SpringExtension.class)
+// @Tag("integration")
+// @Tag("tenant")
 @SpringBootTest
+@SpringJUnitConfig(classes = {VehicleServiceApplication.class})
 @Transactional
 class MultiTenantQueryTest {
     

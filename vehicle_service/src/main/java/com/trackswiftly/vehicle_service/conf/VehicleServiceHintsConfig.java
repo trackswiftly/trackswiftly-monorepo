@@ -13,6 +13,8 @@ import liquibase.database.LiquibaseTableNamesFactory;
 import liquibase.report.ShowSummaryGeneratorFactory ;
 import liquibase.parser.SqlParserFactory;
 
+import liquibase.changelog.visitor.ValidatingVisitorGeneratorFactory ;
+import liquibase.changelog.FastCheckService ;
 
 
 public class VehicleServiceHintsConfig implements RuntimeHintsRegistrar {
@@ -41,6 +43,13 @@ public class VehicleServiceHintsConfig implements RuntimeHintsRegistrar {
 
         hints.reflection().registerType(TenantStatementInspector.class, MemberCategory.values()) ;
         hints.reflection().registerType(UUID[].class, MemberCategory.values()) ;
+
+        /**
+         * 
+         * Liquibase
+         */
+        hints.reflection().registerType(ValidatingVisitorGeneratorFactory.class, MemberCategory.values()) ;
+        hints.reflection().registerType(FastCheckService.class, MemberCategory.values()) ;
 
     }
     

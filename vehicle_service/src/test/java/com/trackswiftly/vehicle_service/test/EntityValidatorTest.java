@@ -1,4 +1,4 @@
-package com.trackswiftly.vehicle_service.units;
+package com.trackswiftly.vehicle_service.test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -36,8 +36,8 @@ import jakarta.persistence.Query;
  * This streamlines the setup process for unit tests.
  * 
  */
-// @Tag("unit")
-// @ExtendWith(MockitoExtension.class)
+
+@DisabledInNativeImage
 class EntityValidatorTest {
     
     @Mock

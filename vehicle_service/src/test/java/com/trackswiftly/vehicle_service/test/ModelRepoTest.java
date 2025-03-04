@@ -1,4 +1,4 @@
-package com.trackswiftly.vehicle_service.units;
+package com.trackswiftly.vehicle_service.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,8 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -24,8 +24,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.trackswiftly.vehicle_service.dao.repositories.GroupRepo;
-import com.trackswiftly.vehicle_service.entities.Group;
+import com.trackswiftly.vehicle_service.dao.repositories.ModelRepo;
+import com.trackswiftly.vehicle_service.entities.Model;
 import com.trackswiftly.vehicle_service.utils.DBUtiles;
 
 import jakarta.persistence.EntityManager;
@@ -33,30 +33,30 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 
-// @Tag("unit")
-class GroupRepoTest {
+@DisabledInNativeImage
+class ModelRepoTest {
     
     
     @Mock
     private EntityManager em;
     
     @InjectMocks
-    private GroupRepo groupRepo;
+    private ModelRepo modelRepo;
     
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        ReflectionTestUtils.setField(groupRepo, "batchSize", 3);
+        ReflectionTestUtils.setField(modelRepo, "batchSize", 3);
     }
 
 
     @Test
     void testInsertInBatch() {
-        List<Group> entities = List.of(new Group(), new Group() , new Group());
+        List<Model> entities = List.of(new Model(), new Model() , new Model());
 
-        groupRepo.insertInBatch(entities);
+        modelRepo.insertInBatch(entities);
 
-        verify(em, times(3)).persist(any(Group.class));
+        verify(em, times(3)).persist(any(Model.class));
 
         verify(em, times(1)).flush();
         verify(em, times(1)).clear();
@@ -65,20 +65,20 @@ class GroupRepoTest {
     @Test
     void testUpdateInBatch() {
         List<Long> ids = Arrays.asList(1L, 2L, 3L);
-        Group group = new Group();
+        Model model = new Model();
 
         try (MockedStatic<DBUtiles> utilities = Mockito.mockStatic(DBUtiles.class)) {
             Query mockQuery = mock(Query.class);
-            utilities.when(() -> DBUtiles.buildJPQLQueryDynamicallyForUpdate(group, em)).thenReturn(mockQuery);
+            utilities.when(() -> DBUtiles.buildJPQLQueryDynamicallyForUpdate(model, em)).thenReturn(mockQuery);
             when(mockQuery.setParameter(anyString(), any())).thenReturn(mockQuery);
             when(mockQuery.executeUpdate()).thenReturn(1);
 
-            int updatedRecords = groupRepo.updateInBatch(ids, group);
+            int updatedRecords = modelRepo.updateInBatch(ids, model);
 
             assertEquals(1, updatedRecords);
             verify(mockQuery, times(1)).setParameter("Ids", ids);
             verify(mockQuery, times(1)).executeUpdate();
-            utilities.verify(() -> DBUtiles.buildJPQLQueryDynamicallyForUpdate(group, em), times(1));
+            utilities.verify(() -> DBUtiles.buildJPQLQueryDynamicallyForUpdate(model, em), times(1));
         }
     }
 
@@ -88,11 +88,11 @@ class GroupRepoTest {
     @Test
     void testDeleteByIds_NullOrEmptyIds() {
         // Test with null
-        int result = groupRepo.deleteByIds(null);
+        int result = modelRepo.deleteByIds(null);
         assertEquals(0, result);
 
         // Test with empty list
-        result = groupRepo.deleteByIds(Collections.emptyList());
+        result = modelRepo.deleteByIds(Collections.emptyList());
         assertEquals(0, result);
 
         // Verify that no interactions with EntityManager occurred
@@ -106,15 +106,15 @@ class GroupRepoTest {
 
         Query mockQuery = mock(Query.class);
 
-        when(em.createQuery("DELETE FROM Group d WHERE d.id IN :ids")).thenReturn(mockQuery);
+        when(em.createQuery("DELETE FROM Model d WHERE d.id IN :ids")).thenReturn(mockQuery);
         when(mockQuery.setParameter("ids", ids)).thenReturn(mockQuery);
         when(mockQuery.executeUpdate()).thenReturn(ids.size());
 
-        int result = groupRepo.deleteByIds(ids);
+        int result = modelRepo.deleteByIds(ids);
 
         assertEquals(ids.size(), result);
 
-        verify(em).createQuery("DELETE FROM Group d WHERE d.id IN :ids");
+        verify(em).createQuery("DELETE FROM Model d WHERE d.id IN :ids");
         verify(mockQuery).setParameter("ids", ids);
         verify(mockQuery).executeUpdate();
     }
@@ -124,11 +124,11 @@ class GroupRepoTest {
     @Test
     void testFindByIds_NullOrEmptyIds() {
         // Test with null
-        List<Group> result = groupRepo.findByIds(null);
+        List<Model> result = modelRepo.findByIds(null);
         assertTrue(result.isEmpty());
 
         // Test with empty list
-        result = groupRepo.findByIds(Collections.emptyList());
+        result = modelRepo.findByIds(Collections.emptyList());
         assertTrue(result.isEmpty());
 
         // Verify that no interactions with EntityManager occurred
@@ -141,21 +141,21 @@ class GroupRepoTest {
     @Test
     void testFindByIds_ValidIds() {
         List<Long> ids = List.of(1L, 2L, 3L);
-        List<Group> expectedGroups = List.of(new Group(), new Group(), new Group());
+        List<Model> expectedModels = List.of(new Model(), new Model(), new Model());
 
         @SuppressWarnings("unchecked")
-        TypedQuery<Group> mockQuery = mock(TypedQuery.class);
+        TypedQuery<Model> mockQuery = mock(TypedQuery.class);
 
-        when(em.createQuery("SELECT d FROM Group d WHERE d.id IN :ids", Group.class)).thenReturn(mockQuery);
+        when(em.createQuery("SELECT d FROM Model d WHERE d.id IN :ids", Model.class)).thenReturn(mockQuery);
         when(mockQuery.setParameter("ids", ids)).thenReturn(mockQuery);
-        when(mockQuery.getResultList()).thenReturn(expectedGroups);
+        when(mockQuery.getResultList()).thenReturn(expectedModels);
 
-        List<Group> result = groupRepo.findByIds(ids);
+        List<Model> result = modelRepo.findByIds(ids);
 
-        assertEquals(expectedGroups.size(), result.size());
-        assertEquals(expectedGroups, result);
+        assertEquals(expectedModels.size(), result.size());
+        assertEquals(expectedModels, result);
 
-        verify(em).createQuery("SELECT d FROM Group d WHERE d.id IN :ids", Group.class);
+        verify(em).createQuery("SELECT d FROM Model d WHERE d.id IN :ids", Model.class);
         verify(mockQuery).setParameter("ids", ids);
         verify(mockQuery).getResultList();
     }

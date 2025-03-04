@@ -1,4 +1,4 @@
-package com.trackswiftly.vehicle_service.units;
+package com.trackswiftly.vehicle_service.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,8 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -24,8 +24,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.trackswiftly.vehicle_service.dao.repositories.ModelRepo;
-import com.trackswiftly.vehicle_service.entities.Model;
+import com.trackswiftly.vehicle_service.dao.repositories.VehicleRepo;
+import com.trackswiftly.vehicle_service.entities.Vehicle;
 import com.trackswiftly.vehicle_service.utils.DBUtiles;
 
 import jakarta.persistence.EntityManager;
@@ -33,30 +33,30 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 
-// @Tag("unit")
-class ModelRepoTest {
+@DisabledInNativeImage
+class VehicleRepoTest {
     
     
     @Mock
     private EntityManager em;
     
     @InjectMocks
-    private ModelRepo modelRepo;
+    private VehicleRepo vehicleRepo;
     
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        ReflectionTestUtils.setField(modelRepo, "batchSize", 3);
+        ReflectionTestUtils.setField(vehicleRepo, "batchSize", 3);
     }
 
 
     @Test
     void testInsertInBatch() {
-        List<Model> entities = List.of(new Model(), new Model() , new Model());
+        List<Vehicle> entities = List.of(new Vehicle(), new Vehicle() , new Vehicle());
 
-        modelRepo.insertInBatch(entities);
+        vehicleRepo.insertInBatch(entities);
 
-        verify(em, times(3)).persist(any(Model.class));
+        verify(em, times(3)).persist(any(Vehicle.class));
 
         verify(em, times(1)).flush();
         verify(em, times(1)).clear();
@@ -65,20 +65,20 @@ class ModelRepoTest {
     @Test
     void testUpdateInBatch() {
         List<Long> ids = Arrays.asList(1L, 2L, 3L);
-        Model model = new Model();
+        Vehicle group = new Vehicle();
 
         try (MockedStatic<DBUtiles> utilities = Mockito.mockStatic(DBUtiles.class)) {
             Query mockQuery = mock(Query.class);
-            utilities.when(() -> DBUtiles.buildJPQLQueryDynamicallyForUpdate(model, em)).thenReturn(mockQuery);
+            utilities.when(() -> DBUtiles.buildJPQLQueryDynamicallyForUpdate(group, em)).thenReturn(mockQuery);
             when(mockQuery.setParameter(anyString(), any())).thenReturn(mockQuery);
             when(mockQuery.executeUpdate()).thenReturn(1);
 
-            int updatedRecords = modelRepo.updateInBatch(ids, model);
+            int updatedRecords = vehicleRepo.updateInBatch(ids, group);
 
             assertEquals(1, updatedRecords);
             verify(mockQuery, times(1)).setParameter("Ids", ids);
             verify(mockQuery, times(1)).executeUpdate();
-            utilities.verify(() -> DBUtiles.buildJPQLQueryDynamicallyForUpdate(model, em), times(1));
+            utilities.verify(() -> DBUtiles.buildJPQLQueryDynamicallyForUpdate(group, em), times(1));
         }
     }
 
@@ -88,11 +88,11 @@ class ModelRepoTest {
     @Test
     void testDeleteByIds_NullOrEmptyIds() {
         // Test with null
-        int result = modelRepo.deleteByIds(null);
+        int result = vehicleRepo.deleteByIds(null);
         assertEquals(0, result);
 
         // Test with empty list
-        result = modelRepo.deleteByIds(Collections.emptyList());
+        result = vehicleRepo.deleteByIds(Collections.emptyList());
         assertEquals(0, result);
 
         // Verify that no interactions with EntityManager occurred
@@ -106,15 +106,15 @@ class ModelRepoTest {
 
         Query mockQuery = mock(Query.class);
 
-        when(em.createQuery("DELETE FROM Model d WHERE d.id IN :ids")).thenReturn(mockQuery);
+        when(em.createQuery("DELETE FROM Vehicle d WHERE d.id IN :ids")).thenReturn(mockQuery);
         when(mockQuery.setParameter("ids", ids)).thenReturn(mockQuery);
         when(mockQuery.executeUpdate()).thenReturn(ids.size());
 
-        int result = modelRepo.deleteByIds(ids);
+        int result = vehicleRepo.deleteByIds(ids);
 
         assertEquals(ids.size(), result);
 
-        verify(em).createQuery("DELETE FROM Model d WHERE d.id IN :ids");
+        verify(em).createQuery("DELETE FROM Vehicle d WHERE d.id IN :ids");
         verify(mockQuery).setParameter("ids", ids);
         verify(mockQuery).executeUpdate();
     }
@@ -124,11 +124,11 @@ class ModelRepoTest {
     @Test
     void testFindByIds_NullOrEmptyIds() {
         // Test with null
-        List<Model> result = modelRepo.findByIds(null);
+        List<Vehicle> result = vehicleRepo.findByIds(null);
         assertTrue(result.isEmpty());
 
         // Test with empty list
-        result = modelRepo.findByIds(Collections.emptyList());
+        result = vehicleRepo.findByIds(Collections.emptyList());
         assertTrue(result.isEmpty());
 
         // Verify that no interactions with EntityManager occurred
@@ -141,21 +141,21 @@ class ModelRepoTest {
     @Test
     void testFindByIds_ValidIds() {
         List<Long> ids = List.of(1L, 2L, 3L);
-        List<Model> expectedModels = List.of(new Model(), new Model(), new Model());
+        List<Vehicle> expectedVehicles = List.of(new Vehicle(), new Vehicle(), new Vehicle());
 
         @SuppressWarnings("unchecked")
-        TypedQuery<Model> mockQuery = mock(TypedQuery.class);
+        TypedQuery<Vehicle> mockQuery = mock(TypedQuery.class);
 
-        when(em.createQuery("SELECT d FROM Model d WHERE d.id IN :ids", Model.class)).thenReturn(mockQuery);
+        when(em.createQuery("SELECT d FROM Vehicle d WHERE d.id IN :ids", Vehicle.class)).thenReturn(mockQuery);
         when(mockQuery.setParameter("ids", ids)).thenReturn(mockQuery);
-        when(mockQuery.getResultList()).thenReturn(expectedModels);
+        when(mockQuery.getResultList()).thenReturn(expectedVehicles);
 
-        List<Model> result = modelRepo.findByIds(ids);
+        List<Vehicle> result = vehicleRepo.findByIds(ids);
 
-        assertEquals(expectedModels.size(), result.size());
-        assertEquals(expectedModels, result);
+        assertEquals(expectedVehicles.size(), result.size());
+        assertEquals(expectedVehicles, result);
 
-        verify(em).createQuery("SELECT d FROM Model d WHERE d.id IN :ids", Model.class);
+        verify(em).createQuery("SELECT d FROM Vehicle d WHERE d.id IN :ids", Vehicle.class);
         verify(mockQuery).setParameter("ids", ids);
         verify(mockQuery).getResultList();
     }

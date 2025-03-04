@@ -1,44 +1,40 @@
 package com.trackswiftly.vehicle_service.integration;
 
-
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import com.trackswiftly.vehicle_service.VehicleServiceApplication;
+import com.trackswiftly.vehicle_service.dao.repositories.TestRepo;
 import com.trackswiftly.vehicle_service.exception.UnableToProccessIteamException;
 
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-
-import org.junit.jupiter.api.Tag;
-
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-// @Tag("integration")
-// @Tag("tenant")
 @SpringBootTest
 @SpringJUnitConfig(classes = {VehicleServiceApplication.class})
 @Transactional
 class MultiTenantQueryTest {
     
-    @PersistenceContext
-    private EntityManager entityManager;
+
+    private TestRepo testRepo;
+    
+    @Autowired
+    MultiTenantQueryTest(
+        TestRepo testRepo
+    ) {
+        this.testRepo = testRepo;
+    }
 
     @Test
     void testGeneratedQueryContainsTenantId() {
         Exception exception = assertThrows(UnableToProccessIteamException.class, () -> {
-            entityManager.createQuery("SELECT v FROM TestMultiTenantEntity v").getResultList();
+            testRepo.testGeneratedQueryContainsTenantId();
         });
 
         // Assert that the exception message contains "Generated query does not contain tenant_id"

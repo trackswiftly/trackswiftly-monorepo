@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+        id: "1.0.0-6-create-sequences"
+        author: obaid
+        changes:
+            
+            - createSequence:
+                sequenceName: group_id_seq
+                startValue: 1
+                incrementBy: 1
+                minValue: 1
+                cycle: false
+                cacheSize: 1
+                ifNotExists: true
+            
+            - createSequence:
+                sequenceName: poi_type_id_seq
+                startValue: 1
+                incrementBy: 1
+                minValue: 1
+                cycle: false
+                cacheSize: 1
+                ifNotExists: true
+
+
+            - createSequence:
+                sequenceName: poi_id_seq
+                startValue: 1
+                incrementBy: 1
+                minValue: 1
+                cycle: false
+                cacheSize: 1
+                ifNotExists: true
+
+
+  - changeSet:
+        id: "1.0.0-7-add-default-value-to-id-columns"
+        author: obaid
+        changes:
+
+        - addDefaultValue:
+            tableName: groups
+            columnName: id
+            defaultValueSequenceNext: group_id_seq
+
+        - addDefaultValue:
+            tableName: poi_types
+            columnName: id
+            defaultValueSequenceNext: poi_type_id_seq
+
+        
+        - addDefaultValue:
+            tableName: pois
+            columnName: id
+            defaultValueSequenceNext: poi_id_seq
+
+       

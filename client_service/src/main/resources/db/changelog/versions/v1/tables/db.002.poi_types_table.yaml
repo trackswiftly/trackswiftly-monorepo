@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-3-create-poi-types-table"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createTable:
+            tableName: poi_types
+            columns:
+              - column:
+                  name: created_at
+                  type: timestamp(6) with time zone
+              - column: 
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp(6) with time zone
+              - column:
+                  name: tenant_id
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            columnNames: tenant_id, name
+            constraintName: ukss8m2iolnhy0m7t7ecrk061i1
+            tableName: poi_types
+
+        - addUniqueConstraint:
+            columnNames: tenant_id, name
+            constraintName: poi_types_tenant_id_name_key
+            tableName: poi_types
+
+        - createIndex:
+            indexName: poi_type_tenantid_idx
+            tableName: poi_types
+            columns:
+              - column:
+                  name: tenant_id
+            unique: false
+
+      rollback:
+        - dropTable:
+            tableName: poi_types

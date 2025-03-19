@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-5-create-test-table"
+      author: obaid
+      labels: prod,dev
+      changes:
+        - createTable:
+            tableName: test_table
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    defaultValueComputed: gen_random_uuid()
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false

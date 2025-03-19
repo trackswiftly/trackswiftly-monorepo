@@ -1,0 +1,94 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-4-create-pois-table"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createTable:
+            tableName: pois
+            columns:
+
+              - column: 
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: tenant_id
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: group_id
+                  type: bigint
+
+              - column:
+                  name: type_id
+                  type: bigint
+
+              - column:
+                  name: address
+                  type: varchar(255)
+
+              - column:
+                  name: latitude
+                  type: decimal(10, 8)
+
+              - column:
+                  name: longitude
+                  type: decimal(11, 8)
+
+              - column:
+                  name: payload
+                  type: jsonb
+
+              - column:
+                  name: created_at
+                  type: timestamp(6) with time zone
+              
+              - column:
+                  name: updated_at
+                  type: timestamp(6) with time zone
+              
+
+        - addForeignKeyConstraint:
+            constraintName: fk_poi_group
+            baseTableName: pois
+            baseColumnNames: group_id
+            referencedTableName: groups
+            referencedColumnNames: id
+        
+
+        - addForeignKeyConstraint:
+            constraintName: fk_poi_type
+            baseTableName: pois
+            baseColumnNames: type_id
+            referencedTableName: poi_types
+            referencedColumnNames: id
+
+
+        - addUniqueConstraint:
+            columnNames: tenant_id, name
+            constraintName: pois_tenant_id_name_key
+            tableName: poi_types
+
+        - createIndex:
+            indexName: poi_tenantid_idx
+            tableName: poi_types
+            columns:
+              - column:
+                  name: tenant_id
+            unique: false
+
+      rollback:
+        - dropTable:
+            tableName: poi_types

@@ -1,9 +1,12 @@
 package com.trackswiftly.client_service.entities;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -47,6 +51,10 @@ public class PoiType extends AbstractBaseEntity{
 
     private String description ;
 
+
+    @OneToMany(mappedBy = "type")
+    @JsonBackReference
+    private List<Poi> pois ;
 
     @CreationTimestamp
     private Instant createdAt ;

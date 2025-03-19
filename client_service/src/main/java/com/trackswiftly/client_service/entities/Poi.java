@@ -5,11 +5,9 @@ import java.time.Instant;
 import java.util.Map;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcType;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
-import org.hibernate.type.descriptor.jdbc.JsonJdbcType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +21,6 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import com.fasterxml.jackson.databind.JsonNode;
 
 
 @Data @EqualsAndHashCode(callSuper = false)

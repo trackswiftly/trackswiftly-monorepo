@@ -1,7 +1,7 @@
 package com.trackswiftly.client_service.conf;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.servers.Server;
+// import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -13,7 +13,9 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,8 +23,10 @@ import com.trackswiftly.client_service.utils.PropertiesLoader;
 
 
 @Configuration
-@OpenAPIDefinition(servers = {@Server(url = "/", description = "Default Server URL")})
 public class UtilsConf {
+
+    @Value("${server.servlet.context-path:}")
+    private String contextPath;
     
     @Bean("propertiesLoader1")
     public PropertiesLoader propertiesLoader() {
@@ -40,36 +44,25 @@ public class UtilsConf {
    @SuppressWarnings("unchecked")
     @Bean
     public OpenAPI customOpenAPI() {
+
+        String serverUrl = contextPath.equals("/") ? "" : contextPath;
     
-    final String securitySchemeName = "bearerAuth";
-    return new OpenAPI()
-            .info(new Info().title("Employee Records Management System")
-                    .description("An internal Employee Records Management System to centralize the management of employee data across departments.")
-                    .version("v0.0.1")
-                    .license(new License().name("Apache 2.0").url("http://springdoc.org")))
-            .externalDocs(new ExternalDocumentation()
-                    .description("SpringBoot Wiki Documentation")
-                    .url("https://springboot.wiki.github.org/docs"))
-            .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
-            .components(
-                    new Components()
-                            .addSecuritySchemes(securitySchemeName,
-                                    new SecurityScheme()
-                                            .name(securitySchemeName)
-                                            .type(SecurityScheme.Type.HTTP)
-                                            .scheme("bearer")
-                                            .bearerFormat("JWT")
-                            )
-                            .addRequestBodies("FileUploadRequest",
-                            new RequestBody()
-                            .content(new Content()
-                                    .addMediaType("multipart/form-data",
-                                    new MediaType()
-                                            .schema(new Schema<>()
-                                            .type("array")
-                                            .items(new Schema<>()
-                                                    .type("string")
-                                                    .format("binary"))))))
-            ) ;
-    }
+        return new OpenAPI()
+            .addServersItem(new Server().url(serverUrl).description("Server URL"))
+            .info(new Info()
+                .title("TMS Client Service")
+                .description("Multi-tenant client service for the TMS Platform")
+                .version("v1.0.0")
+            )
+            // Add other OpenAPI configurations (security, components, etc.)
+            .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+            .components(new Components()
+                .addSecuritySchemes("bearerAuth",
+                    new SecurityScheme()
+                        .type(SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT")
+                )
+            );
+        }
 }

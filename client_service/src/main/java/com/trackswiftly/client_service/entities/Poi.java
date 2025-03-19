@@ -62,7 +62,7 @@ public class Poi extends AbstractBaseEntity{
 
     
     @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> moreInfos;
+    private Map<String, Object> payload;
 
     @CreationTimestamp
     private Instant createdAt;

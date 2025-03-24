@@ -79,11 +79,11 @@ databaseChangeLog:
         - addUniqueConstraint:
             columnNames: tenant_id, name
             constraintName: pois_tenant_id_name_key
-            tableName: poi_types
+            tableName: pois
 
         - createIndex:
             indexName: poi_tenantid_idx
-            tableName: poi_types
+            tableName: pois
             columns:
               - column:
                   name: tenant_id
@@ -91,4 +91,4 @@ databaseChangeLog:
 
       rollback:
         - dropTable:
-            tableName: poi_types
+            tableName: pois

@@ -5,6 +5,7 @@ package com.trackswiftly.client_service.dtos;
 
 
 
+
 import com.trackswiftly.client_service.dtos.interfaces.CreateValidationGroup;
 import com.trackswiftly.client_service.dtos.interfaces.UpdateValidationGroup;
 
@@ -19,7 +20,7 @@ import lombok.Data;
 public class PoiTypeRequest {
     
     @NotNull(groups = CreateValidationGroup.class, message = "Name is required for create operation")
-    @NotBlank(groups = {CreateValidationGroup.class}, message = "Name must not be blank")
+    @NotBlank(groups = {CreateValidationGroup.class , UpdateValidationGroup.class}, message = "Name must not be blank")
     private String name ;
 
     @Size(min = 20, max = 255, message = "Description must be between 20 and 255 characters", groups = { CreateValidationGroup.class, UpdateValidationGroup.class })

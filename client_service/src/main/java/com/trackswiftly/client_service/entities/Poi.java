@@ -18,16 +18,21 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 
 
-@Data @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "pois", uniqueConstraints = {
         @UniqueConstraint(name = "pois_tenant_id_name_key", columnNames = {"tenant_id", "name"})
 })
+
+@Data  @EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor @AllArgsConstructor @Builder
 public class Poi extends AbstractBaseEntity{
 
     @Id
@@ -59,7 +64,7 @@ public class Poi extends AbstractBaseEntity{
 
     
     @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> payload;
+    private transient Map<String, Object> payload;
 
     @CreationTimestamp
     private Instant createdAt;

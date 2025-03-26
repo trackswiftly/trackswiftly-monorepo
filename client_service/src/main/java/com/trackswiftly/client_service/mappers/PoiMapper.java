@@ -69,9 +69,10 @@ public class PoiMapper {
     
 
     public Poi toPoi(PoiRequest poiRequest) {
+
+        log.debug("payload 📦 :{} " , poiRequest.getPayload());
         return Poi.builder()
                 .name(poiRequest.getName())
-                .tenantId(poiRequest.getTenantId())
                 .group(
                         Group.builder()
                                 .id(poiRequest.getGroupId())

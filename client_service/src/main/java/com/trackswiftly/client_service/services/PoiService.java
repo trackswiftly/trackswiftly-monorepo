@@ -104,7 +104,7 @@ public class PoiService implements TrackSwiftlyService<Long , PoiRequest , PoiRe
 
 
     @Override
-    public OperationResult updatePoisInBatch(List<Long> poiIds, PoiRequest poi) {
+    public OperationResult updateEntities(List<Long> poiIds, PoiRequest poi) {
 
         if (poiIds == null || poiIds.isEmpty()) {
             throw new IllegalArgumentException("Poi IDs list cannot be null or empty");

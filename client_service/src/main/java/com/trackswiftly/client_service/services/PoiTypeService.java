@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trackswiftly.client_service.dao.repositories.PoiTypeRepo;
-import com.trackswiftly.client_service.dtos.OperationResult;
-import com.trackswiftly.client_service.dtos.PageDTO;
 import com.trackswiftly.client_service.dtos.PoiTypeRequest;
 import com.trackswiftly.client_service.dtos.PoiTypeResponse;
 import com.trackswiftly.client_service.mappers.PoiTypeMapper;
+import com.trackswiftly.utils.dtos.OperationResult;
+import com.trackswiftly.utils.dtos.PageDTO;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;

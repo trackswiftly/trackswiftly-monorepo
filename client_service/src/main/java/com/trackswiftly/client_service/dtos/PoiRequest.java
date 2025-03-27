@@ -19,11 +19,6 @@ public class PoiRequest {
     @Size(max = 255, message = "Name must not exceed 255 characters")
     private String name;
 
-    @NotNull(groups = CreateValidationGroup.class, message = "Tenant ID is required for create operation")
-    @NotBlank(groups = {CreateValidationGroup.class}, message = "Tenant ID must not be blank")
-    @Size(max = 64, message = "Tenant ID must not exceed 64 characters")
-    private String tenantId;
-
     @NotNull(groups = CreateValidationGroup.class, message = "Group ID is required for create operation")
     private Long groupId;
 

@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trackswiftly.client_service.dtos.GroupRequest;
 import com.trackswiftly.client_service.dtos.GroupResponse;
-import com.trackswiftly.client_service.dtos.OperationResult;
-import com.trackswiftly.client_service.dtos.PageDTO;
 import com.trackswiftly.client_service.dtos.interfaces.CreateValidationGroup;
 import com.trackswiftly.client_service.dtos.interfaces.UpdateValidationGroup;
 import com.trackswiftly.client_service.services.GroupService;
+import com.trackswiftly.utils.dtos.OperationResult;
+import com.trackswiftly.utils.dtos.PageDTO;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;

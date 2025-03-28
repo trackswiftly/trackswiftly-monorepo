@@ -2,6 +2,8 @@ package com.trackswiftly.client_service.services;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,11 +11,13 @@ import org.springframework.stereotype.Service;
 import com.trackswiftly.client_service.dao.repositories.PoiRepo;
 import com.trackswiftly.client_service.dtos.PoiRequest;
 import com.trackswiftly.client_service.dtos.PoiResponse;
+import com.trackswiftly.client_service.entities.Group;
 import com.trackswiftly.client_service.entities.Poi;
 import com.trackswiftly.client_service.mappers.PoiMapper;
+import com.trackswiftly.utils.base.services.TrackSwiftlyService;
 import com.trackswiftly.utils.dtos.OperationResult;
 import com.trackswiftly.utils.dtos.PageDTO;
-import com.trackswiftly.utils.interfaces.TrackSwiftlyService;
+import com.trackswiftly.utils.exception.UnableToProccessIteamException;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @Transactional
-public class PoiService implements TrackSwiftlyService<Long , PoiRequest , PoiResponse> {
+public class PoiService extends TrackSwiftlyService<Long , PoiRequest, PoiResponse> {
 
     private final PoiRepo poiRepo;
 
@@ -35,24 +39,6 @@ public class PoiService implements TrackSwiftlyService<Long , PoiRequest , PoiRe
     ) {
         this.poiRepo = poiRepo;
         this.poiMapper = poiMapper;
-    }
-
-
-
-    @Override
-    public List<PoiResponse> createEntities(List<PoiRequest> poiRequests) {
-        log.info("Creating poiRequests in batch...");
-        
-
-        List<Poi> pois = poiRepo.insertInBatch(poiMapper.toPoiList(poiRequests) ) ;
-
-        log.debug("service : pois 📍: {}" , pois);
-
-        List<PoiResponse> poiResponses = poiMapper.toPoiResponseList(pois);
-
-        log.debug("service : poiResponses : {}" , poiResponses);
-
-        return poiResponses ;
     }
 
 
@@ -101,11 +87,28 @@ public class PoiService implements TrackSwiftlyService<Long , PoiRequest , PoiRe
 
 
 
+    @Override
+    protected List<PoiResponse> performCreateEntities(List<PoiRequest> poiRequests) {
+
+        log.info("Creating poiRequests in batch...");
+        
+
+        List<Poi> pois = poiRepo.insertInBatch(poiMapper.toPoiList(poiRequests) ) ;
+
+        log.debug("service : pois 📍: {}" , pois);
+
+        List<PoiResponse> poiResponses = poiMapper.toPoiResponseList(pois);
+
+        log.debug("service : poiResponses : {}" , poiResponses);
+
+        return poiResponses ;
+       
+    }
+
 
 
     @Override
-    public OperationResult updateEntities(List<Long> poiIds, PoiRequest poi) {
-
+    protected OperationResult performUpdateEntities(List<Long> poiIds, PoiRequest poi) {
         if (poiIds == null || poiIds.isEmpty()) {
             throw new IllegalArgumentException("Poi IDs list cannot be null or empty");
         }
@@ -117,6 +120,28 @@ public class PoiService implements TrackSwiftlyService<Long , PoiRequest , PoiRe
         int count = poiRepo.updateInBatch(poiIds, poiMapper.toPoi(poi)) ;
 
         return OperationResult.of(count);
+    }
+
+
+
+    @Override
+    protected void validateCreate(List<PoiRequest> poiRequests) {
+        Set<Long> uniqueTypeIds = poiRequests.stream()
+                                    .map(PoiRequest::getTypeId)
+                                    .collect(Collectors.toSet());
+
+        long truthTypeCount = poiRepo.countBasedOnIds(Group.class, uniqueTypeIds);
+
+        if (truthTypeCount != uniqueTypeIds.size()) {
+			throw new UnableToProccessIteamException("access denied or unable to process the item");
+		}
+    }
+
+
+
+    @Override
+    protected void validateUpdate(List<Long> arg0, PoiRequest arg1) {
+        throw new UnsupportedOperationException("Unimplemented method 'validateUpdate'");
     }
     
 }

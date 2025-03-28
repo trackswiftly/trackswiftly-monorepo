@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.trackswiftly.client_service.dtos.ErrorResponse;
 import com.trackswiftly.client_service.dtos.ErrorResponse.ErrorDetail;
 import com.trackswiftly.client_service.utils.ConstraintViolationExtractor;
+import com.trackswiftly.utils.exception.UnableToProccessIteamException;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;

@@ -6,7 +6,8 @@ import org.hibernate.resource.jdbc.spi.StatementInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.trackswiftly.client_service.exception.UnableToProccessIteamException;
+import com.trackswiftly.utils.exception.UnableToProccessIteamException;
+
 
 public class TenantStatementInspector implements StatementInspector{
     

@@ -9,7 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import com.trackswiftly.client_service.ClientServiceApplication;
 import com.trackswiftly.client_service.dao.repositories.TestRepo;
-import com.trackswiftly.client_service.exception.UnableToProccessIteamException;
+import com.trackswiftly.utils.exception.UnableToProccessIteamException;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;

@@ -2,6 +2,7 @@ package com.trackswiftly.client_service.dao.repositories;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -132,6 +133,19 @@ public class PoiRepo implements BaseDao<Poi,Long>{
         }
 
         return totalUpdatedRecords ;
+    }
+
+
+
+
+    public <T> long countBasedOnIds(Class<T> entityClass, Set<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return 0;
+        }
+        String jpql = "SELECT COUNT(e) FROM " + entityClass.getSimpleName() + " e WHERE e.id IN :ids";
+        return em.createQuery(jpql, Long.class)
+                 .setParameter("ids", ids)
+                 .getSingleResult();
     }
     
 }

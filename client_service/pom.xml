@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.trackswiftly</groupId>
-	<artifactId>vehicle_service</artifactId>
+	<artifactId>client_service</artifactId>
 	<version>0.0.1</version>
-	<name>vehicle_service</name>
-	<description>Vehicle service , which one of trackswiftly microsrvices.</description>
+	<name>client_service</name>
+	<description>Clients service , which one of trackswiftly microsrvices.</description>
 	<url/>
 	<licenses>
 		<license/>

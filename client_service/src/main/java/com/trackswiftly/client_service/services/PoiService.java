@@ -3,6 +3,8 @@ package com.trackswiftly.client_service.services;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import com.trackswiftly.client_service.dtos.PoiRequest;
 import com.trackswiftly.client_service.dtos.PoiResponse;
 import com.trackswiftly.client_service.entities.Group;
 import com.trackswiftly.client_service.entities.Poi;
+import com.trackswiftly.client_service.entities.PoiType;
 import com.trackswiftly.client_service.mappers.PoiMapper;
+import com.trackswiftly.client_service.utils.TenantContext;
 import com.trackswiftly.utils.base.services.TrackSwiftlyService;
 import com.trackswiftly.utils.dtos.OperationResult;
 import com.trackswiftly.utils.dtos.PageDTO;
@@ -124,17 +128,71 @@ public class PoiService extends TrackSwiftlyService<Long , PoiRequest, PoiRespon
 
 
 
+
+    /***
+     * 
+     * we use this method to validate the ownership and we call it before
+     * we call {@link performCreateEntities} see {@link TrackSwiftlyService}.
+     */
     @Override
     protected void validateCreate(List<PoiRequest> poiRequests) {
+
+        // Extract unique type IDs and group IDs
         Set<Long> uniqueTypeIds = poiRequests.stream()
-                                    .map(PoiRequest::getTypeId)
-                                    .collect(Collectors.toSet());
+            .map(PoiRequest::getTypeId)
+            .collect(Collectors.toSet());
 
-        long truthTypeCount = poiRepo.countBasedOnIds(Group.class, uniqueTypeIds);
+        Set<Long> uniqueGroupIds = poiRequests.stream()
+            .map(PoiRequest::getGroupId)
+            .collect(Collectors.toSet());
 
-        if (truthTypeCount != uniqueTypeIds.size()) {
-			throw new UnableToProccessIteamException("access denied or unable to process the item");
-		}
+
+        String tenantId = TenantContext.getTenantId() ;
+
+        // Using CompletableFuture to run validations in parallel
+        
+        CompletableFuture<Long> typeCountFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                // Set tenant context for this thread
+                TenantContext.setTenantId(tenantId);
+                return poiRepo.countBasedOnIds(PoiType.class, uniqueTypeIds);
+            } finally {
+                TenantContext.clear(); // Cleanup to avoid context leaks
+            }
+        });
+        
+        CompletableFuture<Long> groupCountFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                TenantContext.setTenantId(tenantId);
+                return poiRepo.countBasedOnIds(Group.class, uniqueGroupIds);
+            } finally {
+                TenantContext.clear();
+            }
+        });
+
+        // Wait for both validations to complete
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(typeCountFuture, groupCountFuture);
+
+        try {
+
+            allFutures.join(); // Wait for both futures to complete
+        
+            // Get results from futures
+            long truthTypeCount = typeCountFuture.get();
+            long truthGroupCount = groupCountFuture.get();
+
+            log.info("truthTypeCount : {}🧧 , uniqueTypeIds : {}" , truthTypeCount , uniqueTypeIds.size());
+            log.info("truthGroupCount : {}🧧 , uniqueGroupIds : {}" , truthGroupCount , uniqueGroupIds.size());
+
+            // Validate the results
+            if (truthTypeCount != uniqueTypeIds.size() || truthGroupCount != uniqueGroupIds.size()) {
+                throw new UnableToProccessIteamException("Access denied or unable to process the item");
+            }
+            
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            throw new UnableToProccessIteamException("Access denied or unable to process the item , Validation Faild!") ;
+        }
     }
 
 

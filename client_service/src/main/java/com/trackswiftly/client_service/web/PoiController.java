@@ -16,13 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trackswiftly.client_service.dtos.GroupRequest;
-import com.trackswiftly.client_service.dtos.GroupResponse;
+
 import com.trackswiftly.client_service.dtos.PoiRequest;
 import com.trackswiftly.client_service.dtos.PoiResponse;
 import com.trackswiftly.client_service.dtos.interfaces.CreateValidationGroup;
 import com.trackswiftly.client_service.dtos.interfaces.UpdateValidationGroup;
-import com.trackswiftly.client_service.services.GroupService;
 import com.trackswiftly.client_service.services.PoiService;
 import com.trackswiftly.utils.dtos.OperationResult;
 import com.trackswiftly.utils.dtos.PageDTO;

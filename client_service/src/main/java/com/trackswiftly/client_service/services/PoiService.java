@@ -18,7 +18,7 @@ import com.trackswiftly.client_service.entities.Poi;
 import com.trackswiftly.client_service.entities.PoiType;
 import com.trackswiftly.client_service.mappers.PoiMapper;
 import com.trackswiftly.client_service.utils.TenantContext;
-import com.trackswiftly.utils.base.services.TrackSwiftlyService;
+import com.trackswiftly.utils.base.services.TrackSwiftlyServiceAbstract;
 import com.trackswiftly.utils.dtos.OperationResult;
 import com.trackswiftly.utils.dtos.PageDTO;
 import com.trackswiftly.utils.exception.UnableToProccessIteamException;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @Transactional
-public class PoiService extends TrackSwiftlyService<Long , PoiRequest, PoiResponse> {
+public class PoiService extends TrackSwiftlyServiceAbstract<Long , PoiRequest, PoiResponse> {
 
     private final PoiRepo poiRepo;
 

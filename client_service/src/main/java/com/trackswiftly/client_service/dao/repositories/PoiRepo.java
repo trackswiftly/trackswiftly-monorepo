@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.trackswiftly.client_service.dao.interfaces.BaseDao;
 import com.trackswiftly.client_service.entities.Poi;
 import com.trackswiftly.client_service.utils.DBUtiles;
-import com.trackswiftly.client_service.utils.TenantContext;
+import com.trackswiftly.utils.base.utils.TenantContext;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

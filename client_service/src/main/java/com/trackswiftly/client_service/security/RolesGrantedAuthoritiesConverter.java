@@ -13,7 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.util.Assert;
 
-import com.trackswiftly.client_service.utils.TenantContext;
+import com.trackswiftly.utils.base.utils.TenantContext;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

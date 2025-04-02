@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomi
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import com.trackswiftly.utils.base.utils.TenantContext;
+
 
 @Component
 public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentifierResolver<String> , HibernatePropertiesCustomizer{

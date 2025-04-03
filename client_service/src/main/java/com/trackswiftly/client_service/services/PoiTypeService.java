@@ -12,6 +12,7 @@ import com.trackswiftly.client_service.dtos.PoiTypeResponse;
 import com.trackswiftly.client_service.mappers.PoiTypeMapper;
 import com.trackswiftly.utils.dtos.OperationResult;
 import com.trackswiftly.utils.dtos.PageDTO;
+import com.trackswiftly.utils.interfaces.TrackSwiftlyServiceInterface;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @Transactional
-public class PoiTypeService {
+public class PoiTypeService implements TrackSwiftlyServiceInterface<Long , PoiTypeRequest, PoiTypeResponse> {
 
     private PoiTypeRepo poiTypeRepo ;
     private PoiTypeMapper poiTypeMapper ;
@@ -39,9 +40,13 @@ public class PoiTypeService {
     }
 
 
+    /**
+     * 
+     * ####################################################################
+     */
 
-    public List<PoiTypeResponse> createPoiTypes(List<PoiTypeRequest> poiTypeRequests) {
-
+    @Override
+    public List<PoiTypeResponse> createEntities(List<PoiTypeRequest> poiTypeRequests) {
         log.info("Creating groups in batch...");
 
         return poiTypeMapper.toPoiTypeResponseList(
@@ -54,8 +59,9 @@ public class PoiTypeService {
     }
 
 
-    public OperationResult deletePoiTypes(List<Long> ids) {
 
+    @Override
+    public OperationResult deleteEntities(List<Long> ids) {
         if (ids == null || ids.isEmpty()) {
             return OperationResult.of(0);
         }
@@ -66,8 +72,9 @@ public class PoiTypeService {
     }
 
 
-    public List<PoiTypeResponse> findPoiTypes(List<Long> ids) {
 
+    @Override
+    public List<PoiTypeResponse> findEntities(List<Long> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
         }
@@ -79,8 +86,8 @@ public class PoiTypeService {
 
 
 
-    public PageDTO<PoiTypeResponse> getPoiTypesWithPagination(int page, int pageSize) {
-
+    @Override
+    public PageDTO<PoiTypeResponse> pageEntities(int page, int pageSize) {
         if (page < 0 || pageSize <= 0) {
             throw new IllegalArgumentException("Page and pageSize must be positive values");
         }
@@ -100,8 +107,8 @@ public class PoiTypeService {
 
 
 
-    public OperationResult updatePoiTypesInBatch(List<Long> ids, PoiTypeRequest poiType) {
-        
+    @Override
+    public OperationResult updateEntities(List<Long> ids, PoiTypeRequest poiType) {
         if (ids == null || ids.isEmpty()) {
             throw new IllegalArgumentException("PoiType IDs list cannot be null or empty");
         }

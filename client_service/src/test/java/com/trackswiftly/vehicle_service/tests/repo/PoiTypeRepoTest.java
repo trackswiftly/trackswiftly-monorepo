@@ -15,18 +15,20 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.trackswiftly.client_service.dao.repositories.PoiTypeRepo;
-import com.trackswiftly.client_service.entities.Poi;
 import com.trackswiftly.client_service.entities.PoiType;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
+
+@DisabledInNativeImage
 class PoiTypeRepoTest {
 
     @InjectMocks

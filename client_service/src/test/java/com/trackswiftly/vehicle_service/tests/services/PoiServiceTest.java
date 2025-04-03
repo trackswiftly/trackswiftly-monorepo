@@ -15,6 +15,7 @@ import com.trackswiftly.client_service.dtos.PoiRequest;
 import com.trackswiftly.client_service.dtos.PoiResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -27,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-
+@DisabledInNativeImage
 class PoiServiceTest {
 
 

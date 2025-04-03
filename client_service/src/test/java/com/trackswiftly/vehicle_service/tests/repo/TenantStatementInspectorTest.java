@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,6 +19,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.trackswiftly.client_service.utils.TenantStatementInspector;
 import com.trackswiftly.utils.exception.UnableToProccessIteamException;
 
+
+@DisabledInNativeImage
 @ExtendWith(MockitoExtension.class)
 class TenantStatementInspectorTest {
 

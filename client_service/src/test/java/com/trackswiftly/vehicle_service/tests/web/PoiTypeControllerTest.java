@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -23,13 +24,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.trackswiftly.client_service.dtos.GroupRequest;
-import com.trackswiftly.client_service.dtos.GroupResponse;
 import com.trackswiftly.client_service.dtos.PoiTypeRequest;
 import com.trackswiftly.client_service.dtos.PoiTypeResponse;
-import com.trackswiftly.client_service.services.GroupService;
 import com.trackswiftly.client_service.services.PoiTypeService;
-import com.trackswiftly.client_service.web.GroupController;
 import com.trackswiftly.client_service.web.PoiTypeController;
 import com.trackswiftly.utils.dtos.OperationResult;
 import com.trackswiftly.utils.dtos.PageDTO;
@@ -38,6 +35,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 
 
+@DisabledInNativeImage
 @ExtendWith(MockitoExtension.class)
 class PoiTypeControllerTest {
 

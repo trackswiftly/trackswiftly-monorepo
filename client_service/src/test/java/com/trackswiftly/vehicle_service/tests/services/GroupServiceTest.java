@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -25,6 +26,7 @@ import com.trackswiftly.utils.dtos.PageDTO;
 import com.trackswiftly.client_service.entities.Group;
 
 
+@DisabledInNativeImage
 @ExtendWith(MockitoExtension.class)
 class GroupServiceTest {
 

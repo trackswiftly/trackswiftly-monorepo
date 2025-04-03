@@ -70,7 +70,7 @@ class GroupServiceTest {
         when(groupRepo.insertInBatch(groups)).thenReturn(groups);
         when(groupMapper.toGroupResponseList(groups)).thenReturn(groupResponses);
         
-        List<GroupResponse> result = groupService.createGroups(groupRequests);
+        List<GroupResponse> result = groupService.createEntities(groupRequests);
         
         assertEquals(groupResponses, result);
         verify(groupRepo, times(1)).insertInBatch(groups);
@@ -83,7 +83,7 @@ class GroupServiceTest {
         List<Long> ids = Arrays.asList(1L, 2L);
         when(groupRepo.deleteByIds(ids)).thenReturn(2);
         
-        OperationResult result = groupService.deleteGroups(ids);
+        OperationResult result = groupService.deleteEntities(ids);
         
         assertEquals(2, result.affectedRecords());
         verify(groupRepo, times(1)).deleteByIds(ids);
@@ -97,7 +97,7 @@ class GroupServiceTest {
         when(groupRepo.findByIds(ids)).thenReturn(groups);
         when(groupMapper.toGroupResponseList(groups)).thenReturn(groupResponses);
         
-        List<GroupResponse> result = groupService.findGroups(ids);
+        List<GroupResponse> result = groupService.findEntities(ids);
         
         assertEquals(groupResponses, result);
         verify(groupRepo, times(1)).findByIds(ids);
@@ -112,7 +112,7 @@ class GroupServiceTest {
         when(groupMapper.toGroupResponseList(groups)).thenReturn(groupResponses);
         when(groupRepo.count()).thenReturn(10L);
         
-        PageDTO<GroupResponse> result = groupService.getGroupsWithPagination(page, pageSize);
+        PageDTO<GroupResponse> result = groupService.pageEntities(page, pageSize);
         
         assertEquals(10L, result.getTotalElements());
         assertEquals(5, result.getTotalPages());
@@ -130,7 +130,7 @@ class GroupServiceTest {
         when(groupMapper.toGroup(request)).thenReturn(updatedGroup);
         when(groupRepo.updateInBatch(ids, updatedGroup)).thenReturn(2);
         
-        OperationResult result = groupService.updategroupsInBatch(ids, request);
+        OperationResult result = groupService.updateEntities(ids, request);
         
         assertEquals(2, result.affectedRecords());
         verify(groupRepo, times(1)).updateInBatch(ids, updatedGroup);

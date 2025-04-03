@@ -28,6 +28,8 @@ import com.trackswiftly.client_service.entities.Group;
 @ExtendWith(MockitoExtension.class)
 class GroupServiceTest {
 
+    private static final String GROUP1_NAME = "Group1";
+    private static final String GROUP2_NAME = "Group2";
 
     @InjectMocks
     private GroupService groupService;
@@ -44,21 +46,19 @@ class GroupServiceTest {
     private List<GroupRequest> groupRequests;
     private List<GroupResponse> groupResponses;
 
-
-
     @BeforeEach
     void setUp() {
         groups = Arrays.asList(
-            Group.builder().id(1L).name("Group1").build(),
-            Group.builder().id(2L).name("Group2").build()
+            Group.builder().id(1L).name(GROUP1_NAME).build(),
+            Group.builder().id(2L).name(GROUP2_NAME).build()
         );
         groupRequests = Arrays.asList(
-            GroupRequest.builder().name("Group1").build(),
-            GroupRequest.builder().name("Group2").build()
+            GroupRequest.builder().name(GROUP1_NAME).build(),
+            GroupRequest.builder().name(GROUP2_NAME).build()
         );
         groupResponses = Arrays.asList(
-            GroupResponse.builder().id(1L).name("Group1").build(),
-            GroupResponse.builder().id(2L).name("Group2").build()
+            GroupResponse.builder().id(1L).name(GROUP1_NAME).build(),
+            GroupResponse.builder().id(2L).name(GROUP2_NAME).build()
         );
     }
 

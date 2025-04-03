@@ -42,9 +42,6 @@ public class Poi extends AbstractBaseEntity{
     @Column(nullable = false, length = 255)
     private String name;
 
-    @Column(nullable = false, length = 64)
-    private String tenantId;
-
     @ManyToOne
     @JoinColumn(nullable = false , name = "group_id")
     private Group group;

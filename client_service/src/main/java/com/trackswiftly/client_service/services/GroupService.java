@@ -13,6 +13,7 @@ import com.trackswiftly.client_service.entities.Group;
 import com.trackswiftly.client_service.mappers.GroupMapper;
 import com.trackswiftly.utils.dtos.OperationResult;
 import com.trackswiftly.utils.dtos.PageDTO;
+import com.trackswiftly.utils.interfaces.TrackSwiftlyServiceInterface;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @Transactional
-public class GroupService {
+public class GroupService implements TrackSwiftlyServiceInterface<Long , GroupRequest, GroupResponse> {
     
 
     private GroupMapper groupMapper ;
@@ -40,7 +41,15 @@ public class GroupService {
     }
 
 
-    public List<GroupResponse> createGroups(List<GroupRequest> groupRequests) {
+    /***
+     * 
+     * ##################################################################################
+     */
+
+
+    @Override
+    public List<GroupResponse> createEntities(List<GroupRequest> groupRequests) {
+
         log.info("Creating groups in batch...");
         
 
@@ -53,11 +62,12 @@ public class GroupService {
         log.debug("service : groupResponses : {}" , groupResponses);
 
         return groupResponses ;
+        
     }
 
 
-    public OperationResult deleteGroups(List<Long> groupIds) {
-
+    @Override
+    public OperationResult deleteEntities(List<Long> groupIds) {
         if (groupIds == null || groupIds.isEmpty()) {
             return OperationResult.of(0);
         }
@@ -65,10 +75,12 @@ public class GroupService {
         int count = groupRepo.deleteByIds(groupIds); 
 
         return OperationResult.of(count) ;
+
     }
 
 
-    public List<GroupResponse> findGroups(List<Long> ids) {
+    @Override
+    public List<GroupResponse> findEntities(List<Long> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
         }
@@ -79,7 +91,8 @@ public class GroupService {
     }
 
 
-    public PageDTO<GroupResponse> getGroupsWithPagination(int page, int pageSize) {
+    @Override
+    public PageDTO<GroupResponse> pageEntities(int page, int pageSize) {
         if (page < 0 || pageSize <= 0) {
             throw new IllegalArgumentException("Page and pageSize must be positive values");
         }
@@ -98,8 +111,8 @@ public class GroupService {
     }
 
 
-    public OperationResult updategroupsInBatch(List<Long> groupIds, GroupRequest group) {
-        
+    @Override
+    public OperationResult updateEntities(List<Long> groupIds, GroupRequest group) {
         if (groupIds == null || groupIds.isEmpty()) {
             throw new IllegalArgumentException("group IDs list cannot be null or empty");
         }

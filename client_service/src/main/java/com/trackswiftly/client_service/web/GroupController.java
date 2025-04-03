@@ -53,7 +53,7 @@ public class GroupController {
     public List<GroupResponse> createGroups(
         @RequestBody @Valid List<GroupRequest> groupRequests
     ) {
-        List<GroupResponse> responses = groupService.createGroups(groupRequests);
+        List<GroupResponse> responses = groupService.createEntities(groupRequests);
 
         log.debug("groups {}" , responses);
         
@@ -72,7 +72,7 @@ public class GroupController {
         )
         @PathVariable List<Long> groupIds
     ) {
-        OperationResult result = groupService.deleteGroups(groupIds);
+        OperationResult result = groupService.deleteEntities(groupIds);
         return ResponseEntity.ok(result);
     }
 
@@ -88,7 +88,7 @@ public class GroupController {
         )
         @PathVariable List<Long> groupIds
     ) {
-        List<GroupResponse> groups = groupService.findGroups(groupIds);
+        List<GroupResponse> groups = groupService.findEntities(groupIds);
         return ResponseEntity.ok(groups);
     }
 
@@ -99,7 +99,7 @@ public class GroupController {
         @RequestParam int page,
         @RequestParam int pageSize
     ) {
-        PageDTO<GroupResponse> groups = groupService.getGroupsWithPagination(page, pageSize);
+        PageDTO<GroupResponse> groups = groupService.pageEntities(page, pageSize);
 
         return ResponseEntity.ok(groups);
     }
@@ -122,7 +122,7 @@ public class GroupController {
         )
         @Valid @RequestBody GroupRequest group
     ) {
-        OperationResult result = groupService.updategroupsInBatch(groupIds, group);
+        OperationResult result = groupService.updateEntities(groupIds, group);
         return ResponseEntity.ok(result);
     }
 }

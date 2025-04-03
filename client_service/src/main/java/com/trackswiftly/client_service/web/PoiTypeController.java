@@ -54,7 +54,7 @@ public class PoiTypeController {
     public List<PoiTypeResponse> createpoiTypes(
         @RequestBody @Valid List<PoiTypeRequest> poiTypeRequests
     ) {
-        List<PoiTypeResponse> responses = poiTypeService.createPoiTypes(poiTypeRequests);
+        List<PoiTypeResponse> responses = poiTypeService.createEntities(poiTypeRequests);
 
         log.debug("poiTypes {}" , responses);
         
@@ -74,7 +74,7 @@ public class PoiTypeController {
         )
         @PathVariable List<Long> typeIds
     ) {
-        OperationResult result = poiTypeService.deletePoiTypes(typeIds);
+        OperationResult result = poiTypeService.deleteEntities(typeIds);
         return ResponseEntity.ok(result);
     }
 
@@ -92,7 +92,7 @@ public class PoiTypeController {
         )
         @PathVariable List<Long> typeIds
     ) {
-        List<PoiTypeResponse> poiTypeResponses = poiTypeService.findPoiTypes(typeIds);
+        List<PoiTypeResponse> poiTypeResponses = poiTypeService.findEntities(typeIds);
 
         return ResponseEntity.ok(poiTypeResponses);
     }
@@ -104,7 +104,7 @@ public class PoiTypeController {
         @RequestParam int page,
         @RequestParam int pageSize
     ) {
-        PageDTO<PoiTypeResponse> poiTypeResponses = poiTypeService.getPoiTypesWithPagination(page, pageSize);
+        PageDTO<PoiTypeResponse> poiTypeResponses = poiTypeService.pageEntities(page, pageSize);
 
         return ResponseEntity.ok(poiTypeResponses);
     }
@@ -128,7 +128,7 @@ public class PoiTypeController {
         )
         @Valid @RequestBody PoiTypeRequest poiTypeRequest
     ) {
-        OperationResult result = poiTypeService.updatePoiTypesInBatch(typeIds, poiTypeRequest);
+        OperationResult result = poiTypeService.updateEntities(typeIds, poiTypeRequest);
         return ResponseEntity.ok(result);
     }
     

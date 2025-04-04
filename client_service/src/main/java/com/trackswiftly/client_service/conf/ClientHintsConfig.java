@@ -10,12 +10,7 @@ import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import com.trackswiftly.client_service.utils.TenantStatementInspector;
 
 import io.swagger.v3.core.jackson.mixin.Schema31Mixin;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.media.JsonSchema;
-import io.swagger.v3.oas.models.media.Schema;
 import liquibase.ui.LoggerUIService;
 import liquibase.database.LiquibaseTableNamesFactory;
 import liquibase.report.ShowSummaryGeneratorFactory ;

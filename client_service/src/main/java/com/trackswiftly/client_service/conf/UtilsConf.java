@@ -19,51 +19,51 @@ import com.trackswiftly.client_service.utils.PropertiesLoader;
 @Configuration
 public class UtilsConf {
 
-    @Value("${server.servlet.context-path:}")
-    private String contextPath;
-    
-    @Bean("propertiesLoader1")
-    public PropertiesLoader propertiesLoader() {
-        return PropertiesLoader.builder().build() ;
-    }
+        @Value("${server.servlet.context-path:}")
+        private String contextPath;
+
+        @Bean("propertiesLoader1")
+        public PropertiesLoader propertiesLoader() {
+                return PropertiesLoader.builder().build() ;
+        }
 
 
 
-    /***
-     * 
-     * swagger config
-     */
+        /***
+         * 
+         * swagger config
+         */
 
 
-    @SuppressWarnings("unchecked")
-    @Bean
-    public OpenAPI customOpenAPI() {
+        @SuppressWarnings("unchecked")
+        @Bean
+        public OpenAPI customOpenAPI() {
+        
+                String serverUrl = contextPath.equals("/") ? "" : contextPath;
 
-        String serverUrl = contextPath.equals("/") ? "" : contextPath;
-    
-        return new OpenAPI()
-            .addServersItem(new Server().url(serverUrl).description("Server URL"))
-            .info(new Info()
-                .title("TMS Client Service")
-                .description("Multi-tenant client service for the TMS Platform")
-                .version("v1.0.0")
-            )
-            // Add other OpenAPI configurations (security, components, etc.)
-            .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-            .components(new Components()
-                .addSecuritySchemes("bearerAuth",
-                    new SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")
+                return new OpenAPI()
+                .addServersItem(new Server().url(serverUrl).description("Server URL"))
+                .info(new Info()
+                        .title("TMS Client Service")
+                        .description("Multi-tenant client service for the TMS Platform")
+                        .version("v1.0.0")
                 )
-            );
-    }
+                // Add other OpenAPI configurations (security, components, etc.)
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+                .components(new Components()
+                        .addSecuritySchemes("bearerAuth",
+                        new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")
+                        )
+                );
+        }
 
 
 
-    @Bean
-    public ConstraintViolationExtractor constraintViolationExtractor() {
-        return new ConstraintViolationExtractor() ;
-    }
+        @Bean
+        public ConstraintViolationExtractor constraintViolationExtractor() {
+                return new ConstraintViolationExtractor() ;
+        }
 }

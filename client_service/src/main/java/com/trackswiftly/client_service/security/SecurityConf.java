@@ -49,11 +49,11 @@ public class SecurityConf {
         "/swagger-resources/**",
         "/configuration/ui",
         "/swagger-ui.html",
-        // -- Swagger UI v3 (OpenAPI)
+        // -- Swagger UI v3 (OpenAPI) 
         "/v3/api-docs/**",
         "/swagger-ui/**"  ,
 
-        "/actuator/**"
+        "/actuator/**" ,
 
     };
 

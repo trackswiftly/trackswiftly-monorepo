@@ -41,7 +41,7 @@ public class Group extends AbstractBaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "group_seq")
-    @SequenceGenerator(name = "group_seq" , sequenceName = "group_id_seq"  , allocationSize = 1)
+    @SequenceGenerator(name = "group_seq" , sequenceName = "group_id_seq"  , allocationSize = 100)
     private Long id ;
 
 

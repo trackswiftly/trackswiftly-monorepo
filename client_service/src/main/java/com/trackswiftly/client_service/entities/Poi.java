@@ -16,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,8 @@ import lombok.NoArgsConstructor;
 public class Poi extends AbstractBaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "poi_seq")
+    @SequenceGenerator(name = "poi_seq" , sequenceName = "poi_id_seq"  , allocationSize = 100)
     private Long id;
 
     @Column(nullable = false, length = 255)

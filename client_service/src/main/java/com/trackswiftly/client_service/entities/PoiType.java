@@ -42,7 +42,7 @@ public class PoiType extends AbstractBaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "poi_type_seq")
-    @SequenceGenerator(name = "poi_type_seq" , sequenceName = "poi_type_id_seq"  , allocationSize = 1)
+    @SequenceGenerator(name = "poi_type_seq" , sequenceName = "poi_type_id_seq"  , allocationSize = 100)
     private Long id ;
 
 

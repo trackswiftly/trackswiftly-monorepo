@@ -6,18 +6,18 @@ databaseChangeLog:
             
             - createSequence:
                 sequenceName: group_id_seq
-                startValue: 1
-                incrementBy: 1
-                minValue: 1
+                startValue: 9999
+                incrementBy: 100
+                minValue: 9999
                 cycle: false
                 cacheSize: 1
                 ifNotExists: true
             
             - createSequence:
                 sequenceName: poi_type_id_seq
-                startValue: 1
-                incrementBy: 1
-                minValue: 1
+                startValue: 9999
+                incrementBy: 100
+                minValue: 9999
                 cycle: false
                 cacheSize: 1
                 ifNotExists: true
@@ -25,9 +25,9 @@ databaseChangeLog:
 
             - createSequence:
                 sequenceName: poi_id_seq
-                startValue: 1
-                incrementBy: 1
-                minValue: 1
+                startValue: 9999
+                incrementBy: 100
+                minValue: 9999
                 cycle: false
                 cacheSize: 1
                 ifNotExists: true

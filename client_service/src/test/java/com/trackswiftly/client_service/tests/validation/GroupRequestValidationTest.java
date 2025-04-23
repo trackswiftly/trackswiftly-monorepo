@@ -49,7 +49,7 @@ class GroupRequestValidationTest {
     void createValidationWithNullNameReturnsViolations() {
         GroupRequest request = GroupRequest.builder()
                                 .name(null)
-                                .description("Valid description")
+                                .description("Valid description fhelloe oeeeeeee")
                                 .build();
         
         Set<ConstraintViolation<GroupRequest>> violations = 

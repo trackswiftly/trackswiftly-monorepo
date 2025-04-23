@@ -23,8 +23,11 @@ public class GroupRequest {
 
     @NotNull(groups = CreateValidationGroup.class, message = "Name is required for create operation")
     @NotBlank(groups = {CreateValidationGroup.class}, message = "Name must not be blank")
-    @Pattern(regexp = "^[\\p{L}\\p{IsHan}]+$", message = "Name must only contain alphabetic characters", 
-            groups = { CreateValidationGroup.class, UpdateValidationGroup.class })
+    @Pattern(
+        regexp = "^[\\p{L}\\p{IsHan}\\-_~`*]+$", 
+        message = "Name must only contain alphabetic characters or - _ ~ ` *", 
+        groups = { CreateValidationGroup.class, UpdateValidationGroup.class }
+    )
     private String name;
 
 

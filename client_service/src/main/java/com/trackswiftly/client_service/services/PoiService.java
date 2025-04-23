@@ -197,8 +197,17 @@ public class PoiService extends TrackSwiftlyServiceAbstract<Long , PoiRequest, P
 
 
     @Override
-    protected void validateUpdate(List<Long> arg0, PoiRequest arg1) {
-        throw new UnsupportedOperationException("Unimplemented method 'validateUpdate'");
+    protected void validateUpdate(List<Long> arg0, PoiRequest poiRequest) {
+        // Only validate if groupId or typeId is being updated
+        if (poiRequest.getGroupId() == null && poiRequest.getTypeId() == null) {
+            log.info("No groupId or typeId provided for update, skipping validation.");
+            return ;
+        }
+
+        List<PoiRequest> requestList = Collections.singletonList(poiRequest);
+
+        validateCreate(requestList);
+        log.info("Validation passed for groupId and typeId ✅");
     }
     
 }

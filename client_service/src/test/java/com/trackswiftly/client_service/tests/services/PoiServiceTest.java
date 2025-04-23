@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
@@ -102,14 +103,39 @@ class PoiServiceTest {
     }
 
 
+
+
     @Test
-    void testUpdateEntities_shouldThrowUnsupportedOperationException() {
-        // updateEntities in PoiService calls validateUpdate, which is unimplemented and should throw an exception.
+    void testUpdateEntitiesValidRequestShouldUpdateSuccessfully() {
         List<Long> ids = Collections.singletonList(1L);
-        assertThrows(UnsupportedOperationException.class, () -> {
-            poiService.updateEntities(ids, poiRequest);
-        });
+        PoiRequest validRequest = PoiRequest.builder()
+            .name("Valid Poi")
+            .groupId(1L)
+            .typeId(1L)
+            .build();
+
+        // Mock validation checks
+        when(poiRepo.countBasedOnIds(eq(PoiType.class), anySet()))
+            .thenReturn(1L);
+        when(poiRepo.countBasedOnIds(eq(Group.class), anySet()))
+            .thenReturn(1L);
+
+        // Mock mapper to return a predictable Poi instance
+        Poi expectedPoi = new Poi();
+        when(poiMapper.toPoi(validRequest)).thenReturn(expectedPoi);
+
+        // Mock updateInBatch with exact arguments
+        when(poiRepo.updateInBatch(eq(ids), eq(expectedPoi)))
+            .thenReturn(1);
+
+        // Execute
+        OperationResult result = poiService.updateEntities(ids, validRequest);
+        
+        // Verify
+        assertEquals(1, result.affectedRecords());
+        verify(poiRepo).updateInBatch(ids, expectedPoi);
     }
+
 
 
     @Test

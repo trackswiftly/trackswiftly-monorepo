@@ -125,4 +125,17 @@ public class GroupController {
         OperationResult result = groupService.updateEntities(groupIds, group);
         return ResponseEntity.ok(result);
     }
+
+
+
+
+    @GetMapping("/search")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_DISPATCHER')")
+    public ResponseEntity<List<GroupResponse>> search(
+        @RequestParam String query
+    ) {
+        return ResponseEntity.ok(
+            groupService.search(query)
+        );
+    }
 }

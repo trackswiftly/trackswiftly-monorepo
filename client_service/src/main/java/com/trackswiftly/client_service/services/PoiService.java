@@ -209,5 +209,16 @@ public class PoiService extends TrackSwiftlyServiceAbstract<Long , PoiRequest, P
         validateCreate(requestList);
         log.info("Validation passed for groupId and typeId ✅");
     }
+
+
+    @Override
+    public List<PoiResponse> search(String keyword) {
+        int page = 0;
+        int pageSize = 20;
+
+        return poiMapper.toPoiResponseList(
+            poiRepo.search(keyword , page, pageSize)
+        );
+    }
     
 }

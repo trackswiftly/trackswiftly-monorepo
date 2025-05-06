@@ -125,4 +125,18 @@ public class GroupService implements TrackSwiftlyServiceInterface<Long , GroupRe
 
         return OperationResult.of(count);
     }
+
+
+
+
+
+    public List<GroupResponse> search(String keyword) {
+      
+        int page = 0;
+        int pageSize = 20;
+
+        List<Group> groups = groupRepo.search(keyword , page, pageSize);
+
+        return groupMapper.toGroupResponseList(groups);
+    }
 }

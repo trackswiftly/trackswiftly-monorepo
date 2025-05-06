@@ -19,5 +19,7 @@ public interface BaseDao <T, I>{
     
     Long count();
 
-    public int updateInBatch(List<I> ids, T entity) ;
+    int updateInBatch(List<I> ids, T entity) ;
+
+    List<T> search(String keyword , int page, int pageSize) ;
 }

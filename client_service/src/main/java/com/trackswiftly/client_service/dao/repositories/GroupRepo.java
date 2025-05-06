@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.trackswiftly.client_service.dao.interfaces.BaseDao;
 import com.trackswiftly.client_service.entities.Group;
 import com.trackswiftly.client_service.utils.DBUtiles;
+import com.trackswiftly.utils.base.utils.TenantContext;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -148,4 +149,34 @@ public class GroupRepo implements BaseDao<Group,Long>{
         return totalUpdatedRecords ;
     }
     
+
+    public List<Group> search(String keyword, int page, int pageSize) {
+
+        if (keyword == null || keyword.isBlank()) {
+            return Collections.emptyList();
+        }
+
+        String sql = """
+                SELECT id, name, description, created_at, updated_at, tenant_id
+                FROM groups
+                WHERE tenant_id = :tenantId 
+                    AND to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, '')) 
+                        @@ websearch_to_tsquery('english', :keyword)
+                ORDER BY 
+                ts_rank_cd(
+                    to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, '')), 
+                    websearch_to_tsquery('english', :keyword)
+                ) DESC
+                LIMIT :limit OFFSET :offset
+            """;
+
+        @SuppressWarnings("unchecked")
+        List<Group> results = em.createNativeQuery(sql, Group.class)
+            .setParameter("tenantId", TenantContext.getTenantId())
+            .setParameter("keyword", keyword)
+            .setParameter("limit", pageSize)
+            .setParameter("offset", page * pageSize)
+            .getResultList();
+        return results;
+    }
 }

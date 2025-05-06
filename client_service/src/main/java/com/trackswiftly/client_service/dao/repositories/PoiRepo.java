@@ -151,5 +151,38 @@ public class PoiRepo implements BaseDao<Poi,Long>{
                  .setParameter("ids", ids)
                  .getSingleResult();
     }
+
+
+
+    @Override
+    public List<Poi> search(String keyword, int page, int pageSize) {
+        
+        if (keyword == null || keyword.isBlank()) {
+            return Collections.emptyList();
+        }
+
+        String sql = """
+                SELECT *
+                FROM pois
+                WHERE tenant_id = :tenantId 
+                    AND to_tsvector('english', coalesce(name, '') || ' ' || coalesce(address, '')) 
+                        @@ websearch_to_tsquery('english', :keyword)
+                ORDER BY 
+                ts_rank_cd(
+                    to_tsvector('english', coalesce(name, '') || ' ' || coalesce(address, '')), 
+                    websearch_to_tsquery('english', :keyword)
+                ) DESC
+                LIMIT :limit OFFSET :offset
+            """;
+        
+        @SuppressWarnings("unchecked")
+        List<Poi> results = em.createNativeQuery(sql, Poi.class)
+            .setParameter("tenantId", TenantContext.getTenantId())
+            .setParameter("keyword", keyword)
+            .setParameter("limit", pageSize)
+            .setParameter("offset", page * pageSize)
+            .getResultList();
+        return results;
+    }
     
 }

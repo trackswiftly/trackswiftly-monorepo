@@ -142,6 +142,12 @@ public class PoiTypeRepo implements BaseDao<PoiType , Long>{
     }
 
 
+    @Override
+    public List<PoiType> search(String keyword, int page, int pageSize) {
+        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    }
+
+
 
     
     

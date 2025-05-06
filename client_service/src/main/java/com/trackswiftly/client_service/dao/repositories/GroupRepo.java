@@ -149,7 +149,7 @@ public class GroupRepo implements BaseDao<Group,Long>{
         return totalUpdatedRecords ;
     }
     
-
+    @Override
     public List<Group> search(String keyword, int page, int pageSize) {
 
         if (keyword == null || keyword.isBlank()) {
@@ -157,7 +157,7 @@ public class GroupRepo implements BaseDao<Group,Long>{
         }
 
         String sql = """
-                SELECT id, name, description, created_at, updated_at, tenant_id
+                SELECT id, name, description, created_at, updated_at
                 FROM groups
                 WHERE tenant_id = :tenantId 
                     AND to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, '')) 

@@ -1,0 +1,54 @@
+databaseChangeLog:
+  #################################################################
+  # This changeSet is for creating GIN indexes on the groups table #
+  #################################################################
+
+  - changeSet:
+      id: "1.0.0-9-gin-indexes-on-groups-table"
+      author: obaid
+      changes:
+          - sql:
+              splitStatements: false
+              sql: >
+                CREATE INDEX idx_groups_name_gin
+                ON groups USING GIN (to_tsvector('english', name));
+          - sql:
+              splitStatements: false
+              sql: >
+                CREATE INDEX idx_groups_description_gin
+                ON groups USING GIN (to_tsvector('english', description));
+      rollback:
+        - sql:
+            splitStatements: false
+            sql: DROP INDEX IF EXISTS idx_groups_name_gin;
+        - sql:
+            splitStatements: false
+            sql: DROP INDEX IF EXISTS idx_groups_description_gin;
+
+  #####################################################################
+  # This changeSet is for creating GIN indexes on the poi_types table.#
+  #####################################################################
+
+  - changeSet:
+      id: "1.0.0-10-gin-indexes-on-types-table"
+      author: obaid
+      changes:
+        - sql:
+            splitStatements: false
+            sql: >
+              CREATE INDEX idx_poi_types_name_gin
+              ON poi_types USING GIN (to_tsvector('english', name));
+      
+        - sql:
+            splitStatements: false
+            sql: >
+              CREATE INDEX idx_poi_types_description_gin
+              ON poi_types USING GIN (to_tsvector('english', description));
+
+      rollback:
+        - sql:
+            splitStatements: false
+            sql: DROP INDEX IF EXISTS idx_poi_types_name_gin;
+        - sql:
+            splitStatements: false
+            sql: DROP INDEX IF EXISTS idx_poi_types_description_gin;

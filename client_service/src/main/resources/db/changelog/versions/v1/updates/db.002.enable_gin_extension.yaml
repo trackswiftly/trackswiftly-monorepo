@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-8-enable-gin-extension"
+      author: obaid
+      changes:
+        - sql:
+            splitStatements: false
+            sql: CREATE EXTENSION IF NOT EXISTS pg_trgm;

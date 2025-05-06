@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.trackswiftly.client_service.dtos.PoiRequest;
 import com.trackswiftly.client_service.dtos.PoiResponse;
 import com.trackswiftly.client_service.dtos.interfaces.CreateValidationGroup;
@@ -122,5 +121,17 @@ public class PoiController {
     ) {
         OperationResult result = poiService.updateEntities(poiIds, poi);
         return ResponseEntity.ok(result);
+    }
+
+
+
+    @GetMapping("/search")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_DISPATCHER')")
+    public ResponseEntity<List<PoiResponse>> search(
+        @RequestParam String query
+    ) {
+        return ResponseEntity.ok(
+            poiService.search(query)
+        );
     }
 }

@@ -1,0 +1,28 @@
+databaseChangeLog:
+  ######################################################
+  #               GIN indexes on pois table            #
+  ######################################################
+
+  - changeSet:
+      id: "1.0.0-11-gin-indexes-on-pois-table"
+      author: obaid
+      changes:
+        - sql:
+            splitStatements: false
+            sql: >
+              CREATE INDEX idx_pois_name_gin
+              ON pois USING GIN (to_tsvector('english', name));
+
+        - sql:
+            splitStatements: false
+            sql: >
+              CREATE INDEX idx_pois_address_gin
+              ON pois USING GIN (to_tsvector('english', address));
+
+      rollback:
+      - sql:
+          splitStatements: false
+          sql: DROP INDEX IF EXISTS idx_pois_address_gin;
+      - sql:
+          splitStatements: false
+          sql: DROP INDEX IF EXISTS idx_pois_name_gin;

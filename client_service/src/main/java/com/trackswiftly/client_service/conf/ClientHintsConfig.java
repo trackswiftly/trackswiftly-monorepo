@@ -2,6 +2,7 @@ package com.trackswiftly.client_service.conf;
 
 
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
@@ -19,6 +20,9 @@ import liquibase.parser.SqlParserFactory;
 import liquibase.changelog.visitor.ValidatingVisitorGeneratorFactory ;
 import liquibase.changelog.FastCheckService ;
 import com.fasterxml.jackson.databind.BeanDescription;
+
+
+
 
 
 public class ClientHintsConfig implements RuntimeHintsRegistrar{
@@ -73,6 +77,9 @@ public class ClientHintsConfig implements RuntimeHintsRegistrar{
 
         hints.reflection().registerType(JsonSchema.class, MemberCategory.values());
         hints.reflection().registerType(BeanDescription.class, MemberCategory.values());
+
+        // Add this if you still see reflection errors for Function itself
+        hints.reflection().registerType(Function[].class, MemberCategory.values());
 
     }
     

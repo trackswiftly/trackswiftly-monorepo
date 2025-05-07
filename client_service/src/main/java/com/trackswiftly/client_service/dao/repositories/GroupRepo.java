@@ -157,7 +157,7 @@ public class GroupRepo implements BaseDao<Group,Long>{
         }
 
         String sql = """
-                SELECT id, name, description, created_at, updated_at
+                SELECT *
                 FROM groups
                 WHERE tenant_id = :tenantId 
                     AND to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, '')) 

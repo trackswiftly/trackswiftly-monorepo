@@ -1,5 +1,7 @@
 package com.trackswiftly.client_service.web;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.trackswiftly.client_service.dtos.PoiTypeRequest;
 import com.trackswiftly.client_service.dtos.PoiTypeResponse;
@@ -132,4 +133,16 @@ public class PoiTypeController {
         return ResponseEntity.ok(result);
     }
     
+
+
+    @GetMapping("/search")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_DISPATCHER')")
+    public ResponseEntity<List<PoiTypeResponse>> search(
+        @RequestParam String query
+    ) {
+        String decodedQuery = URLDecoder.decode(query, StandardCharsets.UTF_8);
+        return ResponseEntity.ok(
+            poiTypeService.search(decodedQuery)
+        );
+    }
 }

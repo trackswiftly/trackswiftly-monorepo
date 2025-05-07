@@ -124,8 +124,13 @@ public class PoiTypeService implements TrackSwiftlyServiceInterface<Long , PoiTy
 
 
     @Override
-    public List<PoiTypeResponse> search(String arg0) {
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    public List<PoiTypeResponse> search(String keyword) {
+        int page = 0;
+        int pageSize = 20;
+
+        return poiTypeMapper.toPoiTypeResponseList(
+            poiTypeRepo.search(keyword, page, pageSize)
+        );
     }
     
 }

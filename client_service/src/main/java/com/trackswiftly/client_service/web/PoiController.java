@@ -1,5 +1,7 @@
 package com.trackswiftly.client_service.web;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,8 +132,10 @@ public class PoiController {
     public ResponseEntity<List<PoiResponse>> search(
         @RequestParam String query
     ) {
+
+        String decodedQuery = URLDecoder.decode(query, StandardCharsets.UTF_8);
         return ResponseEntity.ok(
-            poiService.search(query)
+            poiService.search(decodedQuery)
         );
     }
 }

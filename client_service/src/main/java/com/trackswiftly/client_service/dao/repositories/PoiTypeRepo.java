@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.trackswiftly.client_service.dao.interfaces.BaseDao;
 import com.trackswiftly.client_service.entities.PoiType;
 import com.trackswiftly.client_service.utils.DBUtiles;
+import com.trackswiftly.utils.base.utils.TenantContext;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -144,7 +145,35 @@ public class PoiTypeRepo implements BaseDao<PoiType , Long>{
 
     @Override
     public List<PoiType> search(String keyword, int page, int pageSize) {
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+
+        if (keyword == null || keyword.isBlank()) {
+            return Collections.emptyList();
+        }
+
+        String sql = """
+                SELECT *
+                FROM poi_types
+                WHERE tenant_id = :tenantId 
+                    AND to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, '')) 
+                        @@ websearch_to_tsquery('english', :keyword)
+                ORDER BY 
+                ts_rank_cd(
+                    to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, '')), 
+                    websearch_to_tsquery('english', :keyword)
+                ) DESC
+                LIMIT :limit OFFSET :offset
+            """;
+        
+        @SuppressWarnings("unchecked")
+        List<PoiType> results = em.createNativeQuery(sql, PoiType.class)
+            .setParameter("tenantId", TenantContext.getTenantId())
+            .setParameter("keyword", keyword)
+            .setParameter("limit", pageSize)
+            .setParameter("offset", page * pageSize)
+            .getResultList();
+
+        log.info("results size is : {}" , results.size());
+        return results;
     }
 
 

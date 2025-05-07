@@ -1,5 +1,7 @@
 package com.trackswiftly.client_service.web;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,8 +136,9 @@ public class GroupController {
     public ResponseEntity<List<GroupResponse>> search(
         @RequestParam String query
     ) {
+        String decodedQuery = URLDecoder.decode(query, StandardCharsets.UTF_8);
         return ResponseEntity.ok(
-            groupService.search(query)
+            groupService.search(decodedQuery)
         );
     }
 }

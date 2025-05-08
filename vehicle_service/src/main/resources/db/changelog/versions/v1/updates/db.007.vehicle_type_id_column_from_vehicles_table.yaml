@@ -1,0 +1,33 @@
+databaseChangeLog:
+
+  ###########################################################
+  #     Drop vehicle_type_id column from vehicles table     #
+  ###########################################################
+
+  - changeSet:
+      id: "1.0.0-23-drop-vehicle-type-id-column"
+      tag: "1.0.0-23-drop-vehicle-type-id-column"
+      author: obaid
+      labels: prod, dev
+
+      changes:
+
+        ##############################
+        # 1. Drop vehicle_type_id column #
+        ##############################
+        - dropColumn:
+            tableName: vehicles
+            columnName: vehicle_type_id
+
+      rollback:
+      ##############################
+      # 2. Re-add vehicle_type_id column #
+      ##############################
+      - addColumn:
+          tableName: vehicles
+          columns:
+            - column:
+                name: vehicle_type_id
+                type: integer
+                constraints:
+                  nullable: true

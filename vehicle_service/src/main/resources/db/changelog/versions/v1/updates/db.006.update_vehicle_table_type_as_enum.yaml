@@ -1,0 +1,52 @@
+databaseChangeLog:
+
+  ###########################################################
+  #     Update vehicle table to use enum for vehicle_type    #
+  ###########################################################
+
+  - changeSet:
+      id: "1.0.0-22-update-vehicle-table-type-as-enum"
+      tag : "1.0.0-22-update-vehicle-table-type-as-enum"
+      author: obaid
+      labels: prod, dev
+
+      changes:
+
+        ##############################
+        # 1. Add vehicle_type column #
+        ##############################
+        - addColumn:
+            tableName: vehicles
+            columns:
+              - column:
+                  name: vehicle_type
+                  type: varchar(20)
+
+        ################################
+        # 2. Update vehicle_type column #
+        ################################
+        - update:
+            tableName: vehicles
+            columns:
+              - column:
+                  name: vehicle_type
+                  value: 'AUTO'
+            where: "vehicle_type IS NULL"
+
+        ######################################
+        # 3. Make the column NOT NULL        #
+        ######################################
+        - addNotNullConstraint:
+            tableName: vehicles
+            columnName: vehicle_type
+
+        ##################################################################
+        # 4. Add a check constraint to enforce enum values using raw SQL  #
+        ##################################################################
+        - sql:
+            stripComments: true
+            splitStatements: false
+            sql: |
+              ALTER TABLE vehicles 
+              ADD CONSTRAINT chk_vehicle_type_enum 
+              CHECK (vehicle_type IN ('AUTO', 'BICYCLE', 'PEDESTRIAN', 'MOTORCYCLE', 'MOTOR_SCOOTER', 'TAXI', 'HOV', 'TRUCK', 'BUS'));

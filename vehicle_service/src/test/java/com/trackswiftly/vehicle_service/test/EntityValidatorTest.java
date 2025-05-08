@@ -20,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.trackswiftly.vehicle_service.dtos.VehicleRequest;
+import com.trackswiftly.vehicle_service.enums.VehicleTypeEnum;
 import com.trackswiftly.vehicle_service.exception.UnableToProccessIteamException;
 import com.trackswiftly.vehicle_service.validators.EntityValidator;
 
@@ -71,7 +72,7 @@ class EntityValidatorTest {
     void testValidateVehicleRequestWithValidIds() {
         List<VehicleRequest> requests = List.of(
             VehicleRequest.builder()
-                .vehicleTypeId(1L)
+                .vehicleType(VehicleTypeEnum.AUTO)
                 .licensePlate("ABC123")
                 .mileage(10000)
                 .purchaseDate(null)
@@ -90,9 +91,9 @@ class EntityValidatorTest {
         entityValidator.validateVehicleRequest(requests);
 
         // Verify that the EntityManager was called with the expected query
-        verify(entityManager , times(4)).createQuery(anyString());
-        verify(mockQuery , times(4)).setParameter("ids",List.of(1L));
-        verify(mockQuery  , times(4)).getSingleResult();
+        verify(entityManager , times(3)).createQuery(anyString());
+        verify(mockQuery , times(3)).setParameter("ids",List.of(1L));
+        verify(mockQuery  , times(3)).getSingleResult();
     }
 
 
@@ -102,7 +103,7 @@ class EntityValidatorTest {
     void testValidateVehicleRequestWithNonExistentEntity() {
         List<VehicleRequest> requests = List.of(
             VehicleRequest.builder()
-                .vehicleTypeId(999L)
+                .vehicleType(VehicleTypeEnum.AUTO)
                 .licensePlate("ABC123")
                 .mileage(10000)
                 .purchaseDate(null)

@@ -9,6 +9,7 @@ import java.time.Instant;
 
 import com.trackswiftly.vehicle_service.dtos.interfaces.CreateValidationGroup;
 import com.trackswiftly.vehicle_service.dtos.interfaces.UpdateValidationGroup;
+import com.trackswiftly.vehicle_service.enums.VehicleTypeEnum;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -34,7 +35,7 @@ public class VehicleRequest {
     private Instant purchaseDate;
 
     @NotNull(groups = CreateValidationGroup.class, message = "Vehicle type is required for create operation")
-    private Long vehicleTypeId;
+    private VehicleTypeEnum vehicleType;
 
     @NotNull(groups = CreateValidationGroup.class, message = "Model is required for create operation")
     private Long modelId;

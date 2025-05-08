@@ -43,7 +43,7 @@ public class VehicleType extends AbstractBaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "vehicle_type_seq")
-    @SequenceGenerator(name = "vehicle_type_seq" , sequenceName = "vehicle_type_id_seq"  , allocationSize = 1)
+    @SequenceGenerator(name = "vehicle_type_seq" , sequenceName = "vehicle_type_id_seq"  , allocationSize = 50)
     private Long id ;
 
 

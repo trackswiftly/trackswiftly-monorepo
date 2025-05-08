@@ -7,9 +7,12 @@ import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.trackswiftly.vehicle_service.enums.VehicleTypeEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,7 +46,7 @@ public class Vehicle extends AbstractBaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "vehicle_seq")
-    @SequenceGenerator(name = "vehicle_seq" , sequenceName = "vehicle_id_seq"  , allocationSize = 1)
+    @SequenceGenerator(name = "vehicle_seq" , sequenceName = "vehicle_id_seq"  , allocationSize = 50)
     private Long id ;
 
 
@@ -61,9 +64,13 @@ public class Vehicle extends AbstractBaseEntity{
     private Instant purchaseDate ;
 
 
-    @ManyToOne
-    @JoinColumn(nullable = false ,  name = "vehicle_type_id")
-    private VehicleType vehicleType ;
+    // @ManyToOne
+    // @JoinColumn(nullable = false ,  name = "vehicle_type_id")
+    // private VehicleType vehicleType ;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private VehicleTypeEnum vehicleType;
 
     @ManyToOne
     @JoinColumn(nullable = false , name = "model_id")

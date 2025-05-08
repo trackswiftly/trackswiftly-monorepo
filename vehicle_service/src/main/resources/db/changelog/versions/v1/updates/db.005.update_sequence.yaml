@@ -1,0 +1,24 @@
+databaseChangeLog:
+    #############################################################
+    #     Update sequences to increment by 50 for performance    #
+    #############################################################
+    
+  - changeSet:
+      id: "1.0.0-21-update-sequences"
+      author: obaid
+      changes:
+        - alterSequence:
+            sequenceName: model_id_seq
+            incrementBy: 50
+        
+        - alterSequence:
+            sequenceName: group_id_seq
+            incrementBy: 50
+
+        - alterSequence:
+            sequenceName: vehicle_type_id_seq
+            incrementBy: 50
+
+        - alterSequence:
+            sequenceName: vehicle_id_seq
+            incrementBy: 50

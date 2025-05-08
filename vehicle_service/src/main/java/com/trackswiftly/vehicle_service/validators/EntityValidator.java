@@ -35,13 +35,11 @@ public class EntityValidator {
         }
 
         // Extract all IDs
-        List<Long> vehicleTypeIds = extractIds(requests, VehicleRequest::getVehicleTypeId);
         List<Long> modelIds = extractIds(requests, VehicleRequest::getModelId);
         List<Long> groupIds = extractIds(requests, VehicleRequest::getVehicleGroupId);
         List<Long> homelocationIds = extractIds(requests, VehicleRequest::getHomeLocationId);
 
         // Validate each entity type
-        validateEntities(vehicleTypeIds, "VehicleType", "One or more vehicle types do not exist or do not belong to the current tenant");
         validateEntities(modelIds, "Model", "One or more models do not exist or do not belong to the current tenant");
         validateEntities(groupIds, "Group", "One or more groups do not exist or do not belong to the current tenant");
         validateEntities(homelocationIds, "HomeLocation", "One or more homeLocations do not exist or do not belong to the current tenant");

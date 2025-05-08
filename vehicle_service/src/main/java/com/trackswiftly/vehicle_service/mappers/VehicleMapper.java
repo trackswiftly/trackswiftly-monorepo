@@ -50,12 +50,7 @@ public class VehicleMapper {
             .licensePlate(vehicle.getLicensePlate())
             .mileage(vehicle.getMileage())
             .purchaseDate(vehicle.getPurchaseDate())
-            .vehicleType(
-                VehicleTypeResponse.builder()
-                .id(vehicle.getVehicleType().getId())
-                .name(vehicle.getVehicleType().getName())
-                .build()
-            )
+            .vehicleType(vehicle.getVehicleType())
             .model(
                 ModelResponse.builder()
                 .id(vehicle.getModel().getId())
@@ -95,11 +90,7 @@ public class VehicleMapper {
                 .licensePlate(vehicleRequest.getLicensePlate())
                 .mileage(vehicleRequest.getMileage())
                 .purchaseDate(vehicleRequest.getPurchaseDate())
-                .vehicleType(
-                    VehicleType.builder()
-                                .id(vehicleRequest.getVehicleTypeId())
-                                .build()   
-                )
+                .vehicleType(vehicleRequest.getVehicleType())
                 .model(
                     Model.builder()
                         .id(vehicleRequest.getModelId())
@@ -128,11 +119,7 @@ public class VehicleMapper {
                 .licensePlate(vehicleRequest.getLicensePlate())
                 .mileage(vehicleRequest.getMileage())
                 .purchaseDate(vehicleRequest.getPurchaseDate())
-                .vehicleType(
-                    VehicleType.builder()
-                                .id(vehicleRequest.getVehicleTypeId())
-                                .build()   
-                )
+                .vehicleType(vehicleRequest.getVehicleType())
                 .model(
                     Model.builder()
                         .id(vehicleRequest.getModelId())

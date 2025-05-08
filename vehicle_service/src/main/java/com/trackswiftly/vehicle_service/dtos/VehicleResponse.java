@@ -2,6 +2,8 @@ package com.trackswiftly.vehicle_service.dtos;
 
 import java.time.Instant;
 
+import com.trackswiftly.vehicle_service.enums.VehicleTypeEnum;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,7 +27,7 @@ public class VehicleResponse {
     private Instant purchaseDate ;
 
 
-    private VehicleTypeResponse vehicleType ;
+    private VehicleTypeEnum vehicleType ;
 
     private ModelResponse model ;
 

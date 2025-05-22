@@ -7,7 +7,6 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 
@@ -35,4 +34,7 @@ public class HomeLocationRequestDTO {
     @DecimalMin(value = "-180.0", inclusive = true, groups = {CreateValidationGroup.class, UpdateValidationGroup.class})
     @DecimalMax(value = "180.0", inclusive = true, groups = {CreateValidationGroup.class, UpdateValidationGroup.class})
     private Double longitude;
+
+    @NotNull(groups = {CreateValidationGroup.class})
+    private String address ;
 }

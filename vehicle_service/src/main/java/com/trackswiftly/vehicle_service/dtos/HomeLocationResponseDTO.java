@@ -14,6 +14,8 @@ public class HomeLocationResponseDTO {
     private String name;
     private Double latitude;
     private Double longitude;
+    private String address ;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }

@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 
 import com.trackswiftly.vehicle_service.dtos.CapacityRequest;
 import com.trackswiftly.vehicle_service.dtos.ModelRequest;
@@ -26,6 +27,8 @@ import com.trackswiftly.vehicle_service.enums.EngineType;
 import com.trackswiftly.vehicle_service.enums.FuelType;
 import com.trackswiftly.vehicle_service.mappers.ModelMapper;
 
+
+@DisabledInNativeImage
 class ModelMapperTest {
 
     private ModelMapper modelMapper;

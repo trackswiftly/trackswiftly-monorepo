@@ -18,7 +18,7 @@ public class PageDTO<T> implements Serializable{
     
     private static final long serialVersionUID = 1L;
 
-    private List<T> content;          
+    private transient List<T> content;          
     private int page;                 
     private int size;
     private long totalElements;

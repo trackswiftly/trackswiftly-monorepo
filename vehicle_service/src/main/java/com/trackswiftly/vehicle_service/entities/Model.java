@@ -9,11 +9,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.trackswiftly.vehicle_service.enums.Capacity;
+import com.trackswiftly.vehicle_service.enums.CapacityType;
 import com.trackswiftly.vehicle_service.enums.EngineType;
 import com.trackswiftly.vehicle_service.enums.FuelType;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -63,12 +68,11 @@ public class Model extends AbstractBaseEntity{
 
     private String transmission ;
 
+    @Embedded
+    private transient Capacity capacity;
 
-    @Column(nullable = true)
-    private double maxPayloadWeight ;
-
-    @Column(nullable = true)
-    private double maxVolume ;
+    @Enumerated(EnumType.STRING)
+    private CapacityType defaultCapacityType;
 
     @OneToMany(mappedBy = "model")
     @JsonBackReference

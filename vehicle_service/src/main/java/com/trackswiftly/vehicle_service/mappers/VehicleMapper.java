@@ -9,12 +9,10 @@ import com.trackswiftly.vehicle_service.dtos.HomeLocationResponseDTO;
 import com.trackswiftly.vehicle_service.dtos.ModelResponse;
 import com.trackswiftly.vehicle_service.dtos.VehicleRequest;
 import com.trackswiftly.vehicle_service.dtos.VehicleResponse;
-import com.trackswiftly.vehicle_service.dtos.VehicleTypeResponse;
 import com.trackswiftly.vehicle_service.entities.Group;
 import com.trackswiftly.vehicle_service.entities.HomeLocation;
 import com.trackswiftly.vehicle_service.entities.Model;
 import com.trackswiftly.vehicle_service.entities.Vehicle;
-import com.trackswiftly.vehicle_service.entities.VehicleType;
 
 @Component
 public class VehicleMapper {

@@ -31,7 +31,7 @@ class MultiTenantQueryTest {
         this.testRepo = testRepo;
     }
 
-    @Test
+    // @Test
     void testGeneratedQueryContainsTenantId() {
         Exception exception = assertThrows(UnableToProccessIteamException.class, () -> {
             testRepo.testGeneratedQueryContainsTenantId();

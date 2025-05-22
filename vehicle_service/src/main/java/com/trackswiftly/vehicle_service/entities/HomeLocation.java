@@ -57,6 +57,9 @@ public class HomeLocation extends AbstractBaseEntity{
     @Column(nullable = false)
     private Double longitude;
 
+    @Column(nullable = false)
+    private String address;
+
 
     @OneToMany(mappedBy = "homeLocation")
     @JsonBackReference

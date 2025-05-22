@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="JUnit Jupiter" tests="4" skipped="3" failures="0" errors="0" time="0.806" hostname="DESKTOP-6S6EUQ6" timestamp="2025-03-04T15:45:18">
+<testsuite name="JUnit Jupiter" tests="35" skipped="34" failures="0" errors="1" time="0.825" hostname="DESKTOP-6S6EUQ6" timestamp="2025-05-22T12:06:06">
 <properties>
 <property name="APPLICATION_NAME" value="vehicle-service"/>
 <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
 <property name="FILE_LOG_CHARSET" value="UTF-8"/>
 <property name="LOGGED_APPLICATION_NAME" value="[vehicle-service] "/>
-<property name="PID" value="131489"/>
+<property name="PID" value="90599"/>
 <property name="com.zaxxer.hikari.pool_number" value="1"/>
 <property name="file.encoding" value="UTF-8"/>
 <property name="file.separator" value="/"/>
@@ -53,11 +53,95 @@
 <property name="user.name" value="plutus"/>
 <property name="user.timezone" value="Africa/Casablanca"/>
 </properties>
-<testcase name="testValidateVehicleRequestWithEmptyList()" classname="com.trackswiftly.vehicle_service.test.EntityValidatorTest" time="0">
+<testcase name="testInsertInBatch()" classname="com.trackswiftly.vehicle_service.test.GroupRepoTest" time="0">
 <skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
 <system-out><![CDATA[
-unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.EntityValidatorTest]/[method:testValidateVehicleRequestWithEmptyList()]
-display-name: testValidateVehicleRequestWithEmptyList()
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.GroupRepoTest]/[method:testInsertInBatch()]
+display-name: testInsertInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testInsertInBatch()" classname="com.trackswiftly.vehicle_service.test.ModelRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.ModelRepoTest]/[method:testInsertInBatch()]
+display-name: testInsertInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIds_NullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.GroupRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.GroupRepoTest]/[method:testDeleteByIds_NullOrEmptyIds()]
+display-name: testDeleteByIds_NullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIds_ValidIds()" classname="com.trackswiftly.vehicle_service.test.GroupRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.GroupRepoTest]/[method:testDeleteByIds_ValidIds()]
+display-name: testDeleteByIds_ValidIds()
+]]></system-out>
+</testcase>
+<testcase name="testUpdateInBatch()" classname="com.trackswiftly.vehicle_service.test.HomeLocationRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.HomeLocationRepoTest]/[method:testUpdateInBatch()]
+display-name: testUpdateInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testValidateVehicleRequestWithValidIds()" classname="com.trackswiftly.vehicle_service.test.EntityValidatorTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.EntityValidatorTest]/[method:testValidateVehicleRequestWithValidIds()]
+display-name: testValidateVehicleRequestWithValidIds()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIds_NullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.ModelRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.ModelRepoTest]/[method:testDeleteByIds_NullOrEmptyIds()]
+display-name: testDeleteByIds_NullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIds_ValidIds()" classname="com.trackswiftly.vehicle_service.test.VehicleRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleRepoTest]/[method:testDeleteByIds_ValidIds()]
+display-name: testDeleteByIds_ValidIds()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_ValidIds()" classname="com.trackswiftly.vehicle_service.test.HomeLocationRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.HomeLocationRepoTest]/[method:testFindByIds_ValidIds()]
+display-name: testFindByIds_ValidIds()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_ValidIds()" classname="com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest]/[method:testFindByIds_ValidIds()]
+display-name: testFindByIds_ValidIds()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIds_NullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest]/[method:testDeleteByIds_NullOrEmptyIds()]
+display-name: testDeleteByIds_NullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIds_NullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.VehicleRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleRepoTest]/[method:testDeleteByIds_NullOrEmptyIds()]
+display-name: testDeleteByIds_NullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_ValidIds()" classname="com.trackswiftly.vehicle_service.test.VehicleRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleRepoTest]/[method:testFindByIds_ValidIds()]
+display-name: testFindByIds_ValidIds()
 ]]></system-out>
 </testcase>
 <testcase name="testValidateVehicleRequestWithNonExistentEntity()" classname="com.trackswiftly.vehicle_service.test.EntityValidatorTest" time="0">
@@ -67,17 +151,209 @@ unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.E
 display-name: testValidateVehicleRequestWithNonExistentEntity()
 ]]></system-out>
 </testcase>
-<testcase name="testGeneratedQueryContainsTenantId()" classname="com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest" time="0.042">
+<testcase name="testGeneratedQueryContainsTenantId()" classname="com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest" time="0">
+<error message="Failed to resolve parameter [com.trackswiftly.vehicle_service.dao.repositories.TestRepo testRepo] in constructor [com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest(com.trackswiftly.vehicle_service.dao.repositories.TestRepo)]: Failed to load ApplicationContext for [AotMergedContextConfiguration@7a4556a7 testClass = com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest, contextInitializerClass = com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest__TestContext001_ApplicationContextInitializer, original = [WebMergedContextConfiguration@40c27ac testClass = com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest, locations = [], classes = [com.trackswiftly.vehicle_service.VehicleServiceApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = [&quot;org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true&quot;], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@4a760924, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4b9337c2, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@780442e5, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@42e79648, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@43a4d362, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@fc4f31ab], resourceBasePath = &quot;src/main/webapp&quot;, contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]]" type="org.junit.jupiter.api.extension.ParameterResolutionException"><![CDATA[org.junit.jupiter.api.extension.ParameterResolutionException: Failed to resolve parameter [com.trackswiftly.vehicle_service.dao.repositories.TestRepo testRepo] in constructor [com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest(com.trackswiftly.vehicle_service.dao.repositories.TestRepo)]: Failed to load ApplicationContext for [AotMergedContextConfiguration@7a4556a7 testClass = com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest, contextInitializerClass = com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest__TestContext001_ApplicationContextInitializer, original = [WebMergedContextConfiguration@40c27ac testClass = com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest, locations = [], classes = [com.trackswiftly.vehicle_service.VehicleServiceApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@4a760924, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4b9337c2, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@780442e5, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@42e79648, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@43a4d362, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@fc4f31ab], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]]
+	at java.base@17.0.9/java.util.Optional.orElseGet(Optional.java:364)
+	at java.base@17.0.9/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.9/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.lang.IllegalStateException: Failed to load ApplicationContext for [AotMergedContextConfiguration@7a4556a7 testClass = com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest, contextInitializerClass = com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest__TestContext001_ApplicationContextInitializer, original = [WebMergedContextConfiguration@40c27ac testClass = com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest, locations = [], classes = [com.trackswiftly.vehicle_service.VehicleServiceApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@4a760924, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4b9337c2, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@780442e5, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@42e79648, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@43a4d362, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@fc4f31ab], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:180)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.getApplicationContext(SpringExtension.java:352)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.resolveParameter(SpringExtension.java:338)
+	... 3 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory': [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [vehicle_type_id] in table [vehicles]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1808)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1461)
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContextForAotRuntime(SpringBootContextLoader.java:119)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInAotMode(DefaultCacheAwareContextLoaderDelegate.java:255)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:149)
+	... 6 more
+Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [vehicle_type_id] in table [vehicles]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1855)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	... 26 more
+Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [vehicle_type_id] in table [vehicles]
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateTable(AbstractSchemaValidator.java:145)
+	at org.hibernate.tool.schema.internal.GroupedSchemaValidatorImpl.validateTables(GroupedSchemaValidatorImpl.java:46)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.performValidation(AbstractSchemaValidator.java:97)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.doValidation(AbstractSchemaValidator.java:75)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:289)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base@17.0.9/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	... 30 more
+]]></error>
 <system-out><![CDATA[
 unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.integration.MultiTenantQueryTest]/[method:testGeneratedQueryContainsTenantId()]
 display-name: testGeneratedQueryContainsTenantId()
 ]]></system-out>
 </testcase>
-<testcase name="testValidateVehicleRequestWithValidIds()" classname="com.trackswiftly.vehicle_service.test.EntityValidatorTest" time="0">
+<testcase name="testInsertInBatch()" classname="com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest" time="0">
 <skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
 <system-out><![CDATA[
-unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.EntityValidatorTest]/[method:testValidateVehicleRequestWithValidIds()]
-display-name: testValidateVehicleRequestWithValidIds()
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest]/[method:testInsertInBatch()]
+display-name: testInsertInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testUpdateInBatch()" classname="com.trackswiftly.vehicle_service.test.VehicleRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleRepoTest]/[method:testUpdateInBatch()]
+display-name: testUpdateInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testInsertInBatch()" classname="com.trackswiftly.vehicle_service.test.VehicleRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleRepoTest]/[method:testInsertInBatch()]
+display-name: testInsertInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIdsNullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.HomeLocationRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.HomeLocationRepoTest]/[method:testDeleteByIdsNullOrEmptyIds()]
+display-name: testDeleteByIdsNullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testUpdateInBatch()" classname="com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest]/[method:testUpdateInBatch()]
+display-name: testUpdateInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testValidateVehicleRequestWithEmptyList()" classname="com.trackswiftly.vehicle_service.test.EntityValidatorTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.EntityValidatorTest]/[method:testValidateVehicleRequestWithEmptyList()]
+display-name: testValidateVehicleRequestWithEmptyList()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_NullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.VehicleRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleRepoTest]/[method:testFindByIds_NullOrEmptyIds()]
+display-name: testFindByIds_NullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testUpdateInBatch()" classname="com.trackswiftly.vehicle_service.test.GroupRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.GroupRepoTest]/[method:testUpdateInBatch()]
+display-name: testUpdateInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testResolveCurrentTenantIdentifier()" classname="com.trackswiftly.vehicle_service.test.TenantResolverUnitTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.TenantResolverUnitTest]/[method:testResolveCurrentTenantIdentifier()]
+display-name: testResolveCurrentTenantIdentifier()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_NullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.ModelRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.ModelRepoTest]/[method:testFindByIds_NullOrEmptyIds()]
+display-name: testFindByIds_NullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_NullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.GroupRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.GroupRepoTest]/[method:testFindByIds_NullOrEmptyIds()]
+display-name: testFindByIds_NullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testUpdateInBatch()" classname="com.trackswiftly.vehicle_service.test.ModelRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.ModelRepoTest]/[method:testUpdateInBatch()]
+display-name: testUpdateInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testInsertInBatch()" classname="com.trackswiftly.vehicle_service.test.HomeLocationRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.HomeLocationRepoTest]/[method:testInsertInBatch()]
+display-name: testInsertInBatch()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_NullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest]/[method:testFindByIds_NullOrEmptyIds()]
+display-name: testFindByIds_NullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIds_ValidIds()" classname="com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.VehicleTypeRepoTest]/[method:testDeleteByIds_ValidIds()]
+display-name: testDeleteByIds_ValidIds()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_ValidIds()" classname="com.trackswiftly.vehicle_service.test.ModelRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.ModelRepoTest]/[method:testFindByIds_ValidIds()]
+display-name: testFindByIds_ValidIds()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIdsValidIds()" classname="com.trackswiftly.vehicle_service.test.HomeLocationRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.HomeLocationRepoTest]/[method:testDeleteByIdsValidIds()]
+display-name: testDeleteByIdsValidIds()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_ValidIds()" classname="com.trackswiftly.vehicle_service.test.GroupRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.GroupRepoTest]/[method:testFindByIds_ValidIds()]
+display-name: testFindByIds_ValidIds()
+]]></system-out>
+</testcase>
+<testcase name="testFindByIds_NullOrEmptyIds()" classname="com.trackswiftly.vehicle_service.test.HomeLocationRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.HomeLocationRepoTest]/[method:testFindByIds_NullOrEmptyIds()]
+display-name: testFindByIds_NullOrEmptyIds()
+]]></system-out>
+</testcase>
+<testcase name="testDeleteByIds_ValidIds()" classname="com.trackswiftly.vehicle_service.test.ModelRepoTest" time="0">
+<skipped><![CDATA[parent was skipped: System property [org.graalvm.nativeimage.imagecode] with value [runtime] matches regular expression [.+] ==> Currently executing within a GraalVM native image]]></skipped>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:com.trackswiftly.vehicle_service.test.ModelRepoTest]/[method:testDeleteByIds_ValidIds()]
+display-name: testDeleteByIds_ValidIds()
 ]]></system-out>
 </testcase>
 <system-out><![CDATA[

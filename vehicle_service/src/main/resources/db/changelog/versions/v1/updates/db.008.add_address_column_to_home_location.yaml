@@ -1,0 +1,20 @@
+databaseChangeLog:
+
+  ###########################################################
+  #   ☁️  Add address column to home_locations table ☁️    #
+  ###########################################################
+  - changeSet:
+      id: "1.0.0-24-add-address-column-to-home-location"
+      tag: "home-location"
+      author: obaid
+      labels: prod, dev
+      changes:
+        - addColumn:
+            tableName: home_locations
+            columns:
+              - column:
+                  name: address
+                  type: TEXT
+                  constraints:
+                    nullable: false
+                  defaultValue: "Update this home location to be able to include the address"

@@ -40,6 +40,7 @@ public class HomeLocationMapper {
                 .name(homeLocation.getName())
                 .latitude(homeLocation.getLatitude())
                 .longitude(homeLocation.getLongitude())
+                .address(homeLocation.getAddress())
                 .updatedAt(homeLocation.getUpdatedAt())
                 .createdAt(homeLocation.getCreatedAt())
                 .build();
@@ -51,6 +52,7 @@ public class HomeLocationMapper {
                 .name(homeLocationRequest.getName())
                 .latitude(homeLocationRequest.getLatitude())
                 .longitude(homeLocationRequest.getLongitude())
+                .address(homeLocationRequest.getAddress())
                 .build();
     }
 }

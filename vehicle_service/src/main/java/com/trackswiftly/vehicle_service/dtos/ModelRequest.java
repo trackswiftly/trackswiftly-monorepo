@@ -3,6 +3,7 @@ package com.trackswiftly.vehicle_service.dtos;
 
 import com.trackswiftly.vehicle_service.dtos.interfaces.CreateValidationGroup;
 import com.trackswiftly.vehicle_service.dtos.interfaces.UpdateValidationGroup;
+import com.trackswiftly.vehicle_service.enums.CapacityType;
 import com.trackswiftly.vehicle_service.enums.EngineType;
 import com.trackswiftly.vehicle_service.enums.FuelType;
 
@@ -10,12 +11,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.PositiveOrZero;
 
 
 import java.util.Date;
@@ -48,9 +47,13 @@ public class ModelRequest {
     @Pattern(regexp = "^[A-Za-z]+$", message = "Transmission must only contain alphabetic characters", groups = { CreateValidationGroup.class, UpdateValidationGroup.class })
     private String transmission;
 
-    @PositiveOrZero(groups = {CreateValidationGroup.class}, message = "Max payload weight must be a positive number or zero")
-    private double maxPayloadWeight;
 
-    @PositiveOrZero(groups = {CreateValidationGroup.class}, message = "Max volume must be a positive number or zero")
-    private double maxVolume;
+    // 🆕 Embedded capacity object
+    @Valid
+    @NotNull(groups = CreateValidationGroup.class, message = "Capacity is required")
+    private CapacityRequest capacity;
+
+    // 🆕 Enum to determine how planner should use the capacity
+    @NotNull(groups = CreateValidationGroup.class, message = "Default capacity type is required")
+    private CapacityType defaultCapacityType;
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -60,6 +60,31 @@ public class GlobalExceptionHandler {
         .toList();
 
         errorResponse.setErrors(validationErrors);
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        log.warn("HttpMessageNotReadableException: {}", ex.getMessage());
+
+        String message = "Invalid request body";
+
+        // Optional: Customize message based on root cause
+        Throwable mostSpecificCause = ex.getMostSpecificCause();
+        if (mostSpecificCause != null && mostSpecificCause.getMessage() != null && mostSpecificCause.getMessage().contains("from String")) {
+            message = "Invalid value for a field: " + mostSpecificCause.getMessage();
+        }
+
+        ErrorResponse.ErrorDetail errorDetail = new ErrorResponse.ErrorDetail();
+        errorDetail.setField("requestBody");
+        errorDetail.setMessage(message);
+
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setStatus(false);
+        errorResponse.setMessage("Failed to parse request");
+        errorResponse.setErrors(List.of(errorDetail));
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }

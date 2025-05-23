@@ -69,7 +69,7 @@ public class Model extends AbstractBaseEntity{
     private String transmission ;
 
     @Embedded
-    private transient Capacity capacity;
+    private Capacity capacity;
 
     @Enumerated(EnumType.STRING)
     private CapacityType defaultCapacityType;

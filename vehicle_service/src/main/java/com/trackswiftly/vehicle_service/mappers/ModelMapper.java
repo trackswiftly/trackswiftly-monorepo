@@ -10,8 +10,10 @@ import com.trackswiftly.vehicle_service.dtos.ModelResponse;
 import com.trackswiftly.vehicle_service.entities.Model;
 import com.trackswiftly.vehicle_service.enums.Capacity;
 
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @Component
 public class ModelMapper {
     
@@ -51,6 +53,8 @@ public class ModelMapper {
         if (model == null) {
             return null;
         }
+        log.info("model {} 🌦️", model);
+        log.info("capacity: {} 🐛", model.getCapacity());
         return ModelResponse.builder()
                 .id(model.getId())
                 .name(model.getName())

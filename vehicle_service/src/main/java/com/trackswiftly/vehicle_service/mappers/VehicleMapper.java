@@ -53,6 +53,12 @@ public class VehicleMapper {
                 ModelResponse.builder()
                 .id(vehicle.getModel().getId())
                 .name(vehicle.getModel().getName())
+                .make(vehicle.getModel().getMake())
+                .capacity(vehicle.getModel().getCapacity())
+                .fuelType(vehicle.getModel().getFuelType())
+                .engineType(vehicle.getModel().getEngineType())
+                .year(vehicle.getModel().getYear())
+                .createdAt(vehicle.getModel().getCreatedAt())
                 .build()
             )
             .vhicleGroup(

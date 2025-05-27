@@ -55,6 +55,7 @@ public class VehicleMapper {
                 .name(vehicle.getModel().getName())
                 .make(vehicle.getModel().getMake())
                 .capacity(vehicle.getModel().getCapacity())
+                .defaultCapacityType(vehicle.getModel().getDefaultCapacityType())
                 .fuelType(vehicle.getModel().getFuelType())
                 .engineType(vehicle.getModel().getEngineType())
                 .year(vehicle.getModel().getYear())

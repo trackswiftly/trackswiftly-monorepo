@@ -9,8 +9,14 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
 
+import com.trackswiftly.utils.enums.Capacity;
+import com.trackswiftly.utils.enums.CapacityType;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -60,6 +66,12 @@ public class Poi extends AbstractBaseEntity{
 
     @Column(precision = 11, scale = 8)
     private BigDecimal longitude;
+
+    @Embedded
+    private Capacity capacity;
+
+    @Enumerated(EnumType.STRING)
+    private CapacityType defaultCapacityType;
 
     
     @JdbcTypeCode(SqlTypes.JSON)

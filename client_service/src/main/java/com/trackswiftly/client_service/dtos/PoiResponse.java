@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Map;
 
+import com.trackswiftly.utils.enums.Capacity;
+import com.trackswiftly.utils.enums.CapacityType;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,4 +24,8 @@ public class PoiResponse {
     private Map<String, Object> payload;
     private Instant createdAt;
     private Instant updatedAt;
+
+    private CapacityType defaultCapacityType ;
+
+    private Capacity capacity ;
 }

@@ -5,7 +5,9 @@ import java.util.Map;
 
 import com.trackswiftly.client_service.dtos.interfaces.CreateValidationGroup;
 import com.trackswiftly.client_service.dtos.interfaces.UpdateValidationGroup;
+import com.trackswiftly.utils.enums.CapacityType;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -54,4 +56,13 @@ public class PoiRequest {
     private BigDecimal longitude;
 
     private Map<String, Object> payload;
+
+
+    @Valid
+    @NotNull(groups = CreateValidationGroup.class, message = "Capacity is required")
+    private CapacityRequest capacity;
+
+    // 🆕 Enum to determine how planner should use the capacity
+    @NotNull(groups = CreateValidationGroup.class, message = "Default capacity type is required")
+    private CapacityType defaultCapacityType;
 }

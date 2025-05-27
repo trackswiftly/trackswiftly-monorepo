@@ -1,0 +1,84 @@
+databaseChangeLog:
+
+  ########################################################
+  #                   Update Pois Table                 #
+  #######################################################
+  - changeSet:
+      id: "1.0.0-12-update-table-pois-add-capacity"
+      author: obaid
+      labels: prod, dev
+      changes:
+        - addColumn:
+            tableName: pois
+            columns:
+              - column:
+                  name: max_weight_kg
+                  type: double precision
+                  defaultValueNumeric: 2000.0
+            rollback:
+              - dropColumn:
+                  tableName: pois
+                  columnName: max_weight_kg
+        - addColumn:
+            tableName: pois
+            columns:
+              - column:
+                  name: max_volume_m3
+                  type: double precision
+                  defaultValueNumeric: 200.0
+            rollback:
+              - dropColumn:
+                  tableName: pois
+                  columnName: max_volume_m3
+        
+        - addColumn:
+            tableName: pois
+            columns:
+              - column:
+                  name: max_boxes
+                  type: integer
+                  defaultValueNumeric: 200
+            rollback:
+              - dropColumn:
+                  tableName: pois
+                  columnName: max_boxes
+        
+        - addColumn:
+            tableName: pois
+            columns:
+              - column:
+                  name: max_pallets
+                  type: integer
+                  defaultValueNumeric: 5
+            rollback:
+              - dropColumn:
+                  tableName: pois
+                  columnName: max_pallets
+
+
+        - addColumn:
+              tableName: pois
+              columns:
+                - column:
+                    name: default_capacity_type
+                    type: varchar(20)
+                    constraints:
+                      nullable: false
+                    defaultValue: "BOX_COUNT"
+              rollback:
+                - dropColumn:
+                    tableName: pois
+                    columnName: default_capacity_type
+
+        
+         # Add CHECK constraint with rollback
+        - sql:
+            sql: >
+              ALTER TABLE pois
+              ADD CONSTRAINT pois_capacity_type_check
+              CHECK (default_capacity_type IN ('WEIGHT', 'VOLUME', 'BOX_COUNT', 'PALLETS', 'CUSTOM'))
+            rollback:
+              - sql:
+                  sql: >
+                    ALTER TABLE pois
+                    DROP CONSTRAINT IF EXISTS pois_capacity_type_check

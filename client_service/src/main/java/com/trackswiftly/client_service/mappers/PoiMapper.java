@@ -11,6 +11,7 @@ import com.trackswiftly.client_service.dtos.PoiTypeResponse;
 import com.trackswiftly.client_service.entities.Group;
 import com.trackswiftly.client_service.entities.Poi;
 import com.trackswiftly.client_service.entities.PoiType;
+import com.trackswiftly.utils.enums.Capacity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,6 +59,8 @@ public class PoiMapper {
                                 .name(poi.getType().getName())
                                 .build()
                 )
+                .defaultCapacityType(poi.getDefaultCapacityType())
+                .capacity(poi.getCapacity())
                 .address(poi.getAddress())
                 .latitude(poi.getLatitude())
                 .longitude(poi.getLongitude())
@@ -81,6 +84,15 @@ public class PoiMapper {
                 .type(
                         PoiType.builder()
                                 .id(poiRequest.getTypeId())
+                                .build()
+                )
+                .defaultCapacityType(poiRequest.getDefaultCapacityType())
+                .capacity(
+                        Capacity.builder()
+                                .maxWeightKg(poiRequest.getCapacity().getMaxWeightKg())
+                                .maxBoxes(poiRequest.getCapacity().getMaxBoxes())
+                                .maxVolumeM3(poiRequest.getCapacity().getMaxVolumeM3())
+                                .maxPallets(poiRequest.getCapacity().getMaxPallets())
                                 .build()
                 )
                 .address(poiRequest.getAddress())

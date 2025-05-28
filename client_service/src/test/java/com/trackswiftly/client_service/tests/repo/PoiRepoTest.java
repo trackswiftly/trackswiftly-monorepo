@@ -41,7 +41,7 @@ import jakarta.persistence.TypedQuery;
 class PoiRepoTest {
 
 
-     @Mock
+    @Mock
     private EntityManager entityManager;
 
     @Mock

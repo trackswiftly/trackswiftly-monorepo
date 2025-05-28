@@ -1,0 +1,24 @@
+databaseChangeLog:
+  ########################################################
+  #         Update Pois Table add service duration       #
+  #######################################################
+
+  - changeSet:
+      id: "1.0.0-13-update-table-pois-add-service-duration"
+      author: obaid
+      labels: prod, dev
+      changes:
+        - addColumn:
+            tableName: pois
+            columns:
+              - column:
+                  name: service_duration_seconds
+                  type: integer
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: 480
+
+            rollback:
+              - dropColumn:
+                  tableName: pois
+                  columnName: service_duration_seconds

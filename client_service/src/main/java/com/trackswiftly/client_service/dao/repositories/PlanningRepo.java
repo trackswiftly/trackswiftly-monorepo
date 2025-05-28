@@ -1,5 +1,7 @@
 package com.trackswiftly.client_service.dao.repositories;
 
+import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,7 @@ import com.trackswiftly.client_service.entities.PlanningEnitity;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -82,6 +85,23 @@ public class PlanningRepo implements BaseDao<PlanningEnitity,Long>{
     @Override
     public List<PlanningEnitity> search(String keyword, int page, int pageSize) {
         throw new UnsupportedOperationException("Unimplemented method 'search'");
+    }
+
+
+
+    public List<PlanningEnitity> findByIdsAndTimeRange(List<Long> ids, OffsetDateTime from, OffsetDateTime to) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String jpql = "SELECT p FROM PlanningEnitity p WHERE p.createdAt BETWEEN :from AND :to";
+
+        TypedQuery<PlanningEnitity> query = em.createQuery(jpql, PlanningEnitity.class);
+        query.setParameter("ids", ids);
+        query.setParameter("from", from);
+        query.setParameter("to", to);
+
+        return query.getResultList();
     }
     
 }

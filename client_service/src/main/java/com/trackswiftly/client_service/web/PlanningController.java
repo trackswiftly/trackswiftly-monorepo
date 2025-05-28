@@ -1,6 +1,8 @@
 package com.trackswiftly.client_service.web;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +15,8 @@ import com.trackswiftly.client_service.clients.PlannerClient;
 import com.trackswiftly.client_service.dtos.interfaces.CreateValidationGroup;
 import com.trackswiftly.client_service.dtos.routing.PlanningRequest;
 import com.trackswiftly.client_service.dtos.routing.PlanningResponse;
+import com.trackswiftly.client_service.entities.PlanningEnitity;
+import com.trackswiftly.client_service.services.PlanningService;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +27,13 @@ import lombok.extern.slf4j.Slf4j;
 @Validated
 public class PlanningController {
 
-    private final PlannerClient plannerClient;
+    // private final PlannerClient plannerClient;
+    private final PlanningService planningService;
 
 
     @Autowired
-    public PlanningController(PlannerClient plannerClient) {
-        this.plannerClient = plannerClient;
+    public PlanningController(PlanningService planningService) {
+        this.planningService = planningService;
     }
 
 
@@ -37,19 +42,22 @@ public class PlanningController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_DISPATCHER')")
     @Validated(CreateValidationGroup.class)
-    public PlanningResponse optimizePlan(
+    public PlanningEnitity optimizePlan(
         @RequestBody @Valid PlanningRequest planningRequests
     ) {
 
         log.debug("Received planning request 🐛: {} ", planningRequests);
 
-        PlanningResponse response = plannerClient.createOptimizationPlan(planningRequests);
+        // PlanningResponse response = plannerClient.createOptimizationPlan(planningRequests);
 
-        log.debug("Optimization plan response: {}", response);
+        List<PlanningEnitity> responses = planningService.createPlanningEnitities(
+            List.of(planningRequests)
+        );
+
+        log.debug("Optimization plan response: {}", responses.get(0));
 
 
-        return response ;
+        return responses.get(0) ;
 
     }
-    
 }

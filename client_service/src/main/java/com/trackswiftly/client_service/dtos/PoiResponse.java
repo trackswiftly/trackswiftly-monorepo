@@ -28,4 +28,6 @@ public class PoiResponse {
     private CapacityType defaultCapacityType ;
 
     private Capacity capacity ;
+
+    private Integer serviceDurationSeconds;
 }

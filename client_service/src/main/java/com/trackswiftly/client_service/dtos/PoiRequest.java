@@ -65,4 +65,7 @@ public class PoiRequest {
     // 🆕 Enum to determine how planner should use the capacity
     @NotNull(groups = CreateValidationGroup.class, message = "Default capacity type is required")
     private CapacityType defaultCapacityType;
+
+    @NotNull(groups = CreateValidationGroup.class, message = "Service duration seconds is required")
+    private Integer serviceDurationSeconds;
 }

@@ -1,7 +1,5 @@
 package com.trackswiftly.client_service.entities;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.Map;
+import java.time.OffsetDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -9,22 +7,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
 
 import com.trackswiftly.client_service.dtos.routing.PlanningResponse;
-import com.trackswiftly.utils.enums.Capacity;
-import com.trackswiftly.utils.enums.CapacityType;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -52,8 +42,8 @@ public class PlanningEnitity extends AbstractBaseEntity{
 
 
     @CreationTimestamp
-    private Instant createdAt;
+    private OffsetDateTime createdAt;
 
     @UpdateTimestamp
-    private Instant updatedAt;
+    private OffsetDateTime updatedAt;
 }

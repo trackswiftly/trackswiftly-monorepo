@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-14-add-brin-index-on-created_at-in-planning_responses-table"
+      author: obaid
+      changes:
+        - createIndex:
+            indexName: planning_responses_created_at_brin_idx
+            tableName: planning_responses
+            columns:
+              - column:
+                  name: created_at
+            using: brin
+            clustered: false  # Only B-tree can be clustered, safe to leave false

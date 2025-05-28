@@ -73,7 +73,9 @@ public class Poi extends AbstractBaseEntity{
     @Enumerated(EnumType.STRING)
     private CapacityType defaultCapacityType;
 
-    
+    @Column(name = "service_duration_seconds" , nullable = false)
+    private Integer serviceDurationSeconds;
+
     @JdbcTypeCode(SqlTypes.JSON)
     private  Map<String, Object> payload;
 

@@ -67,7 +67,8 @@ class PoiRequestValidationTest {
                 "Latitude is required for create operation",
                 "Longitude is required for create operation",
                 "Capacity is required",
-                "Default capacity type is required"
+                "Default capacity type is required",
+                "Service duration seconds is required"
             );
     }
 
@@ -84,6 +85,7 @@ class PoiRequestValidationTest {
                 .maxWeightKg(1000.0)
                 .build())
             .defaultCapacityType(CapacityType.WEIGHT) // Assuming this enum exists
+            .serviceDurationSeconds(3600)
             .build();
         
         Set<ConstraintViolation<PoiRequest>> violations = validateForCreate(request);
@@ -105,6 +107,7 @@ class PoiRequestValidationTest {
                 .maxWeightKg(1000.0)
                 .build())
             .defaultCapacityType(CapacityType.WEIGHT)
+            .serviceDurationSeconds(3600)
             .build();
         
         Set<ConstraintViolation<PoiRequest>> violations = validateForCreate(request);
@@ -182,6 +185,7 @@ class PoiRequestValidationTest {
             .longitude(new BigDecimal("123.12345678"))
             .capacity(invalidCapacity)
             .defaultCapacityType(CapacityType.WEIGHT)
+            .serviceDurationSeconds(3600) // Assuming this is required
             .build();
         
         Set<ConstraintViolation<PoiRequest>> violations = validateForCreate(request);
@@ -231,6 +235,7 @@ class PoiRequestValidationTest {
             .longitude(new BigDecimal("123.12345678"))
             .capacity(validCapacity)
             .defaultCapacityType(CapacityType.WEIGHT)
+            .serviceDurationSeconds(3600)
             .build();
         
         Set<ConstraintViolation<PoiRequest>> violations = validateForCreate(request);
@@ -257,6 +262,7 @@ class PoiRequestValidationTest {
             .longitude(new BigDecimal("123.12345678"))
             .capacity(capacityWithNulls)
             .defaultCapacityType(CapacityType.WEIGHT)
+            .serviceDurationSeconds(3600)
             .build();
         
         Set<ConstraintViolation<PoiRequest>> violations = validateForCreate(request);

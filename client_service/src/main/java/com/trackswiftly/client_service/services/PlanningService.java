@@ -1,5 +1,8 @@
 package com.trackswiftly.client_service.services;
 
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.trackswiftly.client_service.clients.PlannerClient;
 import com.trackswiftly.client_service.dao.repositories.PlanningRepo;
-import com.trackswiftly.client_service.dao.repositories.PoiRepo;
-import com.trackswiftly.client_service.dtos.GroupRequest;
-import com.trackswiftly.client_service.dtos.GroupResponse;
 import com.trackswiftly.client_service.dtos.routing.PlanningRequest;
 import com.trackswiftly.client_service.dtos.routing.PlanningResponse;
 import com.trackswiftly.client_service.entities.PlanningEnitity;
-import com.trackswiftly.client_service.mappers.PoiMapper;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +52,17 @@ public class PlanningService {
                             .build()
                     )
                 ) ;
+    }
+
+
+
+    public List<PlanningEnitity> findByIdsAndTimeRange(List<Long> ids , long from, long to) {
+        
+        OffsetDateTime fromTime = Instant.ofEpochSecond(from).atOffset(ZoneOffset.UTC);
+        OffsetDateTime toTime = Instant.ofEpochSecond(to).atOffset(ZoneOffset.UTC);
+
+       return planningRepo.findByIdsAndTimeRange(ids, fromTime, toTime);
+        
     }
 
 }

@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-6-create-planning_responses-table"
+      author: obaid
+      labels: prod , dev
+      changes:
+        - createTable:
+            tableName: planning_responses
+            columns:
+
+              - column: 
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: tenant_id
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: planning_data
+                  type: jsonb
+
+              - column:
+                  name: created_at
+                  type: timestamp(6) with time zone
+              
+              - column:
+                  name: updated_at
+                  type: timestamp(6) with time zone
+              
+        - createIndex:
+            indexName: planning_responses_tenantid_idx
+            tableName: planning_responses
+            columns:
+              - column:
+                  name: tenant_id
+            unique: false
+
+      rollback:
+        - dropTable:
+            tableName: planning_responses
+
+  - changeSet:
+        id: "1.0.0-7-create-sequences"
+        author: obaid
+        changes:
+
+            - createSequence:
+                sequenceName: planning_response_id_seq
+                startValue: 9999
+                incrementBy: 50
+                minValue: 9999
+                cycle: false
+                cacheSize: 1
+                ifNotExists: true
+
+
+  - changeSet:
+        id: "1.0.0-7-add-default-value-to-id-columns"
+        author: obaid
+        changes:
+
+        - addDefaultValue:
+            tableName: planning_responses
+            columnName: id
+            defaultValueSequenceNext: planning_response_id_seq

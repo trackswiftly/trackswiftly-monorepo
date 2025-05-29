@@ -8,19 +8,25 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.trackswiftly.client_service.dao.interfaces.BaseDao;
-import com.trackswiftly.client_service.entities.PlanningEnitity;
+import com.trackswiftly.client_service.entities.PlanningEntity;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Slf4j
 @Repository
-public class PlanningRepo implements BaseDao<PlanningEnitity,Long>{
+public class PlanningRepo implements BaseDao<PlanningEntity,Long>{
 
 
     @Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
@@ -31,7 +37,7 @@ public class PlanningRepo implements BaseDao<PlanningEnitity,Long>{
     private EntityManager em ;
 
     @Override
-    public List<PlanningEnitity> insertInBatch(List<PlanningEnitity> entities) {
+    public List<PlanningEntity> insertInBatch(List<PlanningEntity> entities) {
 
         if (entities == null || entities.isEmpty()) {
             return entities ;
@@ -63,12 +69,12 @@ public class PlanningRepo implements BaseDao<PlanningEnitity,Long>{
     }
 
     @Override
-    public List<PlanningEnitity> findByIds(List<Long> ids) {
+    public List<PlanningEntity> findByIds(List<Long> ids) {
         throw new UnsupportedOperationException("Unimplemented method 'findByIds'");
     }
 
     @Override
-    public List<PlanningEnitity> findWithPagination(int page, int pageSize) {
+    public List<PlanningEntity> findWithPagination(int page, int pageSize) {
         throw new UnsupportedOperationException("Unimplemented method 'findWithPagination'");
     }
 
@@ -78,26 +84,22 @@ public class PlanningRepo implements BaseDao<PlanningEnitity,Long>{
     }
 
     @Override
-    public int updateInBatch(List<Long> ids, PlanningEnitity entity) {
+    public int updateInBatch(List<Long> ids, PlanningEntity entity) {
         throw new UnsupportedOperationException("Unimplemented method 'updateInBatch'");
     }
 
     @Override
-    public List<PlanningEnitity> search(String keyword, int page, int pageSize) {
+    public List<PlanningEntity> search(String keyword, int page, int pageSize) {
         throw new UnsupportedOperationException("Unimplemented method 'search'");
     }
 
 
 
-    public List<PlanningEnitity> findByIdsAndTimeRange(List<Long> ids, OffsetDateTime from, OffsetDateTime to) {
-        if (ids == null || ids.isEmpty()) {
-            return Collections.emptyList();
-        }
+    public List<PlanningEntity> findByTimeRange(OffsetDateTime from, OffsetDateTime to) {
+        
+        String jpql = "SELECT p FROM PlanningEntity p WHERE p.createdAt BETWEEN :from AND :to";
 
-        String jpql = "SELECT p FROM PlanningEnitity p WHERE p.createdAt BETWEEN :from AND :to";
-
-        TypedQuery<PlanningEnitity> query = em.createQuery(jpql, PlanningEnitity.class);
-        query.setParameter("ids", ids);
+        TypedQuery<PlanningEntity> query = em.createQuery(jpql, PlanningEntity.class);
         query.setParameter("from", from);
         query.setParameter("to", to);
 

@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 
 @Data  @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor @AllArgsConstructor @Builder
-public class PlanningEnitity extends AbstractBaseEntity{
+public class PlanningEntity extends AbstractBaseEntity{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "planning_response_seq")

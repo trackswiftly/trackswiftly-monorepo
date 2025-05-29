@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlanningRequest {
-
+    
     private List<JobDto> jobs;
     private List<VehicleDto> vehicles;
 

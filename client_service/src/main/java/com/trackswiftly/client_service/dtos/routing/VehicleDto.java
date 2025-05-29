@@ -7,10 +7,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.trackswiftly.client_service.dtos.validators.ValidLocation;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,13 +30,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VehicleDto {
 
-    @NotNull
+    @NotNull(message = "Vehicle ID cannot be null")
+    @Positive(message = "Vehicle ID must be positive")
     private Integer id;
 
 
+    @NotBlank(message = "Profile cannot be blank")
     @Builder.Default
     private String profile = "auto";
 
+    @Size(max = 255, message = "Description cannot exceed 255 characters")
     private String description;
 
 
@@ -40,25 +48,26 @@ public class VehicleDto {
 
 
     @JsonProperty("start_index")
-    private List<Integer> startIndex;
+    private List<@NotNull @PositiveOrZero Integer> startIndex;
 
 
     @ValidLocation
     private List<Double> end;
 
     @JsonProperty("end_index")
-    private List<Integer> endIndex;
+    private List<@NotNull @PositiveOrZero Integer> endIndex;
 
 
-    private List<Integer> capacity;
+    private List<@NotNull @PositiveOrZero Integer> capacity;
 
     private Costs costs;
 
 
-    private List<Integer> skills;
+    private List<@NotNull @PositiveOrZero Integer> skills;
 
 
     @JsonProperty("time_window")
+    @Valid
     private TimeWindow timeWindow;
 
 
@@ -74,15 +83,18 @@ public class VehicleDto {
 
 
     @JsonProperty("max_tasks")
+    @Positive(message = "Max tasks must be positive if specified")
     private Integer maxTasks;
 
 
     @JsonProperty("max_travel_time")
+    @Positive(message = "Max travel time must be positive if specified")
     private Integer maxTravelTime;
 
 
 
     @JsonProperty("max_distance")
+    @Positive(message = "Max distance must be positive if specified")
     private Integer maxDistance;
 
 

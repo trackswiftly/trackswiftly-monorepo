@@ -1,8 +1,0 @@
-databaseChangeLog:
-  ############################################################
-  # This file is part of the OpenCTI project.
-  # It is distributed under the AGPLv3 license.
-  # For more information, see https://www.opencti.io/license
-  ############################################################
-  - changeSet:
-      id: db.008.use_tenant_id_and_id_as_pk_instead_of_using_just_id

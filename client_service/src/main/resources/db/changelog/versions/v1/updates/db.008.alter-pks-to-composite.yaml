@@ -1,0 +1,111 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0-15-alter-pks-to-composite"
+      author: obaid
+      labels: prod, dev
+      changes:
+
+        ##############################################
+        #           1. DROP FK CONSTRAINTS           #
+        ##############################################
+        - dropForeignKeyConstraint:
+            baseTableName: pois
+            constraintName: fk_poi_group
+
+        - dropForeignKeyConstraint:
+            baseTableName: pois
+            constraintName: fk_poi_type
+
+
+
+        ############################################
+        #        2. GROUP Table Composite PK        #
+        ############################################
+        - dropPrimaryKey:
+            tableName: groups
+
+        - addPrimaryKey:
+            tableName: groups
+            columnNames: id, tenant_id
+            constraintName: pk_groups
+
+
+        ##############################################
+        #        3. POI_TYPES Table Composite PK     #
+        ##############################################
+        - dropPrimaryKey:
+            tableName: poi_types
+
+        - addPrimaryKey:
+            tableName: poi_types
+            columnNames: id, tenant_id
+            constraintName: pk_poi_types
+
+
+
+        ##############################################
+        #        4. PLANNING_RESPONSES Composite PK  #
+        ##############################################
+        - dropPrimaryKey:
+            tableName: planning_responses
+
+        - addPrimaryKey:
+            tableName: planning_responses
+            columnNames: id, tenant_id
+            constraintName: pk_planning_responses
+
+
+        ##############################################
+        #        5. PLANNING_RESPONSES Composite PK  #
+        ##############################################
+        - dropPrimaryKey:
+            tableName: pois
+
+        - addPrimaryKey:
+            tableName: pois
+            columnNames: id, tenant_id
+            constraintName: pk_pois
+
+
+         ###########################################################
+        #        6. ADD BACK FK CONSTRAINTS ON COMPOSITE KEYS     #
+        ###########################################################
+        - addForeignKeyConstraint:
+            constraintName: fk_poi_group
+            baseTableName: pois
+            baseColumnNames: group_id, tenant_id
+            referencedTableName: groups
+            referencedColumnNames: id, tenant_id
+
+        - addForeignKeyConstraint:
+            constraintName: fk_poi_type
+            baseTableName: pois
+            baseColumnNames: type_id, tenant_id
+            referencedTableName: poi_types
+            referencedColumnNames: id, tenant_id
+
+
+            rollback:
+                - dropForeignKeyConstraint:
+                    baseTableName: pois
+                    constraintName: fk_poi_group
+
+                - dropForeignKeyConstraint:
+                    baseTableName: pois
+                    constraintName: fk_poi_type
+
+                - dropPrimaryKey:
+                    tableName: groups
+
+                - addPrimaryKey:
+                    tableName: groups
+                    columnNames: id
+                    constraintName: pk_groups
+
+                - dropPrimaryKey:
+                    tableName: poi_types
+
+                - addPrimaryKey:
+                    tableName: poi_types
+                    columnNames: id
+                    constraintName: pk_poi_types

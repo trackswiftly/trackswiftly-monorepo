@@ -53,7 +53,7 @@ databaseChangeLog:
             - createSequence:
                 sequenceName: planning_response_id_seq
                 startValue: 9999
-                incrementBy: 10
+                incrementBy: 50
                 minValue: 9999
                 cycle: false
                 cacheSize: 1
